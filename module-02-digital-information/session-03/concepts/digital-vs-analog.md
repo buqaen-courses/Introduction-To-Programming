@@ -167,7 +167,7 @@ After sampling, we round each measurement to the nearest allowed value.
 - The difference (0.3°C) is called **quantization error**
 
 ```
-     Actual:     ╱╲    ╱╲
+     Actual:    ╱╲    ╱╲
                ╱  ╲  ╱  ╲
               ╱    ╲╱    ╲
      Digital: ████  ████  ████

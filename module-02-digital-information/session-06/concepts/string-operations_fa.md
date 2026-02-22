@@ -1,371 +1,600 @@
-# عملیات رشته: دستکاری داده‌های متنی
+# عملیات رشته: کار با متن در کامپیوتر
 
-## رشته‌ها به عنوان توالی‌ها
+## مقدمه: قدرت دستکاری متن
 
-در برنامه‌نویسی، رشته‌ها توالی کاراکترها هستند. هر کاراکتر موقعیت (شاخص) خود را دارد و می‌تواند به طور جداگانه یا به عنوان گروه دستکاری شود.
+برنامه‌نویسان با متن بیشتر از هر چیز دیگری کار می‌کنند. چه در حال پردازش ورودی کاربر، پردازش فایل‌ها یا تولید خروجی باشید، **عملیات رشته** مهارت اصلی است.
 
-## عملیات پایه رشته
+یک **رشته** فقط دنباله‌ای از کاراکترهاست: `"سلام"` یا `"Hello"` یا `"12345"`.
 
-### ایجاد رشته‌ها
+کامپیوترها در واقع حروف ذخیره نمی‌کنند - اعداد را ذخیره می‌کنند (به یاد بیاورید کدگذاری کاراکتر!). عملیات رشته به ما اجازه می‌دهند این اعداد را به شیوه‌های معنادار دستکاری کنیم.
+
+---
+
+## ایجاد و نمایش رشته‌ها
+
+### رشته‌ها در کد
+
+**Python:**
 ```python
-# گیومه تکی
-text1 = 'سلام'
+greeting = "سلام دنیا"
+name = 'علی'
+quote = """این یک
+رشته چندخطی است"""
 
-# گیومه جفت
-text2 = "دنیا"
-
-# رشته‌های چند خطی
-poem = """رزها سرخ هستند
-بنفشه‌ها آبی"""
-
-# توالی‌های فرار
-path = "C:\\Users\\file.txt"
-quote = "او گفت \"سلام\""
+# f-strings (فرمت‌بندی رشته)
+age = 25
+message = f"علی {age} سال دارد"
+# نتیجه: "علی 25 سال دارد"
 ```
 
-### الحاق رشته‌ها
-```python
-# با استفاده از عملگر +
-full_name = first_name + " " + last_name
-
-# با استفاده از join() برای کارایی
-words = ["سلام", "دنیای", "از", "Python"]
-sentence = " ".join(words)  # "سلام دنیای از Python"
-
-# ضرب رشته
-divider = "=" * 50  # "=================================================="
+**JavaScript:**
+```javascript
+let greeting = "سلام دنیا";
+let name = 'علی';
+let template = `علی ${age} سال دارد`;
 ```
 
-## شاخص‌گذاری و برش رشته
-
-### دسترسی به کاراکتر
-```python
-text = "Python"
-print(text[0])    # 'P' (کاراکتر اول)
-print(text[5])    # 'n' (کاراکتر آخر)
-print(text[-1])   # 'n' (شاخص منفی)
+**Java:**
+```java
+String greeting = "سلام دنیا";
+String formatted = String.format("علی %d سال دارد", 25);
 ```
 
-### برش رشته
+### ویژگی‌های رشته
+
+| ویژگی | Python | JavaScript | Java | توضیحات |
+|-------|--------|------------|------|---------|
+| طول | `len(s)` | `s.length` | `s.length()` | شمارش کاراکترها |
+| نوع | `str` | `string` | `String` | نوع داده |
+| قابل تغییر؟ | نه | نه | نه | رشته‌ها تغییرناپذیر هستند |
+
+---
+
+## دسترسی به کاراکترها: اندیس‌گذاری
+
+### اندیس‌گذاری مبتنی بر صفر
+
+در بیشتر زبان‌ها، **اولین کاراکتر اندیس ۰ دارد**:
+
+```
+رشته:  P  y  t  h  o  n
+اندیس: 0  1  2  3  4  5
+
+"Python"[0] = "P"
+"Python"[3] = "h"
+```
+
+### مثال‌ها
+
+**Python:**
+```python
+text = "برنامه‌نویسی"
+
+first = text[0]    # "ب"
+third = text[2]    # "ن"
+last = text[-1]    # "ی" (منفی = از انتها)
+```
+
+**JavaScript:**
+```javascript
+let text = "برنامه‌نویسی";
+
+let first = text[0];    // "ب"
+let last = text[text.length - 1];  // "ی"
+```
+
+---
+
+## برش (Slice): دریافت زیررشته‌ها
+
+### نحوه برش کار می‌کند
+
+**برش** به شما زیرمجموعه‌ای از یک رشته می‌دهد:
+```
+سینتکس: string[start:end]
+- start: اندیس شروع (شامل)
+- end: اندیس پایان (غیرشامل)
+```
+
+### مثال‌های برش
+
+**Python:**
+```python
+text = "برنامه‌نویسی پایتون"
+
+# برش پایه
+text[0:8]      # "برنامه‌نویسی" (اندیس‌های ۰ تا ۷)
+text[9:]       # "پایتون" (از ۹ تا انتها)
+text[:8]       # "برنامه‌نویسی" (از ابتدا تا ۷)
+
+# برش با گام
+text[::2]      # هر دومین کاراکتر: "برم‌ویسیایتن"
+text[::-1]     # برعکس: "نوتیاپ یسیون‌امنرب"
+```
+
+**JavaScript:**
+```javascript
+let text = "برنامه‌نویسی پایتون";
+
+text.slice(0, 8);   // "برنامه‌نویسی"
+text.substring(9);  // "پایتون"
+```
+
+---
+
+## عملیات اصلاح رشته
+
+### بزرگ و کوچک کردن
+
+**Python:**
 ```python
 text = "Hello World"
 
-# برش پایه: string[start:end]
-print(text[0:5])   # 'Hello'
-print(text[6:])    # 'World'
-print(text[:5])    # 'Hello'
-
-# با گام: string[start:end:step]
-print(text[::2])   # 'HloWrd' (هر کاراکتر دیگر)
-print(text[::-1])  # 'dlroW olleH' (معکوس)
+text.upper()       # "HELLO WORLD"
+text.lower()       # "hello world"
+text.title()       # "Hello World" (بزرگ کردن اول هر کلمه)
+text.capitalize()  # "Hello world" (فقط اولین حرف)
 ```
 
-## متدهای رشته
+**JavaScript:**
+```javascript
+let text = "Hello World";
 
-### تبدیل حالت
+text.toUpperCase();  // "HELLO WORLD"
+text.toLowerCase();  // "hello world"
+```
+
+### جستجو و جایگزینی
+
+**Python:**
 ```python
-text = "Hello World"
+text = "برنامه‌نویسی پایتون"
 
-text.upper()       # 'HELLO WORLD'
-text.lower()       # 'hello world'
-text.capitalize()  # 'Hello world'
-text.title()       # 'Hello World'
-text.swapcase()    # 'hELLO wORLD'
+# پیدا کردن موقعیت
+text.find("پایتون")       # ۹ (یا -۱ اگر پیدا نشد)
+text.index("پایتون")      # ۹ (یا خطا اگر پیدا نشد)
+text.count("ن")           # ۳ ("ن" چند بار ظاهر می‌شود)
+
+# جستجو
+"پایتون" in text        # True
+
+# جایگزینی
+text.replace("پایتون", "جاوا")  # "برنامه‌نویسی جاوا"
 ```
 
-### جستجو و یافتن
+**JavaScript:**
+```javascript
+let text = "برنامه‌نویسی پایتون";
+
+text.indexOf("پایتون");    // 9
+text.includes("پایتون");   // true
+text.replace("پایتون", "جاوا");  // "برنامه‌نویسی جاوا"
+```
+
+### حذف فضای خالی
+
+**Python:**
 ```python
-text = "برنامه‌نویسی Python جالب است"
+text = "   سلام   "
 
-text.find("برنامه")          # ۰ (شاخص جایی که یافت شد)
-text.find("xyz")          # -۱ (یافت نشد)
-text.index("برنامه")         # ۰ (اگر یافت نشد خطا ایجاد می‌کند)
-text.count("ا")           # ۲ (شمارش رخدادها)
-text.startswith("برنامه") # True
-text.endswith("است")      # True
+text.strip()       # "سلام" (همه فضاها)
+text.lstrip()      # "سلام   " (فقط چپ)
+text.rstrip()      # "   سلام" (فقط راست)
 ```
 
-### متدهای تغییر
+**JavaScript:**
+```javascript
+let text = "   سلام   ";
+
+text.trim();        // "سلام"
+text.trimStart();   // "سلام   "
+text.trimEnd();     // "   سلام"
+```
+
+---
+
+## تجزیه و ترکیب
+
+### تقسیم (تجزیه)
+
+**تقسیم** یک رشته را به قطعات کوچکتر بر اساس جداکننده تقسیم می‌کند:
+
+**Python:**
 ```python
-text = "  سلام دنیا  "
+# تقسیم بر اساس فاصله
+text = "پایتون جاوا سی‌شارپ"
+words = text.split()        # ["پایتون", "جاوا", "سی‌شارپ"]
 
-text.strip()              # 'سلام دنیا' (حذف فضای خالی)
-text.lstrip()             # 'سلام دنیا  ' (strip چپ)
-text.rstrip()             # '  سلام دنیا' (strip راست)
+# تقسیم بر اساس کاراکتر خاص
+csv = "علی,احمد,رضا"
+names = csv.split(",")      # ["علی", "احمد", "رضا"]
 
-text.replace("دنیا", "Python")  # '  سلام Python  '
-text.split()              # ['سلام', 'دنیا'] (تقسیم بر اساس فاصله)
-text.split("ا")           # ['  سل', 'م دنی', '  ']
+# تقسیم با حد
+sentence = "یک دو سه چهار"
+words = sentence.split(" ", 2)  # ["یک", "دو", "سه چهار"] (فقط ۲ تقسیم)
 ```
 
-### متدهای آزمون
+**JavaScript:**
+```javascript
+let csv = "علی,احمد,رضا";
+let names = csv.split(",");    // ["علی", "احمد", "رضا"]
+```
+
+### پیوستن (ترکیب)
+
+**پیوستن** چندین رشته را به یک رشته ترکیب می‌کند:
+
+**Python:**
 ```python
-text = "Hello123"
+words = ["پایتون", "جاوا", "سی‌شارپ"]
+sentence = " ".join(words)    # "پایتون جاوا سی‌شارپ"
 
-text.isalpha()     # False (شامل عدد)
-text.isdigit()     # False (شامل حرف)
-text.isalnum()     # True (حرف و عدد)
-text.islower()     # False (حالت مخلوط)
-text.isupper()     # False (همه بزرگ نیستند)
-text.isspace()     # False (همه فاصله نیستند)
+csv = ",".join(words)         # "پایتون,جاوا,سی‌شارپ"
 ```
 
-## قالب‌بندی پیشرفته رشته
+**JavaScript:**
+```javascript
+let words = ["پایتون", "جاوا", "سی‌شارپ"];
+let sentence = words.join(" ");  // "پایتون جاوا سی‌شارپ"
+```
 
-### F-Stringها (Python 3.6+)
+---
+
+## فرمت‌بندی رشته
+
+### f-strings (پایتون ۳.۶+)
+
 ```python
 name = "علی"
 age = 25
-height = 1.68
+price = 1234.56
 
-# f-string پایه
-message = f"سلام، {name}!"
+# اساسی
+f"{name} {age} سال دارد"              # "علی 25 سال دارد"
 
-# با عبارت‌ها
-message = f"سال آینده {age + 1} ساله خواهید شد."
-
-# با قالب‌بندی
-message = f"قد: {height:.2f} متر"
-message = f"سن: {age:03d}"  # با صفر پر شده
+# با فرمت
+f"{name:>10}"                        # "       علی" (چپ‌چین، عرض ۱۰)
+f"{price:.2f}"                       # "1234.56" (۲ رقم اعشار)
+f"{price:>10.2f}"                    # "   1234.56" (عرض ۱۰، ۲ رقم اعشار)
 ```
 
-### متد format
+### روش format()
+
 ```python
-# قالب‌بندی موقعیتی
-template = "{} {} ساله است".format(name, age)
-# "علی ۲۵ ساله است"
-
-# قالب‌بندی نام‌گذاری شده
-template = "{name} {age} ساله است و {height:.1f} متر قد دارد".format(
-    name=name, age=age, height=height)
-
-# مشخصات قالب
-f"مقدار: {42:04d}"    # 'مقدار: 0042'
-f"شناور: {3.14159:.2f}"  # 'شناور: 3.14'
+"{} {} سال دارد".format(name, age)   # "علی 25 سال دارد"
+"{0} {1} سال دارد".format(name, age)
+"{n} {a} سال دارد".format(n=name, a=age)
 ```
 
-### قالب‌بندی قدیمی
+### فرمت‌بندی درصد (قدیمی)
+
 ```python
-# قالب‌بندی % (قدیمی)
-template = "%s %d ساله است" % (name, age)
-# "علی ۲۵ ساله است"
+"%s %d سال دارد" % (name, age)       # "علی 25 سال دارد"
+"%.2f" % price                       # "1234.56"
 ```
 
-## مقایسه رشته و مرتب‌سازی
+### فرمت‌بندی JavaScript
 
-### مقایسه لغوی
+```javascript
+// Template literals (ES6)
+let message = `${name} ${age} سال دارد`;
+
+// Internationalization API
+new Intl.NumberFormat('fa-IR').format(1234.56);  // "۱٬۲۳۴٫۵۶"
+```
+
+---
+
+## عملیات پیشرفته
+
+### بررسی محتوا
+
+**Python:**
 ```python
-"apple" < "banana"     # True (a < b)
-"Apple" < "apple"      # True (A < a در ASCII)
-"۱۰" < "۲"            # True (۱ < ۲، لغوی نه عددی)
+text = "Hello123"
+
+text.isalpha()       # False (شامل اعداد است)
+text.isalnum()       # True (فقط حروف و اعداد)
+text.isdigit()       # False
+"123".isdigit()      # True
+
+text.startswith("Hel")  # True
+text.endswith("123")    # True
 ```
 
-### مقایسه بدون حساسیت به حالت
+**JavaScript:**
+```javascript
+let text = "Hello123";
+
+/^\d+$/.test(text);      // false (همه اعداد؟)
+/^\w+$/.test(text);      // true (حروف/اعداد/زیرخط؟)
+text.startsWith("Hel");   // true
+text.endsWith("123");     // true
+```
+
+### تراز کردن و پر کردن
+
+**Python:**
 ```python
-text1 = "Hello"
-text2 = "hello"
+text = "علی"
 
-text1.lower() == text2.lower()  # True
-text1.casefold() == text2.casefold()  # True (بهتر برای بین‌المللی‌سازی)
+text.center(10)      # "    علی     " (مرکز)
+text.ljust(10)       # "علی        " (چپ)
+text.rjust(10)       # "        علی" (راست)
+
+"42".zfill(5)        # "00042" (صفر پیشرو)
 ```
 
-### مرتب‌سازی رشته‌ها
+### ترجمه کاراکتر
+
+**Python:**
 ```python
-words = ["zebra", "apple", "Banana", "cherry"]
-sorted(words)  # ['Banana', 'apple', 'cherry', 'zebra'] (ترتیب ASCII)
+# جایگزینی چند کاراکتر
+text = "hello world"
+table = str.maketrans("aeiou", "12345")
+text.translate(table)  # "h2ll4 w4rld"
 
-# مرتب‌سازی بدون حساسیت به حالت
-sorted(words, key=str.lower)  # ['apple', 'Banana', 'cherry', 'zebra']
+# حذف کاراکترها
+table = str.maketrans("", "", "aeiou")  # حذف صدادارها
+text.translate(table)  # "hll wrld"
 ```
 
-## عبارات منظم
+---
 
-### تطبیق الگو
+## اعتبارسنجی ورودی
+
+### بررسی خالی بودن
+
+**Python:**
+```python
+user_input = input("نام را وارد کنید: ")
+
+if not user_input:           # اگر خالی باشد
+    print("نام نمی‌تواند خالی باشد!")
+    
+if not user_input.strip():   # اگر فقط فاصله باشد
+    print("نام معتبر نیست!")
+```
+
+**JavaScript:**
+```javascript
+let input = prompt("نام را وارد کنید:");
+
+if (!input || !input.trim()) {
+    alert("نام معتبر نیست!");
+}
+```
+
+### اعتبارسنجی فرمت
+
+**اعتبارسنجی ایمیل (ساده):**
 ```python
 import re
 
-text = "ایمیل user@example.com و تلفن 555-1234 است"
+def is_valid_email(email):
+    pattern = r'^[\w\.-]+@[\w\.-]+\.\w+$'
+    return re.match(pattern, email) is not None
 
-# یافتن ایمیل
-email = re.search(r'\w+@\w+\.\w+', text)
-print(email.group())  # 'user@example.com'
+# آزمایش
+is_valid_email("test@example.com")    # True
+is_valid_email("invalid-email")       # False
+```
 
-# یافتن تلفن
-phone = re.search(r'\d{3}-\d{4}', text)
-print(phone.group())  # '555-1234'
+**اعتبارسنجی تلفن:**
+```python
+def is_valid_phone(phone):
+    # فقط اعداد، حداقل ۱۰ رقم
+    digits = ''.join(filter(str.isdigit, phone))
+    return len(digits) >= 10
+```
+
+---
+
+## عبارات منظم (Regex)
+
+### مقدمه کوتاه
+
+**عبارات منظم** الگوهای جستجوی قدرتمند برای متن هستند.
+
+| الگو | معنی | مثال |
+|------|------|------|
+| `.` | هر کاراکتر | `h.t` → "hat", "hot", "hit" |
+| `*` | ۰ یا بیشتر | `ab*` → "a", "ab", "abb" |
+| `+` | ۱ یا بیشتر | `ab+` → "ab", "abb" |
+| `?` | ۰ یا ۱ | `ab?` → "a", "ab" |
+| `\d` | هر رقم | `\d{3}` → ۳ رقم |
+| `\w` | هر کلمه‌ای | `\w+` → کلمه |
+| `^` | شروع رشته | `^Hello` |
+| `$` | پایان رشته | `world$` |
+
+### مثال‌های Regex در پایتون
+
+```python
+import re
+
+text = "آدرس من test@example.com است"
+
+# جستجو
+match = re.search(r'\w+@\w+\.\w+', text)
+if match:
+    print(match.group())  # "test@example.com"
+
+# یافتن همه
+emails = re.findall(r'\w+@\w+\.\w+', text)
 
 # جایگزینی
-cleaned = re.sub(r'\d{3}-\d{4}', '[تلفن]', text)
-print(cleaned)  # 'ایمیل user@example.com و تلفن [تلفن] است'
+clean = re.sub(r'\d{3}-\d{4}', '****-****', "0912-3456")  # "****-****"
+
+# تقسیم
+words = re.split(r'\s+', "چند    فاصله\tو\nخط")  # ["چند", "فاصله", "و", "خط"]
 ```
 
-### الگوهای رایج
-```python
-# ایمیل
-r'[\w\.-]+@[\w\.-]+\.\w+'
+---
 
-# تلفن (ایالات متحده)
-r'\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}'
+## نرمال‌سازی رشته
 
-# URL
-r'https?://(?:[-\w.])+(?:[:\d]+)?(?:/(?:[\w/_.])*(?:\?(?:[\w&=%.])*)?(?:#(?:\w*))?)?'
+### چرا نرمال‌سازی؟
 
-# تاریخ (MM/DD/YYYY)
-r'\d{1,2}/\d{1,2}/\d{4}'
+همان متن می‌تواند با نقاط کد یونیکد متفاوت نمایش داده شود!
+
+**مثال مشکل:**
+```
+"é" می‌تواند ذخیره شود به صورت:
+- U+00E9 (یک کاراکتر: "é")
+- U+0065 U+0301 (دو کاراکتر: "e" + "´" ترکیب‌شونده)
 ```
 
-## الگوریتم‌های پردازش متن
+**هر دو یکسان به نظر می‌رسند الی در کامپیوتر متفاوت هستند!**
 
-### معکوس کردن رشته
+### نرمال‌سازی در پایتون
+
 ```python
-def reverse_string(text):
-    return text[::-1]
-
-# یا با استفاده از بازگشت
-def reverse_recursive(text):
-    if len(text) <= 1:
-        return text
-    return reverse_recursive(text[1:]) + text[0]
-```
-
-### بررسی palindrome
-```python
-def is_palindrome(text):
-    clean_text = ''.join(c.lower() for c in text if c.isalnum())
-    return clean_text == clean_text[::-1]
-
-print(is_palindrome("یک مرد، یک برنامه، یک کانال: پاناما"))  # True
-```
-
-### شمارش فراوانی کلمه
-```python
-def word_frequency(text):
-    words = text.lower().split()
-    frequency = {}
-    for word in words:
-        # حذف علائم نگارشی
-        word = ''.join(c for c in word if c.isalnum())
-        if word:
-            frequency[word] = frequency.get(word, 0) + 1
-    return frequency
-```
-
-### فشرده‌سازی رشته
-```python
-def compress_string(text):
-    if not text:
-        return ""
-    compressed = []
-    count = 1
-    for i in range(1, len(text)):
-        if text[i] == text[i-1]:
-            count += 1
-        else:
-            compressed.append(text[i-1] + str(count))
-            count = 1
-    compressed.append(text[-1] + str(count))
-    result = ''.join(compressed)
-    return result if len(result) < len(text) else text
-
-print(compress_string("aabcccccaaa"))  # "a2b1c5a3"
-```
-
-## یونیکد و متن بین‌المللی
-
-### عملیات یونیکد
-```python
-# عادی‌سازی یونیکد
 import unicodedata
 
+# فرم‌های نرمال‌سازی
 text = "café"
-normalized = unicodedata.normalize('NFC', text)
 
-# دسته‌های یونیکد
-for char in text:
-    print(f"{char}: {unicodedata.category(char)}")
+# NFC: ترکیب حروف ترکیب‌شونده
+nfc = unicodedata.normalize('NFC', text)
+
+# NFD: تفکیک حروف ترکیب‌شونده
+nfd = unicodedata.normalize('NFD', text)
+
+# مقایسه
+if nfc == nfd:  # ممکن است False باشد!
+    print("یکسان")
 ```
 
-### مدیریت خط‌های مختلف
+### مرتب‌سازی فارسی/عربی
+
 ```python
-# متن عربی (راست به چپ)
-arabic = "مرحبا بالعالم"
-
-# خطوط مخلوط
-mixed = "Hello 世界 Привет"
-
-# ملاحظات طول
-len(mixed)  # ۱۵ (شمار کاراکتر)
-len(mixed.encode('utf-8'))  # ۲۱ (شمار بایت)
+# مرتب‌سازی با توجه به قوانین زبان
+texts = ["باب", "آب", "پدر"]
+sorted(texts)  # ["آب", "باب", "پدر"] (الفبایی)
 ```
 
-## ملاحظات عملکرد
+---
 
-### تغییرناپذیری رشته
+## عملکرد و کارایی
+
+### رشته‌ها تغییرناپذیر هستند
+
+**به یاد داشته باشید**: رشته‌ها تغییرناپذیرند - هر "تغییر" یک رشته جدید می‌سازد:
+
 ```python
-# رشته‌ها تغییرناپذیر هستند - هر عملیات رشته جدیدی ایجاد می‌کند
-text = "hello"
-text = text.upper()  # رشته جدید ایجاد می‌کند
-text = text + " world"  # رشته دیگری ایجاد می‌کند
+# اشتباه (کارایی پایین)
+result = ""
+for i in range(1000):
+    result += str(i)  # ۱۰۰۰ رشته جدید!
 
-# برای عملیات زیاد، از لیست‌ها استفاده کنید سپس join کنید
+# درست (کارایی بالا)
 parts = []
 for i in range(1000):
     parts.append(str(i))
-result = ''.join(parts)  # کارآمد
+result = "".join(parts)  # فقط ۱ رشته جدید
+
+# یا از StringIO (پایتون)
+from io import StringIO
+buffer = StringIO()
+for i in range(1000):
+    buffer.write(str(i))
+result = buffer.getvalue()
 ```
 
-### interning رشته
+### مقایسه رشته
+
+**پایتون:**
 ```python
-# Python رشته‌های کوتاه را برای کارایی intern می‌کند
-a = "hello"
-b = "hello"
-a is b  # True (شیء یکسان)
+# مقایسه برابری
+if name == "علی":
+    print("سلام علی!")
 
-# اما نه برای رشته‌های بلندتر یا ایجاد شده به صورت پویا
-a = "a" * 1000
-b = "a" * 1000
-a is b  # False (اشیاء مختلف)
+# مقایسه بدون به بزرگی/کوچکی
+if name.lower() == "علی":
+    print("سلام علی!")
+
+# مقایسه با contains
+if "test" in email:
+    print("این یک ایمیل تست است")
 ```
 
-## مشکلات رایج رشته
+---
 
-### مشکلات کدگذاری
+## تمرین‌های عملی
+
+### تمرین ۱: دستکاری پایه
+
 ```python
-# کدگذاری اشتباه منجر به خطا می‌شود
-text = "café"
-try:
-    text.encode('ascii')  # شکست خواهد خورد
-except UnicodeEncodeError:
-    print("نمی‌توان با ASCII کدگذاری کرد")
+text = "  برنامه‌نویسی پایتون  "
+
+# این را انجام دهید:
+# ۱. فاصله‌ها را حذف کنید
+# ۲. به حروف کوچک تبدیل کنید (اگر انگلیسی باشد)
+# ۳. "پایتون" را با "جاوا" جایگزین کنید
+# ۴. کلمه اول را استخراج کنید
 ```
 
-### خطاهای شاخص
+### تمرین ۲: اعتبارسنجی
+
+یک تابع بنویسید که:
+- بررسی کند آیا رمز عبور حداقل ۸ کاراکتر دارد
+- حداقل یک حرف بزرگ، یک حرف کوچک، و یک عدد دارد
+- نتیجه True/False برگرداند
+
+### تمرین ۳: تجزیه
+
 ```python
-text = "hello"
-# text[10]  # IndexError
-# از برش به طور ایمن استفاده کنید
-chunk = text[2:10]  # بدون خطا، فقط کوتاه می‌شود
+data = "علی,۲۵,تهران|احمد,۳۰,اصفهان|رضا,۳۵,مشهد"
+
+# این را به لیستی از دیکشنری‌ها تبدیل کنید:
+# [{"name": "علی", "age": 25, "city": "تهران"}, ...]
 ```
 
-### مشکلات حساسیت به حالت
+### تمرین ۴: فرمت‌بندی
+
 ```python
-# به طور پیش‌فرض حساس به حالت
-"Apple" == "apple"  # False
+# این داده‌ها را در قالب خوبی نمایش دهید:
+products = [
+    ("لپ‌تاپ", 15000000),
+    ("موس", 250000),
+    ("کیبورد", 800000)
+]
 
-# از lower() برای غیر حساس به حالت استفاده کنید
-"Apple".lower() == "apple".lower()  # True
+# خروجی:
+# لپ‌تاپ        ۱۵,۰۰۰,۰۰۰ ریال
+# موس             ۲۵۰,۰۰۰ ریال
+# کیبورد          ۸۰۰,۰۰۰ ریال
 ```
+
+---
 
 ## نکات کلیدی
 
-۱. **رشته‌ها توالی هستند**: کاراکترها می‌توانند با شاخص دسترسی پیدا کنند
-۲. **کتابخانه متد غنی**: ۴۰+ متد برای دستکاری متن
-۳. **گزینه‌های قالب‌بندی**: f-stringها، format()، قالب‌بندی %
-۴. **پشتیبانی یونیکد**: متن را در هر زبان مدیریت کنید
-۵. **عملکرد مهم است**: تغییرناپذیری و interning را در نظر بگیرید
+۱. **رشته‌ها دنباله‌ای از کاراکترها هستند** که به عنوان اعداد ذخیره می‌شوند
+۲. **اندیس‌گذاری مبتنی بر صفر**: اولین کاراکتر اندیس ۰ دارد
+۳. **رشته‌ها تغییرناپذیرند**: هر تغییر یک رشته جدید می‌سازد
+۴. **برش راهی قدرتمند** برای دریافت زیررشته‌ها است
+۵. **فرمت‌بندی** خروجی خواندنی می‌سازد
+۶. **Regex** برای الگوهای جستجوی پیچیده است
+۷. **به کارایی فکر کنید** وقتی با رشته‌های بزرگ کار می‌کنید
 
-## مطالعه بیشتر
-- الگوریتم‌های رشته (KMP، Boyer-Moore) را مطالعه کنید
-- تکنیک‌های فشرده‌سازی متن را بیاموزید
-- پردازش زبان طبیعی را کاوش کنید
-- چینش و بین‌المللی‌سازی را درک کنید
+## به یاد داشته باشید
+
+| عملیات | پایتون | JavaScript | توضیحات |
+|--------|--------|------------|---------|
+| طول | `len(s)` | `s.length` | شمارش کاراکترها |
+| اندیس‌گذاری | `s[0]` | `s[0]` | دسترسی به کاراکتر |
+| برش | `s[0:5]` | `s.slice(0,5)` | زیررشته |
+| جستجو | `s.find(x)` | `s.indexOf(x)` | موقعیت کاراکتر |
+| جایگزینی | `s.replace(a,b)` | `s.replace(a,b)` | تغییر متن |
+| تقسیم | `s.split(d)` | `s.split(d)` | جدا کردن |
+| پیوستن | `d.join(l)` | `l.join(d)` | ترکیب |
+
+---
+
+## گام‌های بعدی
+
+- تمرین با کتابخانه‌های پردازش متن (NLTK، spaCy)
+- یادگیری عبارات منظم پیشرفته
+- بررسی پردازش متن چندزبانه
+- بررسی تفاوت بین رشته‌ها و بایت‌ها
