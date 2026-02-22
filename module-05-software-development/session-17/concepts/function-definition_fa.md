@@ -1,255 +1,249 @@
-# تعریف تابع: ایجاد بلوک‌های کد قابل استفاده مجدد
+# تعریف تابع: ایجاد کد قابل استفاده مجدد
 
-## مقدمه‌ای بر توابع
+## تابع چیست؟
 
-توابع بلوک‌های قابل استفاده مجدد از کد هستند که وظایف خاصی را انجام می‌دهند. آنها به شما اجازه می‌دهند برنامه‌های پیچیده را به قطعات کوچک‌تر و قابل مدیریت تقسیم کنید و کد را سازمان‌دهی شده‌تر، قابل خواندن‌تر و قابل نگهداری‌تر کنید.
+**تابع** یک بلوک کد قابل استفاده مجدد است که یک کار مشخص را انجام می‌دهد. آن را مانند یک برنامه کوچک در داخل برنامه‌ی خود در نظر بگیرید - به آن ورودی می‌دهید، کار انجام می‌دهد و (در صورت نیاز) نتیجه را به شما برمی‌گرداند.
 
-## تعریف تابع پایه
+### تشبیه دنیای واقعی
 
-### نحو تابع
-```python
-def function_name():
-    """مستندسازی اختیاری که توضیح می‌دهد تابع چه کاری انجام می‌دهد."""
-    # بدنه تابع - کدی که اجرا می‌شود
-    print("سلام از داخل تابع!")
-    return  # دستور بازگشت اختیاری
-```
+توابع مانند لوازم خانگی آشپزخانه هستند:
+- **توستر**: نان می‌گذارید → نان برشته می‌گیرید
+- **مخلوط‌کن**: مواد می‌گذارید → اسموتی می‌گیرید
+- **تابع**: داده می‌دهید → نتیجه می‌گیرید
 
-### فراخوانی توابع
+### چرا از توابع استفاده کنیم؟
+
+1. **قابلیت استفاده مجدد**: یک بار بنویسید، بارها استفاده کنید
+2. **سازماندهی**: مسائل بزرگ را به قطعات کوچکتر تقسیم کنید
+3. **خوانایی**: به عملیات پیچیده نام‌های معنادار بدهید
+4. **تست‌پذیری**: قطعات کوچک را به صورت مستقل تست کنید
+5. **همکاری**: افراد مختلف می‌توانند روی توابع مختلف کار کنند
+
+---
+
+## سینتکس پایه تابع
+
+### تعریف یک تابع ساده
+
 ```python
 # تعریف تابع
-def greet_user():
-    print("سلام، به برنامه ما خوش آمدید!")
+def say_hello():
+    """این یک داک‌استرینگ است - توضیح می‌دهد تابع چه می‌کند."""
+    print("Hello, World!")
 
-# فراخوانی تابع
-greet_user()  # خروجی: سلام، به برنامه ما خوش آمدید!
-greet_user()  # می‌توان چندین بار فراخوانی کرد
+# فراخوانی تابع (استفاده از تابع)
+say_hello()
+say_hello()
 ```
 
-## پارامترهای تابع
+### آناتومی تابع
 
-### پارامترهای موقعیتی
+```
+def function_name():
+    """مستندات (اختیاری اما توصیه شده)"""
+    # بدنه تابع
+    # کدی که هنگام فراخوانی اجرا می‌شود
+    return  # اختیاری - مقداری را برمی‌گرداند
+```
+
+| بخش | هدف | مثال |
+|------|---------|---------|
+| `def` | به پایتون می‌گوید در حال تعریف تابع هستید | `def` |
+| `function_name` | نحوه فراخوانی تابع | `say_hello` |
+| `()` | پارامترها (ورودی‌ها) را نگه می‌دارد | `(name, age)` |
+| `:` | خط تعریف را تمام می‌کند | `:` |
+| تورفتگی | کد داخل تابع را مشخص می‌کند | 4 فاصله |
+| داک‌استرینگ | توضیح می‌دهد تابع چه می‌کند | `"""سلام می‌دهد"""` |
+| `return` | نتیجه را برمی‌گرداند | `return 42` |
+
+---
+
+## توابع با پارامترها
+
+### پارامتر تک
+
 ```python
-def greet_person(name):
-    """سلام کردن با یک شخص به نام."""
-    print(f"سلام، {name}!")
+def greet(name):
+    """سلام به یک فرد بر اساس نام."""
+    print(f"Hello, {name}!")
 
 # فراخوانی با آرگومان
-greet_person("Alice")   # خروجی: سلام، Alice!
-greet_person("Bob")     # خروجی: سلام، Bob!
+greet("Alice")    # Output: Hello, Alice!
+greet("Bob")      # Output: Hello, Bob!
 ```
 
-### پارامترهای متعدد
+### پارامترهای چندگانه
+
 ```python
-def introduce_person(name, age, city):
-    """معرفی یک شخص با جزئیات او."""
-    print(f"این {name} است که {age} سال دارد و در {city} زندگی می‌کند.")
+def introduce(first_name, last_name, age):
+    """معرفی یک فرد."""
+    print(f"This is {first_name} {last_name}, who is {age} years old.")
 
-introduce_person("Alice", 25, "New York")
-introduce_person("Bob", 30, "London")
+# فراخوانی با آرگومان‌های چندگانه (ترتیب مهم است!)
+introduce("Alice", "Smith", 25)
+# Output: This is Alice Smith, who is 25 years old.
 ```
 
-### مقادیر پیش‌فرض پارامترها
+**مهم**: آرگومان‌ها باید به همان ترتیب پارامترها ارائه شوند!
+
+### پارامترهای پیش‌فرض
+
 ```python
-def greet_with_time(name, time_of_day="morning"):
-    """سلام کردن با زمان روز."""
-    print(f"صبح بخیر {time_of_day}, {name}!")
+def greet_with_time(name, time="morning"):
+    """سلام به کسی با زمان روز."""
+    print(f"Good {time}, {name}!")
 
-greet_with_time("Alice")                    # صبح بخیر morning, Alice!
-greet_with_time("Bob", "afternoon")         # صبح بخیر afternoon, Bob!
-greet_with_time("Charlie", "evening")       # صبح بخیر evening, Charlie!
+# فراخوانی با هر دو آرگومان
+greet_with_time("Alice", "evening")   # Good evening, Alice!
+
+# فراخوانی فقط با آرگومان الزامی (از پیش‌فرض استفاده می‌کند)
+greet_with_time("Bob")                 # Good morning, Bob!
+
+# فراخوانی با آرگومان‌های کلیدی‌واژه‌ای
+greet_with_time("Charlie", time="afternoon")  # Good afternoon, Charlie!
 ```
 
-### آرگومان‌های کلیدی
+**بهترین تمرین**: پارامترهای پیش‌فرض را بعد از پارامترهای الزامی قرار دهید!
+
 ```python
-def create_profile(name, age, city, profession=None):
-    """ایجاد پروفایل کاربر."""
-    profile = {
-        "name": name,
-        "age": age,
-        "city": city
-    }
-    if profession:
-        profile["profession"] = profession
-    return profile
+# غلط
+def wrong_order(time="morning", name):
+    pass  # SyntaxError!
 
-# استفاده از آرگومان‌های موقعیتی
-profile1 = create_profile("Alice", 25, "NYC", "Engineer")
-
-# استفاده از آرگومان‌های کلیدی (قابل خواندن‌تر)
-profile2 = create_profile(
-    name="Bob",
-    age=30,
-    city="London",
-    profession="Designer"
-)
-
-# ترکیب موقعیتی و کلیدی
-profile3 = create_profile("Charlie", 35, city="Paris", profession="Artist")
+# درست
+def correct_order(name, time="morning"):
+    pass  # کار می‌کند!
 ```
 
-## مقادیر بازگشتی
+---
 
-### بازگشت مقادیر تک
+## برگرداندن مقادیر
+
+### برگرداندن یک مقدار
+
 ```python
 def calculate_square(number):
-    """بازگشت مربع یک عدد."""
-    return number ** 2
+    """مربع یک عدد را برمی‌گرداند."""
+    result = number ** 2
+    return result
 
-result = calculate_square(5)  # result = 25
-print(result)                 # خروجی: 25
+# دریافت مقدار برگشتی
+answer = calculate_square(5)
+print(answer)        # 25
+
+# استفاده مستقیم در عبارت
+total = calculate_square(3) + calculate_square(4)
+print(total)        # 9 + 16 = 25
 ```
 
-### بازگشت مقادیر متعدد
+### برگرداندن مقادیر چندگانه
+
 ```python
-def get_user_info():
-    """بازگشت چندین قطعه اطلاعات."""
-    name = "Alice"
-    age = 25
-    city = "New York"
-    return name, age, city
+def get_circle_info(radius):
+    """مساحت و محیط دایره را برمی‌گرداند."""
+    import math
+    area = math.pi * radius ** 2
+    circumference = 2 * math.pi * radius
+    return area, circumference
 
-# باز کردن تاپل بازگشتی
-user_name, user_age, user_city = get_user_info()
-print(f"{user_name} {user_age} سال دارد و در {user_city} زندگی می‌کند")
+# باز کردن مقادیر برگشتی چندگانه
+area, circumference = get_circle_info(5)
+print(f"Area: {area:.2f}")
+print(f"Circumference: {circumference:.2f}")
 
-# یا دریافت به عنوان یک تاپل واحد
-info = get_user_info()
-print(info)  # ('Alice', 25, 'New York')
+# یا دریافت به صورت تاپل
+result = get_circle_info(5)
+print(result)        # (78.54..., 31.41...)
 ```
 
-### بازگشت‌های زودهنگام
+### بازگشت زودهنگام (Early Returns)
+
 ```python
-def divide_numbers(a, b):
+def divide_safely(a, b):
     """تقسیم دو عدد با بررسی خطا."""
+    # ابتدا بررسی تقسیم بر صفر
     if b == 0:
-        return "خطا: نمی‌توان بر صفر تقسیم کرد"
+        return "Error: Cannot divide by zero"
 
+    # بررسی انواع معتبر
     if not isinstance(a, (int, float)) or not isinstance(b, (int, float)):
-        return "خطا: هر دو آرگومان باید عدد باشند"
+        return "Error: Both must be numbers"
 
+    # اگر به اینجا رسیدیم، ورودی‌ها معتبر هستند
     return a / b
 
-print(divide_numbers(10, 2))      # 5.0
-print(divide_numbers(10, 0))      # خطا: نمی‌توان بر صفر تقسیم کرد
-print(divide_numbers(10, "2"))    # خطا: هر دو آرگومان باید عدد باشند
+# تست
+print(divide_safely(10, 2))      # 5.0
+print(divide_safely(10, 0))      # پیام خطا
+print(divide_safely(10, "2"))    # پیام خطا
 ```
 
-## دامنه و متغیرهای تابع
+---
 
-### دامنه محلی در برابر جهانی
-```python
-# متغیر جهانی
-global_counter = 0
+## دامنه متغیر: محلی در مقابل سراسری
 
-def increment_counter():
-    """افزایش شمارنده جهانی."""
-    global global_counter  # اعلام اینکه از متغیر جهانی استفاده می‌کنیم
-    global_counter += 1
-    print(f"شمارنده اکنون: {global_counter}")
+### متغیرهای محلی (داخل تابع)
 
-increment_counter()  # شمارنده اکنون: 1
-increment_counter()  # شمارنده اکنون: 2
-
-print(global_counter)  # 2 (قابل دسترسی به صورت جهانی)
-```
-
-### متغیرهای محلی
 ```python
 def calculate_area(length, width):
     """محاسبه مساحت مستطیل."""
-    # متغیرهای محلی فقط داخل این تابع وجود دارند
-    area = length * width
-    perimeter = 2 * (length + width)
-
-    print(f"مساحت: {area}")
-    print(f"محیط: {perimeter}")
-
+    area = length * width   # 'area' در این تابع محلی است
     return area
 
 result = calculate_area(5, 3)
-# داخل تابع: مساحت: 15، محیط: 16
+print(result)           # 15
 
-# این متغیرها اینجا قابل دسترسی نیستند
-# print(area)  # NameError: name 'area' is not defined
+# این باعث خطا می‌شود:
+# print(area)           # NameError! 'area' اینجا تعریف نشده است
 ```
 
-### توابع تو در تو و بسته‌ها
+متغیرهای ایجاد شده داخل یک تابع فقط داخل آن تابع وجود دارند!
+
+### متغیرهای سراسری (خارج تابع)
+
 ```python
-def create_multiplier(factor):
-    """ایجاد تابعی که بر یک ضریب خاص ضرب می‌کند."""
-    def multiplier(number):
-        return number * factor
-    return multiplier
+# متغیر سراسری
+counter = 0
 
-# ایجاد توابع ضرب‌کننده تخصصی
-double = create_multiplier(2)
-triple = create_multiplier(3)
+def increment():
+    """افزایش شمارنده سراسری."""
+    global counter          # به پایتون می‌گوییم منظورمان متغیر سراسری است
+    counter += 1
+    print(f"Counter is now: {counter}")
 
-print(double(5))  # 10
-print(triple(5))  # 15
-
-# متغیر ضریب "بسته شده" و به یاد سپرده می‌شود
-print(double(10)) # 20
+increment()     # Counter is now: 1
+increment()     # Counter is now: 2
+print(counter)  # 2
 ```
 
-## پارامترهای پیشرفته تابع
+**بهترین تمرین**: تا حد امکان از متغیرهای سراسلی اجتناب کنید. داده‌ها را به عنوان پارامتر منتقل کنید!
 
-### آرگومان‌های طول متغیر (*args)
+### جایگزین بهتر برای متغیرهای سراسلی
+
 ```python
-def sum_all(*numbers):
-    """جمع هر تعداد آرگومان."""
-    total = 0
-    for num in numbers:
-        total += num
-    return total
+# به جای حالت سراسلی، مقادیر را منتقل و برگردانید
+def increment_counter(current):
+    """برگرداندن شمارنده افزایش یافته."""
+    return current + 1
 
-print(sum_all(1, 2, 3))        # 6
-print(sum_all(10, 20, 30, 40)) # 100
-print(sum_all())               # 0 (بدون آرگومان)
+# استفاده
+counter = 0
+counter = increment_counter(counter)   # 1
+counter = increment_counter(counter)   # 2
 ```
 
-### آرگومان‌های کلیدی طول متغیر (**kwargs)
-```python
-def create_person(**info):
-    """ایجاد دیکشنری شخص از آرگومان‌های کلیدی."""
-    person = {}
-    for key, value in info.items():
-        person[key] = value
-    return person
+---
 
-person1 = create_person(name="Alice", age=25, city="NYC")
-person2 = create_person(name="Bob", profession="Engineer", salary=75000)
+## مستندسازی توابع
 
-print(person1)  # {'name': 'Alice', 'age': 25, 'city': 'NYC'}
-print(person2)  # {'name': 'Bob', 'profession': 'Engineer', 'salary': 75000}
-```
+### داک‌استرینگ‌ها
 
-### ترکیب همه انواع پارامترها
-```python
-def complex_function(required, *args, default="value", **kwargs):
-    """تابعی با همه انواع پارامتر."""
-    print(f"مورد نیاز: {required}")
-    print(f"Args: {args}")
-    print(f"پیش‌فرض: {default}")
-    print(f"Kwargs: {kwargs}")
-
-complex_function("hello", 1, 2, 3, default="changed", extra="data")
-# مورد نیاز: hello
-# Args: (1, 2, 3)
-# پیش‌فرض: changed
-# Kwargs: {'extra': 'data'}
-```
-
-## مستندسازی تابع
-
-### رشته‌های مستندسازی
 ```python
 def calculate_bmi(weight_kg, height_m):
     """
-    محاسبه شاخص توده بدنی (BMI).
+    Calculate Body Mass Index (BMI).
 
-    Args:
+    Parameters:
         weight_kg (float): وزن به کیلوگرم
         height_m (float): قد به متر
 
@@ -257,218 +251,394 @@ def calculate_bmi(weight_kg, height_m):
         float: مقدار BMI
 
     Raises:
-        ValueError: اگر وزن یا قد عدد مثبت نباشند
+        ValueError: اگر وزن یا قد مثبت نباشند
 
     Example:
         >>> calculate_bmi(70, 1.75)
-        22.857142857142858
+        22.86
     """
     if weight_kg <= 0 or height_m <= 0:
-        raise ValueError("وزن و قد باید اعداد مثبت باشند")
+        raise ValueError("Weight and height must be positive")
 
     return weight_kg / (height_m ** 2)
 
-# دسترسی به رشته مستندسازی
+# دسترسی به داک‌استرینگ
 print(calculate_bmi.__doc__)
-
-# استفاده از تابع
-bmi = calculate_bmi(70, 1.75)
-print(f"BMI: {bmi:.1f}")
 ```
 
-## حاشیه‌نویسی توابع (نکات نوع)
+### تایپ هینت (اختیاری اما مفید)
 
-### نکات نوع پایه
 ```python
-def greet_user(name: str, age: int) -> str:
-    """سلام کردن با کاربر با نکات نوع."""
-    return f"سلام {name}، شما {age} سال دارید!"
-
-# تابع همچنان به طور عادی کار می‌کند
-result = greet_user("Alice", 25)
-print(result)  # "سلام Alice، شما 25 سال دارید!"
-```
-
-### نکات نوع پیشرفته
-```python
-from typing import List, Dict, Optional, Union
-
-def process_data(data: List[Union[int, float]], config: Dict[str, any] = None) -> Optional[Dict[str, float]]:
+def greet(name: str, age: int) -> str:
     """
-    پردازش لیستی از اعداد و بازگشت آمار.
+    ایجاد پیام خوش‌آمدگویی.
 
     Args:
-        data: لیستی از اعدادی که باید پردازش شوند
-        config: دیکشنری تنظیمات اختیاری
+        name: نام فرد
+        age: سن فرد
 
     Returns:
-        دیکشنری با آمار یا None اگر داده خالی باشد
+        رشته خوش‌آمدگویی قالب‌بندی شده
     """
-    if not data:
+    return f"Hello {name}, you are {age} years old!"
+
+# تایپ هینت‌ها انواع را اجبار نمی‌کنند، اما به:
+# - مستندسازی
+# - تکمیل خودکار IDE
+# - خوانایی کد
+# کمک می‌کنند
+```
+
+---
+
+## مثال‌های کاربردی
+
+### مثال ۱: اعتبارسنج ورودی
+
+```python
+def get_valid_number(prompt, min_value=None, max_value=None):
+    """
+    دریافت یک عدد معتبر از کاربر.
+
+    Args:
+        prompt: پیام برای نمایش به کاربر
+        min_value: حداقل مقدار مجاز
+        max_value: حداکثر مقدار مجاز
+
+    Returns:
+        عدد معتبر
+    """
+    while True:
+        try:
+            value = float(input(prompt))
+
+            if min_value is not None and value < min_value:
+                print(f"Please enter a value >= {min_value}")
+                continue
+
+            if max_value is not None and value > max_value:
+                print(f"Please enter a value <= {max_value}")
+                continue
+
+            return value
+
+        except ValueError:
+            print("Please enter a valid number.")
+
+# استفاده
+age = get_valid_number("Enter your age: ", min_value=0, max_value=150)
+```
+
+### مثال ۲: محاسبه‌گر نمره
+
+```python
+def calculate_letter_grade(score):
+    """
+    تبدیل نمره عددی به نمره حرفی.
+
+    Args:
+        score: نمره عددی (۰-۱۰۰)
+
+    Returns:
+        نمره حرفی (A, B, C, D, F)
+    """
+    if score >= 90:
+        return 'A'
+    elif score >= 80:
+        return 'B'
+    elif score >= 70:
+        return 'C'
+    elif score >= 60:
+        return 'D'
+    else:
+        return 'F'
+
+def calculate_statistics(grades):
+    """
+    محاسبه آمار نمرات.
+
+    Args:
+        grades: لیست نمرات عددی
+
+    Returns:
+        دیکشنری با آمار
+    """
+    if not grades:
         return None
 
     return {
-        "count": len(data),
-        "sum": sum(data),
-        "average": sum(data) / len(data),
-        "min": min(data),
-        "max": max(data)
+        "count": len(grades),
+        "average": sum(grades) / len(grades),
+        "highest": max(grades),
+        "lowest": min(grades),
+        "letter_grades": [calculate_letter_grade(g) for g in grades]
     }
 
 # استفاده
-result = process_data([1, 2, 3, 4, 5])
-print(result)
-# {'count': 5, 'sum': 15, 'average': 3.0, 'min': 1, 'max': 5}
+scores = [85, 92, 78, 96, 88]
+stats = calculate_statistics(scores)
+print(f"Average: {stats['average']:.1f}")
+print(f"Grades: {', '.join(stats['letter_grades'])}")
 ```
 
-## بهترین روش‌های تابع
+### مثال ۳: تولیدکننده رمز عبور
 
-### اصل مسئولیت واحد
 ```python
-# خوب - یک هدف واضح
-def validate_email(email: str) -> bool:
-    """بررسی اینکه آیا آدرس ایمیل معتبر است."""
-    # منطق اعتبار سنجی ایمیل
+import random
+import string
+
+def generate_password(length=12, use_upper=True, use_numbers=True, use_special=True):
+    """
+    تولید یک رمز عبور تصادفی.
+
+    Args:
+        length: طول رمز عبور
+        use_upper: شامل حروف بزرگ
+        use_numbers: شامل اعداد
+        use_special: شامل کاراکترهای خاص
+
+    Returns:
+        رشته رمز عبور تولید شده
+    """
+    chars = string.ascii_lowercase
+
+    if use_upper:
+        chars += string.ascii_uppercase
+    if use_numbers:
+        chars += string.digits
+    if use_special:
+        chars += string.punctuation
+
+    return ''.join(random.choice(chars) for _ in range(length))
+
+# استفاده
+print(generate_password())                    # پیش‌فرض ۱۲ کاراکتر
+print(generate_password(16, use_special=False))  # ۱۶ کاراکتر، بدون کاراکتر خاص
+```
+
+### مثال ۴: سیستم منو
+
+```python
+def show_menu(options):
+    """
+    نمایش یک منو و دریافت انتخاب کاربر.
+
+    Args:
+        options: دیکشنری {شماره_انتخاب: توضیحات}
+
+    Returns:
+        انتخاب کاربر به عنوان رشته
+    """
+    print("\n" + "="*30)
+    for num, desc in options.items():
+        print(f"{num}. {desc}")
+    print("="*30)
+
+    while True:
+        choice = input("Enter your choice: ")
+        if choice in options:
+            return choice
+        print("Invalid choice. Please try again.")
+
+# استفاده
+options = {
+    "1": "View balance",
+    "2": "Deposit money",
+    "3": "Withdraw money",
+    "4": "Exit"
+}
+
+# برای اجرا از حالت توضیح خارج کنید:
+# choice = show_menu(options)
+# print(f"You chose: {options[choice]}")
+```
+
+---
+
+## اشتباهات رایج مبتدی‌ها
+
+### اشتباه ۱: فراموش کردن فراخوانی تابع
+
+```python
+def say_hello():
+    print("Hello!")
+
+# غلط - فقط به تابع اشاره می‌کند، فراخوانی نمی‌کند
+say_hello
+
+# درست - واقعاً تابع را فراخوانی می‌کند
+say_hello()
+```
+
+### اشتباه ۲: فراموش کردن `return`
+
+```python
+# غلط - نتیجه را برنمی‌گرداند
+def add(a, b):
+    result = a + b   # محاسبه می‌کند اما برنمی‌گرداند!
+
+answer = add(2, 3)
+print(answer)        # None
+
+# درست
+def add(a, b):
+    return a + b
+
+answer = add(2, 3)
+print(answer)        # 5
+```
+
+### اشتباه ۳: تغییر سراسلی بدون اعلام
+
+```python
+counter = 0
+
+# غلط
+def increment():
+    counter += 1     # UnboundLocalError!
+
+# درست
+def increment():
+    global counter
+    counter += 1
+
+# بهتر - اجتناب از سراسری
+def increment(current):
+    return current + 1
+```
+
+### اشتباه ۴: تعداد اشتباه آرگومان‌ها
+
+```python
+def greet(first, last):
+    print(f"Hello {first} {last}")
+
+# غلط - آرگومان کم
+greet("Alice")       # TypeError!
+
+# غلط - آرگومان زیاد
+greet("Alice", "Smith", "Extra")  # TypeError!
+
+# درست
+greet("Alice", "Smith")
+
+# یا استفاده از آرگومان‌های کلیدی‌واژه‌ای
+greet(last="Smith", first="Alice")
+```
+
+---
+
+## تمرین‌های عملی
+
+### تمرین ۱: مبدل دما
+
+توابعی برای تبدیل بین سانتیگراد و فارنهایت ایجاد کنید.
+
+```python
+def celsius_to_fahrenheit(celsius):
+    """تبدیل سانتیگراد به فارنهایت."""
+    # کد شما اینجا
     pass
 
-def send_welcome_email(email: str) -> bool:
-    """ارسال ایمیل خوش‌آمدگویی به کاربر."""
-    # منطق ارسال ایمیل
+def fahrenheit_to_celsius(fahrenheit):
+    """تبدیل فارنهایت به سانتیگراد."""
+    # کد شما اینجا
     pass
 
-def register_user(email: str, password: str) -> bool:
-    """ثبت‌نام کاربر جدید."""
-    if not validate_email(email):
-        return False
+# تست
+print(celsius_to_fahrenheit(0))      # باید ۳۲.۰ باشد
+print(celsius_to_fahrenheit(100))    # باید ۲۱۲.۰ باشد
+print(fahrenheit_to_celsius(32))     # باید ۰.۰ باشد
+print(fahrenheit_to_celsius(212))    # باید ۱۰۰.۰ باشد
+```
 
-    # منطق ثبت‌نام
-    # ...
+### تمرین ۲: تحلیل‌گر اعداد
 
-    send_welcome_email(email)
-    return True
+تابعی ایجاد کنید که آمار یک لیست اعداد را برمی‌گرداند.
 
-# بد - مسئولیت‌های متعدد
-def register_user_bad(email, password):
-    """این تابع کارها زیادی انجام می‌دهد."""
-    # اعتبار سنجی ایمیل
-    # هش کردن رمز عبور
-    # ذخیره در پایگاه داده
-    # ارسال ایمیل
-    # ثبت فعالیت
+```python
+def analyze_numbers(numbers):
+    """
+    دیکشنری با تعداد، مجموع، میانگین، حداقل، حداکثر اعداد برمی‌گرداند.
+    اگر لیست خالی است None برمی‌گرداند.
+    """
+    # کد شما اینجا
     pass
+
+# تست
+result = analyze_numbers([1, 2, 3, 4, 5])
+# باید چیزی شبیه به: {'count': 5, 'sum': 15, 'average': 3.0, 'min': 1, 'max': 5} برمی‌گرداند
 ```
 
-### نام‌های معنادار و پارامترها
+### تمرین ۳: ماشین‌حساب ساده
+
+تابع ماشین‌حسابی ایجاد کنید که دو عدد و یک عملیات دریافت می‌کند.
+
 ```python
-# خوب - واضح و توصیفی
-def calculate_monthly_payment(principal: float, annual_rate: float, years: int) -> float:
-    """محاسبه پرداخت ماهانه وام مسکن."""
+def calculator(a, b, operation):
+    """
+    انجام عملیات روی a و b.
+    operation: 'add', 'subtract', 'multiply', 'divide'
+    پیام خطا برای عملیات نامعتبر یا تقسیم بر صفر برمی‌گرداند.
+    """
+    # کد شما اینجا
+    pass
 
-# بد - نامشخص
-def calc(x, y, z):
-    """این چه چیزی را محاسبه می‌کند؟"""
+# تست
+print(calculator(10, 5, 'add'))       # 15
+print(calculator(10, 5, 'divide'))    # 2.0
+print(calculator(10, 0, 'divide'))    # پیام خطا
+print(calculator(10, 5, 'unknown'))   # پیام خطا
 ```
 
-### مدیریت خطا
+### تمرین ۴: بررسی‌کننده کلمات متقارن
+
+تابعی ایجاد کنید که بررسی می‌کند آیا یک کلمه متقارن است.
+
 ```python
-def safe_divide(dividend: float, divisor: float) -> Union[float, str]:
-    """تقسیم امن دو عدد."""
-    try:
-        if divisor == 0:
-            raise ZeroDivisionError("نمی‌توان بر صفر تقسیم کرد")
-        return dividend / divisor
-    except ZeroDivisionError as e:
-        return f"خطا: {e}"
-    except TypeError:
-        return "خطا: هر دو آرگومان باید عدد باشند"
+def is_palindrome(word):
+    """
+    True برمی‌گرداند اگر کلمه متقارن باشد (از هر دو طرف یکسان خوانده می‌شود).
+    حروف بزرگ و کاراکترهای غیرالفبایی را نادیده می‌گیرد.
+    """
+    # کد شما اینجا
+    pass
 
-print(safe_divide(10, 2))     # 5.0
-print(safe_divide(10, 0))     # خطا: نمی‌توان بر صفر تقسیم کرد
-print(safe_divide(10, "2"))   # خطا: هر دو آرگومان باید عدد باشند
+# تست
+print(is_palindrome("radar"))         # True
+print(is_palindrome("A man a plan a canal Panama"))  # True (نادیده گرفتن فاصله‌ها)
+print(is_palindrome("hello"))         # False
 ```
 
-## تست و اشکال‌زدایی توابع
-
-### تست واحد توابع
-```python
-def is_even(number: int) -> bool:
-    """بررسی اینکه آیا عدد زوج است."""
-    return number % 2 == 0
-
-def test_is_even():
-    """تست تابع is_even."""
-    assert is_even(2) == True
-    assert is_even(3) == False
-    assert is_even(0) == True
-    assert is_even(-2) == True
-    print("همه تست‌ها گذرانده شدند!")
-
-test_is_even()
-```
-
-### اشکال‌زدایی توابع
-```python
-def factorial(n: int) -> int:
-    """محاسبه فاکتوریل با اشکال‌زدایی."""
-    print(f"محاسبه فاکتوریل {n}")
-
-    if n < 0:
-        raise ValueError("فاکتوریل برای اعداد منفی تعریف نشده است")
-
-    result = 1
-    for i in range(1, n + 1):
-        print(f"  ضرب در {i}: {result} * {i} = {result * i}")
-        result *= i
-
-    print(f"نتیجه نهایی: {result}")
-    return result
-
-# factorial(5)
-```
-
-## ترکیب توابع
-
-### زنجیره کردن توابع
-```python
-def clean_text(text: str) -> str:
-    """پاک‌سازی و استانداردسازی متن."""
-    return text.lower().strip()
-
-def extract_words(text: str) -> List[str]:
-    """استخراج کلمات از متن."""
-    import re
-    return re.findall(r'\b\w+\b', text)
-
-def remove_stop_words(words: List[str]) -> List[str]:
-    """حذف کلمات ایست متداول."""
-    stop_words = {"the", "a", "an", "and", "or", "but", "in", "on", "at"}
-    return [word for word in words if word not in stop_words]
-
-# ترکیب توابع
-def process_text(text: str) -> List[str]:
-    """پردازش متن از طریق چندین تبدیل."""
-    cleaned = clean_text(text)
-    words = extract_words(cleaned)
-    filtered = remove_stop_words(words)
-    return filtered
-
-text = "The quick brown fox jumps over the lazy dog"
-result = process_text(text)
-print(result)  # ['quick', 'brown', 'fox', 'jumps', 'lazy', 'dog']
-```
+---
 
 ## نکات کلیدی
 
-۱. **توابع بلوک‌های کد قابل استفاده مجدد هستند** که وظایف خاصی را انجام می‌دهند
-۲. **پارامترها به توابع اجازه می‌دهند ورودی بپذیرند** در اشکال مختلف
-۳. **مقادیر بازگشتی خروجی تابع را فراهم می‌کنند** برای کد فراخوان
-۴. **دامنه دسترسی متغیرها را کنترل می‌کند** داخل و خارج توابع
-۵. **مستندسازی و نکات نوع** خوانایی و قابلیت نگهداری کد را بهبود می‌بخشند
-۶. **اصل مسئولیت واحد** توابع را متمرکز و قابل تست نگه می‌دارد
+1. **توابع کد قابل استفاده مجدد را بسته‌بندی می‌کنند** - یک بار تعریف، بارها فراخوانی
+2. **پارامترها ورودی را دریافت می‌کنند** - داده از طریق پارامترها وارد می‌شود
+3. **return خروجی را برمی‌گرداند** - از `return` برای دادن نتایج به فراخوان استفاده کنید
+4. **متغیرها به طور پیش‌فرض محلی هستند** - فضای نام سراسلی را آلوده نکنید
+5. **توابع خود را مستند کنید** - از داک‌استرینگ‌ها برای توضیح استفاده کنید
+6. **یک تابع = یک کار** - توابع را متمرکز و ساده نگه دارید
+
+## کارت مرجع سریع
+
+| کار | سینتکس | مثال |
+|------|--------|---------|
+| تعریف تابع | `def name():` | `def greet():` |
+| با پارامترها | `def name(p1, p2):` | `def greet(name, age):` |
+| با پیش‌فرض‌ها | `def name(p1="default"):` | `def greet(name, time="morning"):` |
+| برگرداندن مقدار | `return value` | `return a + b` |
+| فراخوانی تابع | `name()` | `greet()` |
+| با آرگومان‌ها | `name(arg1, arg2)` | `greet("Alice", 25)` |
+| با کلیدی‌واژه‌ها | `name(p1=val1)` | `greet(name="Alice")` |
+| دسترسی به داک‌استرینگ | `function.__doc__` | `print(greet.__doc__)` |
+
+---
 
 ## مطالعه بیشتر
-- مستندات توابع پایتون
-- مفاهیم برنامه‌نویسی تابعی
-- الگوهای پارامتر پیشرفته
-- استراتژی‌های تست توابع
-- تکنیک‌های بهینه‌سازی عملکرد
+
+- **درس بعدی**: پارامترهای تابع - مدیریت پیشرفته آرگومان‌ها
+- **تمرین**: تمام تمرین‌های بالا را کامل کنید
+- **چالش**: یک کتابخانه کوچک از توابع کمکی برای کارهای رایج ایجاد کنید
+- **کاوش**: درباره توابع لامبدا یاد بگیرید (توابع ناشناس کوچک)

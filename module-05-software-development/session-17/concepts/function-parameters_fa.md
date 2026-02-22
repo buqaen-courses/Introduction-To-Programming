@@ -1,12 +1,22 @@
-# پارامترهای تابع: مدیریت پیشرفته آرگومان‌ها
+# پارامترهای تابع: مدیریت انعطاف‌پذیر ورودی
 
-## انواع پارامتر و مکانیسم‌های ارسال
+## مقدمه: فراتر از پارامترهای پایه
 
-توابع پایتون از انواع مختلف پارامتر و مکانیسم‌های ارسال آرگومان پشتیبانی می‌کنند که انعطاف‌پذیری را در نحوه فراخوانی و استفاده از توابع فراهم می‌کنند.
+ما یاد گرفتیم چگونه توابعی با پارامترهای ساده ایجاد کنیم. اکنون روش‌های انعطاف‌پذیرتری برای مدیریت ورودی‌های تابع بررسی می‌کنیم که توابع شما را قدرتمندتر و استفاده از آنها آسان‌تر می‌کند.
 
-## آرگومان‌های موقعیتی در برابر کلیدی
+### آنچه خواهیم پوشش داد
 
-### آرگومان‌های موقعیتی
+- آرگومان‌های موقعیتی در مقابل کلیدی‌واژه‌ای
+- مقادیر پیش‌فرض با نکات مهم برای اجتناب
+- تعداد متغیر آرگومان‌ها
+- باز کردن مجموعه‌ها به عنوان آرگومان‌ها
+
+---
+
+## آرگومان‌های موقعیتی در مقابل کلیدی‌واژه‌ای
+
+### آرگومان‌های موقعیتی (ترتیب مهم است)
+
 ```python
 def create_user(username, email, age):
     """ایجاد کاربر با آرگومان‌های موقعیتی."""
@@ -16,478 +26,606 @@ def create_user(username, email, age):
         "age": age
     }
 
-# باید به ترتیب دقیق فراخوانی شوند
+# باید دقیقاً به ترتیب باشد
 user1 = create_user("alice123", "alice@email.com", 25)
 user2 = create_user("bob456", "bob@email.com", 30)
 ```
 
-### آرگومان‌های کلیدی
+**نکته کلیدی**: با آرگومان‌های موقعیتی، ترتیب همه چیز است!
+
+### آرگومان‌های کلیدی‌واژه‌ای (ترتیب مهم نیست)
+
 ```python
-# همان تابع، فراخوانی با آرگومان‌های کلیدی
+# همان تابع، با آرگومان‌های کلیدی‌واژه‌ای فراخوانی شده
 user3 = create_user(
     username="charlie789",
     email="charlie@email.com",
     age=35
 )
 
-# ترتیب با آرگومان‌های کلیدی مهم نیست
+# با کلیدی‌واژه‌ای ترتیب مهم نیست
 user4 = create_user(
     age=28,
     username="diana101",
     email="diana@email.com"
 )
 
-# ترکیب موقعیتی و کلیدی (موقعیتی اول)
+# ترکیب موقعیتی و کلیدی‌واژه‌ای (موقعیتی اول!)
 user5 = create_user("eve202", email="eve@email.com", age=32)
 ```
 
-## مقادیر پیش‌فرض پارامترها
+### چرا از کلیدی‌واژه‌ها استفاده کنیم؟
+
+```python
+def send_email(to, subject, body, priority="normal"):
+    """ارسال ایمیل."""
+    print(f"To: {to}")
+    print(f"Subject: {subject}")
+    print(f"Priority: {priority}")
+    print(f"Body: {body}")
+
+# بدون کلیدی‌واژه‌ها - معنی هر مقدار چیست؟
+send_email("boss@company.com", "Meeting", "Hi...", "high")
+# تشخیص هر کدام سخت است!
+
+# با کلیدی‌واژه‌ها - کاملاً واضح!
+send_email(
+    to="boss@company.com",
+    subject="Meeting tomorrow",
+    body="Hi, can we meet tomorrow at 2pm?",
+    priority="high"
+)
+```
+
+**بهترین تمرین**: از آرگومان‌های کلیدی‌واژه‌ای وقتی استفاده کنید که:
+- تابع پارامترهای زیادی دارد
+- برخی پارامترها اختیاری هستند
+- می‌خواهید کد خودتوضیح‌گر باشد
+
+---
+
+## پارامترهای پیش‌فرض
 
 ### مقادیر پیش‌فرض پایه
+
 ```python
-def send_email(to, subject, body="", priority="normal"):
-    """ارسال ایمیل با مقادیر پیش‌فرض."""
-    email = {
-        "to": to,
-        "subject": subject,
-        "body": body,
-        "priority": priority
-    }
-    print(f"ارسال ایمیل: {email}")
-    return True
+def greet(name, greeting="Hello", punctuation="!"):
+    """سلام به کسی با پیام قابل تنظیم."""
+    print(f"{greeting}, {name}{punctuation}")
 
-# استفاده از پیش‌فرض‌ها
-send_email("user@example.com", "Welcome!")
+# استفاده از همه پیش‌فرض‌ها
+greet("Alice")                           # Hello, Alice!
 
-# بازنویسی برخی پیش‌فرض‌ها
-send_email("user@example.com", "Alert", "System maintenance tonight", "high")
+# رونویسی برخی پیش‌فرض‌ها
+greet("Bob", greeting="Hi")              # Hi, Bob!
+greet("Charlie", punctuation=".")        # Hello, Charlie.
 
-# بازنویسی همه
-send_email("user@example.com", "Invoice", "Your bill is ready", "normal")
+# رونویسی همه
+greet("Dave", "Howdy", "...")            # Howdy, Dave...
 ```
 
-### ملاحظات مقدار پیش‌فرض
+### قوانین مهم پارامترهای پیش‌فرض
+
+**قانون ۱: پیش‌فرض‌ها در انتها قرار می‌گیرند**
+
 ```python
-# مشکل‌دار - آرگومان پیش‌فرض قابل تغییر
-def add_item(item, shopping_list=[]):
-    """افزودن آیتم به لیست خرید (نسخه مشکل‌دار)."""
+# غلط - SyntaxError!
+def wrong(a="default", b):
+    pass
+
+# درست
+def right(b, a="default"):
+    pass
+```
+
+**قانون ۲: از پیش‌فرض‌های قابل تغییر استفاده نکنید!** (بسیار مهم!)
+
+```python
+# خطرناک - آرگومان پیش‌فرض قابل تغییر
+def add_item_bad(item, shopping_list=[]):
+    """این یک باگ پنهان دارد!"""
     shopping_list.append(item)
     return shopping_list
 
-# رفتار غیرمنتظره
-list1 = add_item("apples")
-print(list1)  # ['apples']
+# فراخوانی اول
+list1 = add_item_bad("apples")
+print(list1)        # ['apples'] - خوب به نظر می‌رسد
 
-list2 = add_item("bananas")
-print(list2)  # ['apples', 'bananas'] - لیست یکسان!
+# فراخوانی دوم
+list2 = add_item_bad("bananas")
+print(list2)        # ['apples', 'bananas'] - چه؟!
 
-# نسخه اصلاح شده
-def add_item_fixed(item, shopping_list=None):
-    """افزودن آیتم به لیست خرید (نسخه صحیح)."""
+# list1 هم تغییر کرد!
+print(list1)        # ['apples', 'bananas'] - غافلگیرکننده!
+```
+
+**مشکل**: لیست پیش‌فرض فقط یک بار هنگام تعریف تابع ایجاد می‌شود، نه در هر فراخوانی. بنابراین همه فراخوانی‌ها از یک لیست مشترک استفاده می‌کنند!
+
+**راه‌حل**: از None به عنوان پیش‌فرض استفاده کنید
+
+```python
+# امن - استفاده از None به عنوان پیش‌فرض
+def add_item_safe(item, shopping_list=None):
+    """نسخه صحیح - بدون لیست مشترک."""
     if shopping_list is None:
-        shopping_list = []
+        shopping_list = []    # هر بار لیست جدید ایجاد می‌شود
     shopping_list.append(item)
     return shopping_list
 
-list3 = add_item_fixed("apples")
-list4 = add_item_fixed("bananas")
-print(list3)  # ['apples']
-print(list4)  # ['bananas']
+# هر فراخوانی لیست خودش را دارد
+list1 = add_item_safe("apples")
+print(list1)        # ['apples']
+
+list2 = add_item_safe("bananas")
+print(list2)        # ['bananas'] - لیست جداگانه!
 ```
 
-### ارزیابی مقادیر پیش‌فرض
+**همیشه برای انواع قابل تغییر (لیست، دیکشنری، مجموعه) از None به عنوان پیش‌فرض استفاده کنید!**
+
+---
+
+## تعداد متغیر آرگومان‌ها
+
+### *args - هر تعداد آرگومان موقعیتی
+
 ```python
-import time
-
-def log_message(message, timestamp=None):
-    """ثبت پیام با timestamp."""
-    if timestamp is None:
-        timestamp = time.time()  # ارزیابی شده وقتی تابع فراخوانی می‌شود
-    print(f"[{timestamp}] {message}")
-
-# هر فراخوانی timestamp متفاوتی دریافت می‌کند
-log_message("Starting process")
-time.sleep(1)
-log_message("Process complete")
-
-# بد - فقط یک بار ارزیابی می‌شود وقتی تابع تعریف می‌شود
-def log_message_bad(message, timestamp=time.time()):
-    """این مشکل‌دار است."""
-    print(f"[{timestamp}] {message}")
-
-# هر دو فراخوانی از timestamp یکسان استفاده می‌کنند
-log_message_bad("First message")
-log_message_bad("Second message")
-```
-
-## آرگومان‌های طول متغیر
-
-### *args - آرگومان‌های موقعیتی متغیر
-```python
-def sum_numbers(*numbers):
+def sum_all(*numbers):
     """جمع هر تعداد آرگومان."""
     total = 0
     for num in numbers:
         total += num
     return total
 
-print(sum_numbers(1, 2, 3))           # 6
-print(sum_numbers(10, 20, 30, 40))    # 100
-print(sum_numbers())                  # 0
+# فراخوانی با هر تعداد آرگومان
+print(sum_all(1, 2, 3))              # 6
+print(sum_all(10, 20, 30, 40))       # 100
+print(sum_all())                     # 0 (بدون آرگومان)
+print(sum_all(5))                    # 5 (یک آرگومان)
 
-# باز کردن آرگومان‌ها
-def add(a, b, c):
-    return a + b + c
-
-numbers = [1, 2, 3]
-result = add(*numbers)  # معادل add(1, 2, 3)
-print(result)  # 6
+# داخل تابع، 'numbers' یک تاپل است
+print(type(numbers))   # <class 'tuple'>
 ```
 
-### **kwargs - آرگومان‌های کلیدی متغیر
+### **kwargs - هر تعداد آرگومان کلیدی‌واژه‌ای
+
 ```python
-def create_config(**settings):
-    """ایجاد تنظیمات از آرگومان‌های کلیدی."""
-    config = {"debug": False, "timeout": 30}  # پیش‌فرض‌ها
-    config.update(settings)  # بازنویسی با تنظیمات ارائه شده
-    return config
+def create_profile(**info):
+    """ایجاد پروفایل از هر آرگومان کلیدی‌واژه‌ای."""
+    profile = {
+        "created": True,
+        "active": True
+    }
+    profile.update(info)  # افزودن تمام اطلاعات ارائه شده
+    return profile
 
-config1 = create_config(host="localhost", port=8080)
-config2 = create_config(debug=True, timeout=60, host="prod.example.com")
+# فراخوانی با هر کلیدی‌واژه‌ای
+user1 = create_profile(name="Alice", age=25, city="NYC")
+user2 = create_profile(name="Bob", profession="Engineer")
 
-print(config1)  # {'debug': False, 'timeout': 30, 'host': 'localhost', 'port': 8080}
-print(config2)  # {'debug': True, 'timeout': 60, 'host': 'prod.example.com'}
+print(user1)
+# {'created': True, 'active': True, 'name': 'Alice', 'age': 25, 'city': 'NYC'}
+
+print(user2)
+# {'created': True, 'active': True, 'name': 'Bob', 'profession': 'Engineer'}
 ```
 
-### ترکیب *args و **kwargs
+### ترکیب تمام انواع پارامترها
+
 ```python
-def flexible_function(required_arg, *args, default_param="default", **kwargs):
-    """تابعی با همه انواع پارامتر."""
-    print(f"مورد نیاز: {required_arg}")
+def complex_function(required, *args, default="value", **kwargs):
+    """
+    تابع نمادین همه انواع پارامتر.
+
+    required: باید ارائه شود
+    *args: آرگومان‌های موقعیتی متغیر (تاپل)
+    default: اختیاری با مقدار پیش‌فرض
+    **kwargs: آرگومان‌های کلیدی‌واژه‌ای متغیر (دیکشنری)
+    """
+    print(f"Required: {required}")
     print(f"Args: {args}")
-    print(f"پیش‌فرض: {default_param}")
+    print(f"Default: {default}")
     print(f"Kwargs: {kwargs}")
 
-# سبک‌های فراخوانی مختلف
-flexible_function("hello")
-flexible_function("hello", 1, 2, 3)
-flexible_function("hello", 1, 2, 3, default_param="changed")
-flexible_function("hello", 1, 2, 3, extra="data", more="info")
+# نمونه‌های استفاده
+complex_function("hello")
+# Required: hello
+# Args: ()
+# Default: value
+# Kwargs: {}
+
+complex_function("hello", 1, 2, 3)
+# Required: hello
+# Args: (1, 2, 3)
+# Default: value
+# Kwargs: {}
+
+complex_function("hello", 1, 2, 3, default="changed", extra="data")
+# Required: hello
+# Args: (1, 2, 3)
+# Default: changed
+# Kwargs: {'extra': 'data'}
 ```
+
+**ترتیب مهم است**: `def func(regular, *args, default="val", **kwargs)`
+
+---
 
 ## باز کردن آرگومان‌ها
 
-### باز کردن لیست/تاپل
+### باز کردن لیست/تاپل به عنوان آرگومان‌ها
+
 ```python
-def calculate_area(length, width):
-    return length * width
+def greet(first, middle, last):
+    """سلام با نام کامل."""
+    print(f"Hello, {first} {middle} {last}!")
 
 # فراخوانی مستقیم
-area1 = calculate_area(5, 3)
+greet("John", "Quincy", "Adams")
 
-# باز کردن از دنباله
-dimensions = [5, 3]
-area2 = calculate_area(*dimensions)  # همان calculate_area(5, 3)
+# باز کردن از تاپل
+name_parts = ("John", "Quincy", "Adams")
+greet(*name_parts)   # معادل greet("John", "Quincy", "Adams")
 
-# باز کردن با آرگومان‌های اضافی
-base_dimensions = [5, 3]
-area3 = calculate_area(*base_dimensions)  # هنوز کار می‌کند
+# باز کردن از لیست
+name_list = ["Jane", "Marie", "Doe"]
+greet(*name_list)    # معادل greet("Jane", "Marie", "Doe")
 ```
 
-### باز کردن دیکشنری
+### باز کردن دیکشنری به عنوان آرگومان‌ها
+
 ```python
-def configure_server(host, port, ssl=True, debug=False):
+def create_user(name, email, age, city="Unknown"):
+    """ایجاد کاربر با فیلدهای الزامی و اختیاری."""
     return {
-        "host": host,
-        "port": port,
-        "ssl": ssl,
-        "debug": debug
+        "name": name,
+        "email": email,
+        "age": age,
+        "city": city
     }
 
 # باز کردن دیکشنری
-config = {"host": "localhost", "port": 8080, "ssl": False}
-server_config = configure_server(**config)
+user_data = {
+    "name": "Alice",
+    "email": "alice@example.com",
+    "age": 25,
+    "city": "NYC"
+}
 
-print(server_config)
-# {'host': 'localhost', 'port': 8080, 'ssl': False, 'debug': False}
+user = create_user(**user_data)
+# معادل: create_user(name="Alice", email="alice@example.com", age=25, city="NYC")
 ```
 
-## اعتبار سنجی پارامتر و بررسی نوع
+### استفاده عملی: ادغام پیکربندی سرور
 
-### اعتبار سنجی دستی
 ```python
-def divide(a, b):
-    """تقسیم دو عدد با اعتبار سنجی."""
-    if not isinstance(a, (int, float)):
-        raise TypeError("اولین آرگومان باید عدد باشد")
-    if not isinstance(b, (int, float)):
-        raise TypeError("دومین آرگومان باید عدد باشد")
-    if b == 0:
-        raise ValueError("نمی‌توان بر صفر تقسیم کرد")
+def configure_server(host, port, debug=False, ssl=True, timeout=30):
+    """پیکربندی سرور با گزینه‌های مختلف."""
+    return {
+        "host": host,
+        "port": port,
+        "debug": debug,
+        "ssl": ssl,
+        "timeout": timeout
+    }
 
-    return a / b
+# پیکربندی پایه
+base_config = {
+    "host": "localhost",
+    "port": 8080,
+    "debug": False
+}
 
-try:
-    result = divide(10, 2)
-    print(f"نتیجه: {result}")
-except (TypeError, ValueError) as e:
-    print(f"خطا: {e}")
+# محیط توسعه (رونویسی debug)
+dev_config = {**base_config, "debug": True}
+server1 = configure_server(**dev_config)
+
+# محیط تولید (افزودن SSL)
+prod_config = {**base_config, "ssl": True, "timeout": 60}
+server2 = configure_server(**prod_config)
 ```
 
-### استفاده از نکات نوع و اعتبار سنجی
+---
+
+## مثال‌های کاربردی
+
+### مثال ۱: ثبت‌کننده انعطاف‌پذیر
+
 ```python
-from typing import Union, Optional
-
-def calculate_tax(income: Union[int, float], tax_rate: float = 0.2) -> float:
-    """محاسبه مالیات با نکات نوع."""
-    if not isinstance(income, (int, float)):
-        raise TypeError("درآمد باید عدد باشد")
-    if not isinstance(tax_rate, float):
-        raise TypeError("نرخ مالیات باید float باشد")
-    if income < 0:
-        raise ValueError("درآمد نمی‌تواند منفی باشد")
-    if not 0 <= tax_rate <= 1:
-        raise ValueError("نرخ مالیات باید بین 0 و 1 باشد")
-
-    return income * tax_rate
-
-try:
-    tax = calculate_tax(50000, 0.25)
-    print(f"مالیات: ${tax}")
-except (TypeError, ValueError) as e:
-    print(f"خطا: {e}")
-```
-
-## الگوهای اضافه بار تابع
-
-### رفتار مبتنی بر پارامتر
-```python
-def process_data(data, operation="sum"):
-    """پردازش داده‌ها بر اساس پارامتر عملیات."""
-    if operation == "sum":
-        return sum(data)
-    elif operation == "average":
-        return sum(data) / len(data)
-    elif operation == "max":
-        return max(data)
-    elif operation == "min":
-        return min(data)
-    else:
-        raise ValueError(f"عملیات نامشخص: {operation}")
-
-numbers = [1, 2, 3, 4, 5]
-print(process_data(numbers, "sum"))      # 15
-print(process_data(numbers, "average"))  # 3.0
-print(process_data(numbers, "max"))      # 5
-```
-
-### انواع union و پارامترهای اختیاری
-```python
-from typing import List, Union
-
-def format_output(data: Union[str, List[str]], separator: str = ", ") -> str:
-    """قالب‌بندی خروجی به عنوان رشته."""
-    if isinstance(data, str):
-        return data
-    elif isinstance(data, list):
-        return separator.join(data)
-    else:
-        raise TypeError("داده باید رشته یا لیست رشته‌ها باشد")
-
-print(format_output("Hello World"))              # "Hello World"
-print(format_output(["apple", "banana", "cherry"]))  # "apple, banana, cherry"
-print(format_output(["a", "b", "c"], " | "))     # "a | b | c"
-```
-
-## الگوهای پیشرفته پارامتر
-
-### callbacks و پارامترهای تابع
-```python
-def apply_operation(data: List[int], operation) -> List[int]:
-    """اعمال عملیات بر هر عنصر."""
-    return [operation(x) for x in data]
-
-def double(x):
-    return x * 2
-
-def square(x):
-    return x ** 2
-
-numbers = [1, 2, 3, 4, 5]
-doubled = apply_operation(numbers, double)
-squared = apply_operation(numbers, square)
-
-print(doubled)  # [2, 4, 6, 8, 10]
-print(squared)  # [1, 4, 9, 16, 25]
-
-# استفاده از توابع lambda
-tripled = apply_operation(numbers, lambda x: x * 3)
-print(tripled)  # [3, 6, 9, 12, 15]
-```
-
-### توابع factory
-```python
-def create_multiplier(factor):
-    """ایجاد تابعی که بر ضریب خاصی ضرب می‌کند."""
-    def multiplier(number):
-        return number * factor
-    return multiplier
-
-double = create_multiplier(2)
-triple = create_multiplier(3)
-quadruple = create_multiplier(4)
-
-print(double(5))     # 10
-print(triple(5))     # 15
-print(quadruple(5))  # 20
-```
-
-### تزریق وابستگی پارامتر
-```python
-def create_api_client(api_key: str, base_url: str = "https://api.example.com"):
-    """ایجاد کلاینت API با تنظیمات."""
-
-    def make_request(endpoint: str, method: str = "GET", data: dict = None):
-        """ایجاد درخواست API."""
-        url = f"{base_url}/{endpoint}"
-        headers = {"Authorization": f"Bearer {api_key}"}
-
-        # شبیه‌سازی فراخوانی API
-        return {
-            "url": url,
-            "method": method,
-            "headers": headers,
-            "data": data or {}
-        }
-
-    return make_request
-
-# ایجاد کلاینت تنظیم شده
-api_client = create_api_client("my-secret-key")
-
-# استفاده از کلاینت
-response1 = api_client("users")
-response2 = api_client("posts", "POST", {"title": "New Post"})
-
-print(response1["url"])  # "https://api.example.com/users"
-print(response2["method"])  # "POST"
-```
-
-## بهترین روش‌ها برای پارامترهای تابع
-
-### نام‌های پارامتر واضح
-```python
-# خوب - نام‌های توصیفی
-def calculate_payment(principal: float, annual_rate: float, months: int) -> float:
-    pass
-
-# بد - اختصارهای نامشخص
-def calc_pmt(p: float, r: float, m: int) -> float:
-    pass
-```
-
-### ترتیب پارامترهای سازگار
-```python
-# خوب - ترتیب سازگار در توابع مرتبط
-def save_user(name: str, email: str, password: str):
-    pass
-
-def update_user(user_id: int, name: str = None, email: str = None):
-    pass
-
-# بد - ترتیب ناسازگار
-def save_user(name, password, email):  # email آخر
-    pass
-
-def update_user(name, user_id, email):  # email اول بعد از name
-    pass
-```
-
-### اجتناب از پارامترهای بیش از حد
-```python
-# خوب - استفاده از ساختار داده برای پارامترهای مرتبط متعدد
-def create_report(config: dict):
-    """ایجاد گزارش با تنظیمات."""
-    title = config.get("title", "Report")
-    date_range = config.get("date_range")
-    filters = config.get("filters", {})
-    # ...
-
-# بد - پارامترهای بیش از حد
-def create_report(title, start_date, end_date, filter_by_status,
-                  filter_by_type, include_charts, export_format):
-    pass
-
-# به جای آن از شی تنظیمات استفاده کنید
-```
-
-### مستندسازی پارامتر
-```python
-def process_payment(amount: float, currency: str = "USD",
-                   description: str = "", metadata: dict = None) -> dict:
+def log(message, level="INFO", timestamp=None, **metadata):
     """
-    پردازش پرداخت.
+    تابع ثبت لاگ انعطاف‌پذیر.
 
     Args:
-        amount: مبلغ پرداخت (باید مثبت باشد)
-        currency: کد ارز سه حرفی (مثلاً 'USD', 'EUR')
-        description: توضیح اختیاری پرداخت
-        metadata: داده‌های اضافی اختیاری به صورت جفت کلید-مقدار
+        message: پیام لاگ
+        level: سطح لاگ (DEBUG, INFO, WARNING, ERROR)
+        timestamp: زمان‌مهر اختیاری (پیش‌فرض: همین الان)
+        **metadata: هر جفت کلید-مقدار اضافی
+    """
+    import datetime
+
+    if timestamp is None:
+        timestamp = datetime.datetime.now()
+
+    # ساخت ورودی لاگ
+    entry = f"[{timestamp:%Y-%m-%d %H:%M:%S}] {level}: {message}"
+
+    # افزودن متادیتا اگر وجود دارد
+    if metadata:
+        meta_str = ", ".join(f"{k}={v}" for k, v in metadata.items())
+        entry += f" | {meta_str}"
+
+    print(entry)
+
+# استفاده
+log("Application started")
+# [2024-01-15 10:30:00] INFO: Application started
+
+log("Error occurred", level="ERROR", file="data.txt", line=42)
+# [2024-01-15 10:30:00] ERROR: Error occurred | file=data.txt, line=42
+
+log("User login", user="alice", ip="192.168.1.1")
+# [2024-01-15 10:30:00] INFO: User login | user=alice, ip=192.168.1.1
+```
+
+### مثال ۲: سازنده تگ HTML
+
+```python
+def tag(name, *children, **attributes):
+    """
+    ساخت یک تگ HTML با محتوا و ویژگی‌ها.
+
+    Args:
+        name: نام تگ (div, span, p, و غیره)
+        *children: عناصر فرزند یا متن
+        **attributes: ویژگی‌های HTML (class, id, style, و غیره)
+    """
+    # ساخت رشته ویژگی‌ها
+    attrs = " ".join(f'{k}="{v}"' for k, v in attributes.items())
+    if attrs:
+        attrs = " " + attrs
+
+    # ساخت محتوا
+    content = "".join(str(child) for child in children)
+
+    # ساخت تگ
+    return f"<{name}{attrs}>{content}</{name}>"
+
+# استفاده
+print(tag("p", "Hello, World!"))
+# <p>Hello, World!</p>
+
+print(tag("div", "Content", class_="container", id="main"))
+# <div class="container" id="main">Content</div>
+
+# نکته: 'class' کلمه رزرو شده است، به جای آن 'class_' استفاده کنید
+print(tag("span", "Important", class_="highlight"))
+# <span class="highlight">Important</span>
+```
+
+### مثال ۳: سازنده کوئری پایگاه داده
+
+```python
+def build_query(table, columns="*", where=None, order_by=None, limit=None):
+    """
+    ساخت کوئری SQL SELECT.
+
+    Args:
+        table: نام جدول
+        columns: ستون‌های انتخابی (پیش‌فرض: همه)
+        where: شرایط WHERE (دیکشنری)
+        order_by: ستون ORDER BY
+        limit: مقدار LIMIT
 
     Returns:
-        دیکشنری با جزئیات پرداخت و وضعیت
-
-    Raises:
-        ValueError: اگر مبلغ مثبت نباشد یا ارز نامعتبر باشد
+        رشته کوئری SQL
     """
-    # پیاده‌سازی...
-    pass
+    query = f"SELECT {columns} FROM {table}"
+
+    if where:
+        conditions = " AND ".join(f"{k}='{v}'" for k, v in where.items())
+        query += f" WHERE {conditions}"
+
+    if order_by:
+        query += f" ORDER BY {order_by}"
+
+    if limit:
+        query += f" LIMIT {limit}"
+
+    return query
+
+# استفاده
+print(build_query("users"))
+# SELECT * FROM users
+
+print(build_query("users", columns="name, email", where={"active": "true"}))
+# SELECT name, email FROM users WHERE active='true'
+
+print(build_query("products", where={"category": "electronics"}, order_by="price", limit=10))
+# SELECT * FROM products WHERE category='electronics' ORDER BY price LIMIT 10
 ```
 
-## استراتژی‌های تست پارامتر
+---
 
-### کلاس‌های هم ارزی
+## اشتباهات رایج مبتدی‌ها
+
+### اشتباه ۱: آرگومان‌های پیش‌فرض قابل تغییر (دوباره!)
+
 ```python
-def test_calculate_tax():
-    """تست calculate_tax با کلاس‌های ورودی مختلف."""
+# خطرناک
+def append_timestamp(timestamps=[]):
+    import time
+    timestamps.append(time.time())
+    return timestamps
 
-    # ورودی‌های معتبر
-    assert calculate_tax(50000, 0.2) == 10000
-    assert calculate_tax(0, 0.2) == 0
-
-    # مقادیر مرزی
-    assert calculate_tax(0.01, 0.2) == 0.002
-
-    # ورودی‌های نامعتبر (باید استثنا ایجاد کنند)
-    try:
-        calculate_tax(-1000, 0.2)
-        assert False, "باید ValueError برای درآمد منفی ایجاد کند"
-    except ValueError:
-        pass
-
-def calculate_tax(income: float, rate: float) -> float:
-    """محاسبه مالیات."""
-    if income < 0:
-        raise ValueError("درآمد نمی‌تواند منفی باشد")
-    if not 0 <= rate <= 1:
-        raise ValueError("نرخ باید بین 0 و 1 باشد")
-    return income * rate
-
-test_calculate_tax()
-print("همه تست‌ها گذرانده شدند!")
+# امن
+def append_timestamp(timestamps=None):
+    if timestamps is None:
+        timestamps = []
+    import time
+    timestamps.append(time.time())
+    return timestamps
 ```
+
+### اشتباه ۲: ترتیب اشتباه آرگومان‌ها
+
+```python
+def process_data(data, format="json", validate=True):
+    pass
+
+# غلط - کلیدی‌واژه قبل از موقعیتی
+process_data(format="xml", my_data)  # SyntaxError!
+
+# درست
+process_data(my_data, format="xml")
+```
+
+### اشتباه ۳: فراموش کردن باز کردن
+
+```python
+def add_three(a, b, c):
+    return a + b + c
+
+numbers = [1, 2, 3]
+
+# غلط - لیست را به عنوان آرگومان واحد منتقل می‌کند
+result = add_three(numbers)  # TypeError!
+
+# درست - باز کردن لیست
+result = add_three(*numbers)  # برمی‌گرداند 6
+```
+
+### اشتباه ۴: اشتباه گرفتن * و **
+
+```python
+def func(*args, **kwargs):
+    pass
+
+# غلط
+data = {"a": 1, "b": 2}
+func(*data)     # کلیدها را باز می‌کند: func("a", "b")
+
+# درست - استفاده از ** برای دیکشنری‌ها
+func(**data)    # func(a=1, b=2)
+
+# لیست‌ها از * استفاده می‌کنند
+nums = [1, 2, 3]
+func(*nums)     # func(1, 2, 3)
+```
+
+---
+
+## تمرین‌های عملی
+
+### تمرین ۱: محاسبه‌گر میانگین وزن‌دار
+
+تابعی ایجاد کنید که میانگین را با وزن‌های اختیاری محاسبه می‌کند.
+
+```python
+def weighted_average(*values, weights=None):
+    """
+    محاسبه میانگین مقادیر.
+    اگر وزن‌ها ارائه شده باشند، میانگین وزن‌دار محاسبه می‌کند.
+    """
+    # کد شما اینجا
+    pass
+
+# تست
+print(weighted_average(10, 20, 30))                    # 20.0
+print(weighted_average(10, 20, 30, weights=[1, 2, 3]))  # 23.33
+```
+
+### تمرین ۲: تابع فرمت‌دهی
+
+یک فرمت‌کننده رشته انعطاف‌پذیر ایجاد کنید.
+
+```python
+def format_line(template, *values, separator=" | ", align="left"):
+    """
+    قالب‌بندی مقادیر بر اساس الگو.
+    separator: رشته بین مقادیر
+    align: "left", "right", یا "center"
+    """
+    # کد شما اینجا
+    pass
+
+# تست
+print(format_line("Name: {}, Age: {}", "Alice", 25))
+print(format_line("{} - {}", "Item", "$10.00", separator=" | "))
+```
+
+### تمرین ۳: سازنده کادر متن
+
+تابعی ایجاد کنید که تزیینات چاپی می‌سازد.
+
+```python
+def make_box(*texts, padding=1, char="*"):
+    """
+    ایجاد کادر متن با فاصله.
+    مثال: make_box("Title", "Subtitle", padding=2, char="#")
+    """
+    # کد شما اینجا
+    pass
+
+# تست
+print(make_box("Welcome", padding=1, char="*"))
+# باید چیزی شبیه به این چاپ کند:
+# ***********
+# *         *
+# * Welcome *
+# *         *
+# ***********
+```
+
+### تمرین ۴: ترکیب‌کننده توابع
+
+تابعی ایجاد کنید که توابع دیگر را با آرگومان‌ها فراخوانی می‌کند.
+
+```python
+def apply_functions(value, *functions):
+    """
+    اعمال هر تابع به مقدار به ترتیب.
+    نتیجه نهایی را برمی‌گرداند.
+    """
+    # کد شما اینجا
+    pass
+
+# تست
+def double(x): return x * 2
+def add_one(x): return x + 1
+def square(x): return x ** 2
+
+result = apply_functions(3, double, add_one, square)
+# باید باشد: ((3 * 2) + 1) ** 2 = 49
+```
+
+---
 
 ## نکات کلیدی
 
-۱. **انواع پارامتر انعطاف‌پذیری فراهم می‌کنند** در نحوه فراخوانی توابع
-۲. **مقادیر پیش‌فرض پارامترها را اختیاری می‌کنند** اما نیاز به مدیریت دقیق دارند
-۳. **آرگومان‌های طول متغیر** (*args, **kwargs) ورودی‌های دلخواه را مدیریت می‌کنند
-۴. **باز کردن آرگومان** اجازه می‌دهد مجموعه‌ها به عنوان آرگومان‌های جداگانه ارسال شوند
-۵. **اعتبار سنجی پارامتر** قابلیت اطمینان تابع را تضمین می‌کند
-۶. **نام‌گذاری واضح و مستندسازی** قابلیت نگهداری کد را بهبود می‌بخشند
+1. **آرگومان‌های کلیدی‌واژه‌ای وضوح را بهبود می‌بخشند** - از آنها مخصوصاً با پارامترهای زیاد استفاده کنید
+2. **از پیش‌فرض‌های قابل تغییر اجتناب کنید** - از `None` استفاده کنید و داخل تابع بررسی کنید
+3. **`*args` آرگومان‌های موقعیتی اضافی را می‌گیرد** - یک تاپل می‌شود
+4. **`**kwargs` آرگومان‌های کلیدی‌واژه‌ای اضافی را می‌گیرد** - یک دیکشنری می‌شود
+5. **باز کردن با `*`** - از `func(*list)` برای منتقل کردن اعضای لیست به عنوان آرگومان‌های جداگانه استفاده کنید
+6. **باز کردن با `**`** - از `func(**dict)` برای منتقل کردن اعضای دیکشنری به عنوان آرگومان‌های کلیدی‌واژه‌ای استفاده کنید
+
+## کارت مرجع سریع
+
+| ویژگی | سینتکس | داخل تابع |
+|---------|--------|----------------|
+| پارامتر معمولی | `def f(a, b)` | متغیرهای عادی |
+| مقدار پیش‌فرض | `def f(a, b=1)` | b برابر ۱ اگر ارائه نشود |
+| پیش‌فرض قابل تغییر | `def f(a, b=None)` | بررسی `if b is None` |
+| موقعیتی متغیر | `def f(*args)` | `args` یک تاپل است |
+| کلیدی‌واژه‌ای متغیر | `def f(**kwargs)` | `kwargs` یک دیکشنری است |
+| باز کردن لیست | `f(*my_list)` | به عنوان آرگومان‌های جداگانه منتقل می‌کند |
+| باز کردن دیکشنری | `f(**my_dict)` | به عنوان آرگومان‌های کلیدی‌واژه‌ای منتقل می‌کند |
+
+---
 
 ## مطالعه بیشتر
-- مکانیسم‌های ارسال پارامتر پایتون
-- بهترین روش‌های type hinting
-- الگوهای ترکیب تابع
-- استراتژی‌های تست برای توابع پارامتری
+
+- **درس بعدی**: طراحی ماژولار - سازماندهی توابع در گروه‌های منطقی
+- **تمرین**: تمام تمرین‌های بالا را کامل کنید
+- **چالش**: یک چارچوب کوچک برای ساخت رابط‌های خط فرمان ایجاد کنید
+- **کاوش**: درباره دکوراتورهای تابع یاد بگیرید (`@decorator`)
