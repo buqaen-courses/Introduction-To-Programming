@@ -1,13 +1,13 @@
-# ساختارهای کنترلی: هدایت جریان برنامه
+# ساختارهای کنترل: هدایت جریان برنامه
 
-## ساختارهای کنترلی چیستند؟
+## ساختارهای کنترل چیستند؟
 
-ساختارهای کنترلی تعیین می‌کنند که دستورالعمل‌ها در یک برنامه به چه ترتیبی اجرا شوند. این ساختارها به برنامه‌ها اجازه می‌دهند تصمیم‌گیری کنند، اقدامات را تکرار کنند و به شرایط مختلف پاسخ دهند.
+ساختارهای کنترل ترتیب اجرای دستورات در یک برنامه را تعیین می‌کنند. آنها به برنامه‌ها اجازه می‌دهند تصمیم بگیرند، اقدامات را تکرار کنند، و به شرایط مختلف پاسخ دهند.
 
-## سه ساختار اساسی
+## سه ساختار کنترل بنیادی
 
-### ۱. توالی
-**تعریف**: دستورالعمل‌ها را به ترتیب اجرا کن، یکی پس از دیگری.
+### ۱. ترتیب (Sequence)
+**تعریف**: اجرای دستورات به ترتیب، یکی پس از دیگری.
 
 **نماد فلوچارت**: مستطیل
 
@@ -21,23 +21,23 @@ statement3
 **مثال‌های کد واقعی:**
 ```python
 # Python
-name = "علی"
-greeting = "سلام، " + name
+name = "Alice"
+greeting = "Hello, " + name
 print(greeting)
 
 # JavaScript
-let name = "علی";
-let greeting = "سلام، " + name;
+let name = "Alice";
+let greeting = "Hello, " + name;
 console.log(greeting);
 
 # Java
-String name = "علی";
-String greeting = "سلام، " + name;
+String name = "Alice";
+String greeting = "Hello, " + name;
 System.out.println(greeting);
 ```
 
 ### ۲. انتخاب (تصمیم‌گیری)
-**تعریف**: بر اساس شرایط، مسیرهای مختلف انتخاب کن.
+**تعریف**: انتخاب بین مسیرهای مختلف بر اساس شرایط.
 
 **نماد فلوچارت**: لوزی
 
@@ -49,9 +49,9 @@ END IF
 ```
 
 ```python
-# بررسی عدد مثبت بودن
+# بررسی اگر عدد مثبت است
 if number > 0:
-    print("عدد مثبت است")
+    print("Number is positive")
 ```
 
 #### IF-ELSE
@@ -64,11 +64,11 @@ END IF
 ```
 
 ```python
-# بررسی قبول/رد
+# بررسی قبول/مردود
 if score >= 60:
-    print("قبول")
+    print("Pass")
 else:
-    print("رد")
+    print("Fail")
 ```
 
 #### انتخاب چندگانه (IF-ELSEIF)
@@ -83,7 +83,7 @@ END IF
 ```
 
 ```python
-# ماشین نمره‌دهی
+# محاسبه‌گر نمره
 if score >= 90:
     grade = "A"
 elif score >= 80:
@@ -91,10 +91,10 @@ elif score >= 80:
 elif score >= 70:
     grade = "C"
 else:
-    grade = "D"
+    grade = "F"
 ```
 
-#### IFهای تودرتو
+#### دستورات IF تودرتو
 ```
 IF outer_condition THEN
     IF inner_condition THEN
@@ -107,19 +107,19 @@ END IF
 # شرط پیچیده
 if age >= 18:
     if has_license:
-        print("می‌تواند رانندگی کند")
+        print("Can drive")
     else:
-        print("نیاز به گواهینامه دارد")
+        print("Needs license")
 else:
-    print("سن کافی ندارد")
+    print("Too young")
 ```
 
 ### ۳. تکرار (حلقه)
-**تعریف**: دستورالعمل‌ها را چندین بار تکرار کن.
+**تعریف**: تکرار دستورات چندین بار.
 
-**نماد فلوچارت**: مستطیل با منحنی پایین
+**نماد فلوچارت**: مستطیل با پایین منحنی
 
-#### حلقه پیش‌تست (WHILE)
+#### حلقه پیش‌آزمون (WHILE)
 ```
 WHILE condition DO
     statements
@@ -134,7 +134,7 @@ while count <= 5:
     count += 1
 ```
 
-#### حلقه پس‌تست (DO-WHILE/REPEAT-UNTIL)
+#### حلقه پس‌آزمون (DO-WHILE/REPEAT-UNTIL)
 ```
 REPEAT
     statements
@@ -144,13 +144,13 @@ UNTIL condition
 ```python
 # پیاده‌سازی Python (با استفاده از while True)
 while True:
-    user_input = input("برای خروج 'quit' تایپ کنید: ")
+    user_input = input("Enter 'quit' to exit: ")
     if user_input == "quit":
         break
-    print(f"شما تایپ کردید: {user_input}")
+    print(f"You entered: {user_input}")
 ```
 
-#### حلقه شمارش‌شده (FOR)
+#### حلقه شمارشی (FOR)
 ```
 FOR counter FROM start TO end DO
     statements
@@ -163,30 +163,30 @@ for i in range(1, 6):
     print(i)
 
 # حلقه روی مجموعه
-fruits = ["سیب", "موز", "گیلاس"]
+fruits = ["apple", "banana", "cherry"]
 for fruit in fruits:
     print(fruit)
 ```
 
-## ساختارهای کنترلی پیشرفته
+## ساختارهای کنترل پیشرفته
 
 ### دستورات کنترل حلقه
 
 #### BREAK
-فوراً از حلقه خارج شود:
+خروج فوری از حلقه:
 ```python
 # یافتن اولین عدد زوج
 numbers = [1, 3, 5, 6, 8, 9]
 for num in numbers:
     if num % 2 == 0:
-        print(f"اولین عدد زوج: {num}")
+        print(f"First even: {num}")
         break
 ```
 
 #### CONTINUE
-به تکرار بعدی برود:
+پرش به تکرار بعدی:
 ```python
-# فقط اعداد فرد را چاپ کن
+# چاپ فقط اعداد فرد
 for num in range(10):
     if num % 2 == 0:
         continue
@@ -194,69 +194,69 @@ for num in range(10):
 ```
 
 #### ELSE در حلقه‌ها
-وقتی حلقه به طور طبیعی تمام شود اجرا شود:
+اجرا وقتی حلقه به طور عادی تکمیل می‌شود:
 ```python
-# جستجو با نشان نتیجه
+# جستجو با نشان دادن نتیجه
 def find_item(items, target):
     for item in items:
         if item == target:
-            print(f"یافت شد {target}")
+            print(f"Found {target}")
             break
     else:
-        print(f"{target} یافت نشد")
+        print(f"{target} not found")
 ```
 
-### Switch/Case (در برخی زبان‌ها)
+### Switch/Case (در بعضی زبان‌ها)
 انتخاب چندگانه بر اساس مقدار:
 ```javascript
 // JavaScript
 switch (grade) {
     case 'A':
-        console.log("عالی");
+        console.log("Excellent");
         break;
     case 'B':
-        console.log("خوب");
+        console.log("Good");
         break;
     case 'C':
-        console.log("متوسط");
+        console.log("Average");
         break;
     default:
-        console.log("نیاز به تلاش بیشتر");
+        console.log("Needs improvement");
 }
 ```
 
-## الگوهای ساختار کنترلی
+## الگوهای ساختار کنترل
 
 ### حلقه اعتبارسنجی ورودی
 ```python
-# تا زمانی که ورودی معتبر وارد شود ادامه بده
+# تا دریافت ورودی معتبر ادامه بده
 while True:
     try:
-        age = int(input("سن را وارد کنید: "))
+        age = int(input("Enter age: "))
         if age >= 0 and age <= 120:
             break
         else:
-            print("سن باید بین ۰ تا ۱۲۰ باشد")
+            print("Age must be between 0 and 120")
     except ValueError:
-        print("لطفاً عدد وارد کنید")
+        print("Please enter a valid number")
 
-print(f"سن معتبر: {age}")
+print(f"Valid age: {age}")
 ```
 
 ### سیستم منو
 ```python
 def show_menu():
-    print("۱. اضافه کردن آیتم")
-    print("۲. حذف آیتم")
-    print("۳. لیست آیتم‌ها")
-    print("۴. خروج")
+    print("1. Add item")
+    print("2. Remove item")
+    print("3. List items")
+    print("4. Exit")
 
 while True:
     show_menu()
-    choice = input("گزینه را انتخاب کنید: ")
+    choice = input("Choose option: ")
 
     if choice == "1":
-        # منطق اضافه کردن آیتم
+        # منطق افزودن آیتم
         pass
     elif choice == "2":
         # منطق حذف آیتم
@@ -267,28 +267,28 @@ while True:
     elif choice == "4":
         break
     else:
-        print("گزینه نامعتبر")
+        print("Invalid choice")
 ```
 
 ### پردازش مجموعه‌ها
 ```python
-# پردازش آرایه با اقدامات مختلف
+# پردازش لیست با اقدامات مختلف
 numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
 for num in numbers:
     if num % 2 == 0:
-        print(f"{num} زوج است")
+        print(f"{num} is even")
     elif num % 3 == 0:
-        print(f"{num} بر ۳ بخش‌پذیر است")
+        print(f"{num} is divisible by 3")
     else:
-        print(f"{num} فرد است و بر ۳ بخش‌پذیر نیست")
+        print(f"{num} is odd and not divisible by 3")
 ```
 
-## ساختارهای کنترلی در زبان‌های مختلف
+## جریان کنترل در زبان‌های مختلف
 
-### ساختارهای کنترلی Python
+### ساختارهای کنترل Python
 ```python
-# IF statement
+# دستور IF
 if condition:
     # code
 elif another_condition:
@@ -296,18 +296,18 @@ elif another_condition:
 else:
     # code
 
-# FOR loop
+# حلقه FOR
 for item in iterable:
     # code
 
-# WHILE loop
+# حلقه WHILE
 while condition:
     # code
 ```
 
-### ساختارهای کنترلی JavaScript
+### ساختارهای کنترل JavaScript
 ```javascript
-// IF statement
+// دستور IF
 if (condition) {
     // code
 } else if (another_condition) {
@@ -316,20 +316,20 @@ if (condition) {
     // code
 }
 
-// FOR loop
+// حلقه FOR
 for (let i = 0; i < 10; i++) {
     // code
 }
 
-// WHILE loop
+// حلقه WHILE
 while (condition) {
     // code
 }
 ```
 
-### ساختارهای کنترلی Java
+### ساختارهای کنترل Java
 ```java
-// IF statement
+// دستور IF
 if (condition) {
     // code
 } else if (another_condition) {
@@ -338,22 +338,22 @@ if (condition) {
     // code
 }
 
-// FOR loop
+// حلقه FOR
 for (int i = 0; i < 10; i++) {
     // code
 }
 
-// WHILE loop
+// حلقه WHILE
 while (condition) {
     // code
 }
 ```
 
-## اشتباهات رایج ساختار کنترلی
+## اشتباهات رایج ساختار کنترل
 
-### خطاهای خارج از محدوده
+### خطاهای off-by-one
 ```python
-# اشتباه: حلقه ۱۱ بار اجرا می‌شود به جای ۱۰
+# اشتباه: حلقه ۱۱ بار به جای ۱۰ بار اجرا می‌شود
 for i in range(11):  # ۰ تا ۱۰ شامل
     print(i)
 
@@ -361,7 +361,7 @@ for i in range(11):  # ۰ تا ۱۰ شامل
 for i in range(10):  # ۰ تا ۹
     print(i)
 
-# یا به طور واضح‌تر
+# یا صریح‌تر
 for i in range(1, 11):  # ۱ تا ۱۰
     print(i)
 ```
@@ -370,7 +370,7 @@ for i in range(1, 11):  # ۱ تا ۱۰
 ```python
 # حلقه بی‌نهایت - شرط هرگز false نمی‌شود
 while True:
-    user_input = input("برای خروج 'quit' تایپ کنید: ")
+    user_input = input("Enter 'quit' to exit: ")
     if user_input == "quit":
         break  # بدون این، حلقه هرگز تمام نمی‌شود
 
@@ -381,16 +381,16 @@ while counter < 10:
     # فراموش کردن افزایش counter!
 ```
 
-### مشکل else آویزان
+### مشکل ELSE معلق
 ```python
-# else متعلق به کدام if است؟
+# ELSE متعلق به کدام IF است؟
 if condition1:
     if condition2:
         statement1
-else:  # متعلق به if داخلی است، نه بیرونی
+else:  # متعلق به IF درونی است، نه بیرونی
     statement2
 
-# با تورفتگی و آکولاد مناسب توضیح دهید
+# با تورفتگی و آکولاد مناسب روشن کنید
 if condition1:
     if condition2:
         statement1
@@ -400,14 +400,14 @@ if condition1:
 
 ### محدوده متغیر حلقه
 ```python
-# در برخی زبان‌ها، متغیرهای حلقه به حلقه محدود می‌شوند
+# در بعضی زبان‌ها، متغیرهای حلقه در حلقه محدود می‌شوند
 for (int i = 0; i < 10; i++) {
     // i فقط در این حلقه وجود دارد
 }
-// i اینجا در دسترس نیست
+// i اینجا قابل دسترسی نیست
 ```
 
-## ساختارهای کنترلی تودرتو
+## ساختارهای کنترل تودرتو
 
 ### حلقه‌های تودرتو
 ```python
@@ -415,12 +415,12 @@ for (int i = 0; i < 10; i++) {
 for i in range(1, 4):
     for j in range(1, 4):
         print(f"{i} × {j} = {i * j}")
-    print()  # خط خالی پس از هر ردیف
+    print()  # خط خالی پس از هر سطر
 ```
 
 ### حلقه با انتخاب
 ```python
-# پردازش نمرات دانش‌آموزان
+# پردازش نمرات دانشجویان
 grades = [85, 92, 78, 96, 88]
 for grade in grades:
     if grade >= 90:
@@ -430,62 +430,62 @@ for grade in grades:
     elif grade >= 70:
         print(f"{grade}: C")
     else:
-        print(f"{grade}: D")
+        print(f"{grade}: F")
 ```
 
 ### انتخاب با حلقه‌ها
 ```python
-# پردازش مختلف بر اساس انتخاب کاربر
-choice = input("انتخاب کنید: (۱) مجموع (۲) حاصل‌ضرب: ")
+# پردازش متفاوت بر اساس انتخاب کاربر
+choice = input("Choose: (1) Sum (2) Product: ")
 
 if choice == "1":
     total = 0
     for num in numbers:
         total += num
-    print(f"مجموع: {total}")
+    print(f"Sum: {total}")
 elif choice == "2":
     product = 1
     for num in numbers:
         product *= num
-    print(f"حاصل‌ضرب: {product}")
+    print(f"Product: {product}")
 ```
 
-## روش‌های بهتر ساختار کنترلی
+## بهترین شیوه‌های ساختار کنترل
 
-### قابلیت خواندن
-- از نام‌های متغیر توصیفی و واضح استفاده کنید
-- برای شرایط پیچیده کامنت اضافه کنید
-- تورفتگی سازگار
-- از ساختارهای تودرتو عمیق اجتناب کنید
+### خوانایی
+- استفاده از نام‌های متغیر واضح و توصیفی
+- افزودن توضیحات برای شرایط پیچیده
+- تورفتگی مناسب
+- اجتناب از ساختارهای عمیق تودرتو
 
 ### قابلیت نگهداری
-- اصل مسئولیت واحد
-- شرایط پیچیده را به توابع استخراج کنید
-- از بازگشت‌های زودهنگام برای کاهش تودرتو استفاده کنید
-- عمق حلقه را به ۲-۳ سطح محدود کنید
+- اصل تک مسئولیتی
+- استخراج شرایط پیچیده به توابع
+- استفاده از return زودهنگام برای کاهش تودرتویی
+- محدود کردن عمق حلقه به ۲-۳ سطح
 
 ### عملکرد
-- از کار غیرضروری در حلقه‌ها اجتناب کنید
-- از انواع حلقه مناسب استفاده کنید
-- برای کد حیاتی عملکرد، از باز کردن حلقه در نظر بگیرید
-- در صورت امکان زود بشکنید
+- اجتناب از کار غیرضروری در حلقه‌ها
+- استفاده از انواع حلقه مناسب
+- در نظر گرفتن unrolling حلقه برای کد حساس به عملکرد
+- BREAK زودهنگام وقتی ممکن است
 
 ### مدیریت خطا
-- ورودی‌ها را قبل از پردازش اعتبارسنجی کنید
-- موارد لبه را در شرایط مدیریت کنید
-- از try-catch برای خطاهای غیرمنتظره استفاده کنید
-- پیام‌های خطای معنادار ارائه دهید
+- اعتبارسنجی ورودی‌ها قبل از پردازش
+- مدیریت موارد خاص در شرایط
+- استفاده از try-catch برای خطاهای غیرمنتظره
+- ارائه پیام‌های خطای معنی‌دار
 
 ## نکات کلیدی
 
-۱. **سه ساختار اساسی تمام نیازهای برنامه‌نویسی را پوشش می‌دهند**: توالی، انتخاب و تکرار
-۲. **انتخاب جریان را از طریق تصمیم‌ها کنترل می‌کند**: ساختارهای IF-ELSE شرایط مختلف را مدیریت می‌کنند
-۳. **تکرار امکان تکرار را فراهم می‌کند**: حلقه‌ها مجموعه‌ها را پردازش می‌کنند و اقدامات را تکرار می‌کنند
-۴. **کنترل جریان اجرای برنامه را هدایت می‌کند**: برنامه‌ها می‌توانند به شرایط مختلف پاسخ دهند
-۵. **ساختار مناسب کد را بهبود می‌بخشد**: خوانا، قابل نگهداری و صحیح
+1. **سه ساختار بنیادی**: ترتیب، انتخاب، و تکرار همه نیازهای برنامه‌نویسی را پوشش می‌دهند
+2. **انتخاب کنترل تصمیم‌ها**: ساختارهای IF-ELSE شرایط مختلف را مدیریت می‌کنند
+3. **تکرار امکان تکرار را فراهم می‌کند**: حلقه‌ها مجموعه‌ها را پردازش و اقدامات را تکرار می‌کنند
+4. **جریان کنترل اجرا را هدایت می‌کند**: برنامه‌ها می‌توانند به شرایط مختلف سازگار شوند
+5. **ساختار مناسب برنامه را بهبود می‌بخشد**: برنامه‌های خوانا، قابل نگهداری، و صحیح
 
 ## مطالعه بیشتر
-- اصول برنامه‌نویسی ساخت‌یافته را مطالعه کنید
-- ساختارهای کنترلی در زبان‌های مختلف را بیاموزید
-- الگوهای جریان کنترلی پیشرفته را کاوش کنید
-- نمودارهای جریان و تحلیل برنامه را درک کنید
+- مطالعه اصول برنامه‌نویسی ساختاریافته
+- یادگیری درباره ساختارهای کنترل در زبان‌های مختلف
+- بررسی الگوهای پیشرفته جریان کنترل
+- درک نمودارهای جریان کنترل و تحلیل برنامه

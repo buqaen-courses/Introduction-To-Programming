@@ -1,19 +1,19 @@
-# مبانی شبه‌کد: پل بین الگوریتم‌ها و کد
+# اصول شبه‌کد: پلی بین الگوریتم و کد
 
 ## شبه‌کد چیست؟
 
-شبه‌کد توصیف دقیقی از یک الگوریتم است که از ترکیبی از زبان طبیعی و ساختارهای شبیه به برنامه‌نویسی استفاده می‌کند. برای خواندن توسط انسان‌ها طراحی شده اما به اندازه کافی دقیق است تا به هر زبان برنامه‌نویسی ترجمه شود.
+شبه‌کد توصیف دقیق و ساختاریافته یک الگوریتم با استفاده از ترکیبی از زبان طبیعی و ساختارهای شبیه برنامه‌نویسی است. طراحی شده برای خوانایی انسان در حالی که دقیق‌ترین برای ترجمه به هر زبان برنامه‌نویسی است.
 
 ## چرا از شبه‌کد استفاده کنیم؟
 
 ### مزایا
 - **مستقل از زبان**: می‌تواند در هر زبان برنامه‌نویسی پیاده‌سازی شود
 - **تمرکز روی منطق**: از حواس‌پرتی‌های نحوی اجتناب می‌کند
-- **آسانی تغییر**: ساده برای اصلاح و بهبود
-- **ابزار ارتباطی**: راه واضحی برای به اشتراک گذاشتن الگوریتم‌ها
-- **ابزار برنامه‌ریزی**: قبل از کد نویسی فکر کنید
+- **راحتی تغییر**: تغییر و اصلاح ساده
+- **ابزار ارتباطی**: راه واضح برای اشتراک الگوریتم‌ها
+- **ابزار برنامه‌ریزی**: قبل از کدنویسی منطق را بررسی کنید
 
-### چه زمانی از شبه‌کد استفاده کنیم
+### چه موقع از شبه‌کد استفاده کنیم
 - طراحی الگوریتم‌ها قبل از پیاده‌سازی
 - توضیح الگوریتم‌ها به دیگران
 - برنامه‌ریزی برنامه‌های پیچیده
@@ -24,7 +24,7 @@
 
 ### عناصر پایه
 
-#### متغیرها و تخصیص
+#### متغیرها و انتساب
 ```
 SET variable_name TO value
 variable_name ← value
@@ -55,7 +55,7 @@ Step 2: Do next thing
 Step 3: Do final thing
 ```
 
-#### ساختار مدولار
+#### ساختار ماژولار
 ```
 FUNCTION function_name(parameters)
     // Function body
@@ -67,16 +67,18 @@ PROCEDURE procedure_name(parameters)
 END PROCEDURE
 ```
 
-## ساختارهای کنترلی در شبه‌کد
+## ساختارهای کنترل در شبه‌کد
 
-### توالی
-**تعریف**: عبارت‌ها را به ترتیب اجرا کن، یکی پس از دیگری.
+### ترتیب
+**تعریف**: اجرای دستورات به ترتیب، یکی پس از دیگری.
 
-**شبه‌کد:**
 ```
-statement1
-statement2
-statement3
+BEGIN
+    READ number1
+    READ number2
+    sum ← number1 + number2
+    WRITE "Sum is: " + sum
+END
 ```
 
 ### انتخاب (تصمیم‌گیری)
@@ -91,51 +93,53 @@ END IF
 #### IF-ELSE
 ```
 IF condition THEN
-    true_statements
+    statement(s) for true case
 ELSE
-    false_statements
+    statement(s) for false case
 END IF
 ```
 
 #### IF تودرتو
 ```
-IF outer_condition THEN
-    IF inner_condition THEN
+IF condition1 THEN
+    IF condition2 THEN
         statement(s)
     END IF
+ELSE
+    statement(s)
 END IF
 ```
 
 #### انتخاب چندگانه (IF-ELSEIF)
 ```
 IF condition1 THEN
-    statements1
+    statement(s) 1
 ELSE IF condition2 THEN
-    statements2
+    statement(s) 2
 ELSE IF condition3 THEN
-    statements3
+    statement(s) 3
 ELSE
-    default_statements
+    default statement(s)
 END IF
 ```
 
 ### تکرار (حلقه)
 
-#### حلقه پیش‌تست (WHILE)
+#### حلقه پیش‌آزمون (WHILE)
 ```
 WHILE condition DO
     statement(s)
 END WHILE
 ```
 
-#### حلقه پس‌تست (REPEAT-UNTIL)
+#### حلقه پس‌آزمون (REPEAT-UNTIL)
 ```
 REPEAT
     statement(s)
 UNTIL condition
 ```
 
-#### حلقه شمارش‌شده (FOR)
+#### حلقه شمارشی (FOR)
 ```
 FOR counter FROM start TO end DO
     statement(s)
@@ -148,15 +152,15 @@ END FOR
 
 #### کنترل حلقه
 ```
-BREAK    // فوراً از حلقه خارج شود
-CONTINUE // به تکرار بعدی برود
+BREAK    // خروج فوری از حلقه
+CONTINUE // پرش به تکرار بعدی
 ```
 
 ## مثال‌های شبه‌کد
 
 ### محاسبه ساده
 ```
-ALGORITHM CalculateAverage
+الگوریتم CalculateAverage
     // محاسبه میانگین سه عدد
 
     DECLARE num1, num2, num3, average AS REAL
@@ -169,13 +173,13 @@ ALGORITHM CalculateAverage
     average ← (num1 + num2 + num3) / 3
 
     WRITE "Average is: " + average
-END ALGORITHM
+END الگوریتم
 ```
 
 ### تصمیم‌گیری
 ```
-ALGORITHM CheckGrade
-    // تعیین نمره حرف از امتیاز
+الگوریتم CheckGrade
+    // تعیین نمره حرفی از نمره عددی
 
     DECLARE score AS INTEGER
     DECLARE grade AS STRING
@@ -196,13 +200,13 @@ ALGORITHM CheckGrade
     END IF
 
     WRITE "Grade: " + grade
-END ALGORITHM
+END الگوریتم
 ```
 
 ### حلقه
 ```
-ALGORITHM SumNumbers
-    // مجموع اعداد از ۱ تا n
+الگوریتم SumNumbers
+    // جمع اعداد از ۱ تا n
 
     DECLARE n, sum, counter AS INTEGER
 
@@ -218,19 +222,19 @@ ALGORITHM SumNumbers
     END WHILE
 
     WRITE "Sum is: " + sum
-END ALGORITHM
+END الگوریتم
 ```
 
 ### الگوریتم پیچیده
 ```
-ALGORITHM FindMaximum
-    // یافتن مقدار حداکثر در آرایه
+الگوریتم FindMaximum
+    // یافتن بزرگ‌ترین مقدار در آرایه
 
     DECLARE array AS ARRAY OF INTEGER
     DECLARE max_value, i AS INTEGER
     DECLARE size AS INTEGER
 
-    // Assume array is initialized
+    // فرض کنید آرایه مقداردهی شده است
     size ← LENGTH(array)
 
     IF size = 0 THEN
@@ -247,7 +251,7 @@ ALGORITHM FindMaximum
     END FOR
 
     WRITE "Maximum value: " + max_value
-END ALGORITHM
+END الگوریتم
 ```
 
 ## ساختارهای داده در شبه‌کد
@@ -255,8 +259,8 @@ END ALGORITHM
 ### آرایه‌ها
 ```
 DECLARE numbers AS ARRAY[10] OF INTEGER
-numbers[0] ← 10
-numbers[1] ← 20
+numbers[0] ← 5
+numbers[1] ← 10
 
 FOR i FROM 0 TO 9 DO
     numbers[i] ← i * 2
@@ -272,7 +276,7 @@ TYPE Student RECORD
 END RECORD
 
 DECLARE student AS Student
-student.name ← "علی"
+student.name ← "Alice"
 student.age ← 20
 student.grade ← 95.5
 ```
@@ -280,44 +284,44 @@ student.grade ← 95.5
 ### لیست‌ها/مجموعه‌ها
 ```
 DECLARE names AS LIST OF STRING
-ADD "علی" TO names
-ADD "رضا" TO names
-REMOVE "علی" FROM names
+ADD "Alice" TO names
+ADD "Bob" TO names
+REMOVE "Alice" FROM names
 
 FOR each name IN names DO
     WRITE name
 END FOR
 ```
 
-## توابع و رویه‌ها
+## توابع و روال‌ها
 
-### تابع با مقدار بازگشتی
+### تابع با مقدار برگشتی
 ```
 FUNCTION CalculateArea(length, width)
-    // Calculate rectangle area
+    // محاسبه مساحت مستطیل
     RETURN length × width
 END FUNCTION
 
-// Usage
+// استفاده
 area ← CalculateArea(5, 3)
 WRITE "Area: " + area
 ```
 
-### رویه (بدون مقدار بازگشتی)
+### روال (بدون مقدار برگشتی)
 ```
 PROCEDURE PrintGreeting(name)
     WRITE "Hello, " + name + "!"
     WRITE "Welcome to our program."
 END PROCEDURE
 
-// Usage
-PrintGreeting("علی")
+// استفاده
+PrintGreeting("Alice")
 ```
 
 ### تابع بازگشتی
 ```
 FUNCTION Factorial(n)
-    // Calculate n!
+    // محاسبه n!
     IF n = 0 OR n = 1 THEN
         RETURN 1
     ELSE
@@ -333,7 +337,7 @@ END FUNCTION
 FUNCTION SafeDivide(dividend, divisor)
     IF divisor = 0 THEN
         WRITE "Error: Division by zero"
-        RETURN 0  // Or some error value
+        RETURN 0  // یا مقدار خطای دیگر
     ELSE
         RETURN dividend / divisor
     END IF
@@ -358,49 +362,80 @@ PROCEDURE GetValidAge()
 END PROCEDURE
 ```
 
-## کامنت‌ها و مستندسازی
+## توضیحات و مستندسازی
 
-### کامنت‌های درون خطی
+### توضیحات درون‌خطی
 ```
-total ← 0  // Initialize sum variable
-count ← 0  // Initialize counter
+total ← 0  // مقداردهی اولیه متغیر sum
+count ← 0  // مقداردهی اولیه شمارنده
 ```
 
-### کامنت‌های بلوکی
+### توضیحات بلوکی
 ```
 /*
- * This function calculates the average of an array
- * Input: array of numbers
- * Output: average value
+ * این تابع میانگین یک آرایه را محاسبه می‌کند
+ * ورودی: آرایه اعداد
+ * خروجی: مقدار میانگین
  */
 FUNCTION CalculateAverage(numbers)
-    // Implementation here
+    // پیاده‌سازی اینجا
 END FUNCTION
 ```
 
-## روش‌های بهتر برای شبه‌کد
+## بهترین شیوه‌ها برای شبه‌کد
 
 ### وضوح
-- از نام‌های متغیر معنادار استفاده کنید
-- در مورد عملیات‌ها خاص باشید
-- کامنت‌هایی برای منطق پیچیده اضافه کنید
+- استفاده از نام‌های متغیر معنی‌دار
+- مشخص بودن درباره عملیات
+- افزودن توضیحات برای منطق پیچیده
 
-### سازگاری
-- از تورفتگی سازگار استفاده کنید
-- از کنوانسیون‌های نام‌گذاری سازگار پیروی کنید
-- از فرمت‌های ساختار کنترلی استاندارد استفاده کنید
+### ثبات
+- استفاده از تورفتگی مناسب
+- پیروی از قراردادهای نام‌گذاری مداوم
+- استفاده از فرمت‌های استاندارد ساختار کنترل
 
 ### کامل بودن
-- تمام موارد ممکن را مدیریت کنید
-- شرایط خطا را شامل شود
-- الزامات ورودی/خروجی را مشخص کنید
+- مدیریت همه موارد ممکن
+- شامل کردن شرایط خطا
+- مشخص کردن نیازمندی‌های ورودی/خروجی
 
-### استقلال از زبان
-- از نحو زبان برنامه‌نویسی خاص استفاده نکنید
-- از سازه‌های عمومی استفاده کنید
-- روی منطق الگوریتمی تمرکز کنید
+### مستقل از زبان
+- اجتناب از نحو خاص زبان برنامه‌نویسی
+- استفاده از ساختارهای عمومی
+- تمرکز روی منطق الگوریتمی
 
-## الگوهای شبه‌کد رایج
+## ترجمه شبه‌کد به کد
+
+### پیاده‌سازی Python
+```
+# شبه‌کد
+IF score >= 90 THEN
+    grade ← "A"
+ELSE IF score >= 80 THEN
+    grade ← "B"
+END IF
+
+# Python
+if score >= 90:
+    grade = "A"
+elif score >= 80:
+    grade = "B"
+```
+
+### پیاده‌سازی JavaScript
+```
+# شبه‌کد
+FOR i FROM 0 TO 9 DO
+    WRITE i
+END FOR
+
+// JavaScript
+for (let i = 0; i < 10; i++) {
+    console.log(i);
+}
+```
+
+## الگوهای رایج شبه‌کد
 
 ### جستجوی خطی
 ```
@@ -410,7 +445,7 @@ FUNCTION LinearSearch(array, target)
             RETURN i
         END IF
     END FOR
-    RETURN -1
+    RETURN -1  // پیدا نشد
 END FUNCTION
 ```
 
@@ -430,7 +465,7 @@ PROCEDURE BubbleSort(array)
 END PROCEDURE
 ```
 
-### جستجوی باینری
+### جستجوی دودویی
 ```
 FUNCTION BinarySearch(array, target)
     DECLARE left, right, mid AS INTEGER
@@ -449,20 +484,20 @@ FUNCTION BinarySearch(array, target)
         END IF
     END WHILE
 
-    RETURN -1  // Not found
+    RETURN -1  // پیدا نشد
 END FUNCTION
 ```
 
 ## نکات کلیدی
 
-۱. **شبه‌کد مستندسازی الگوریتم است**: به اندازه کافی دقیق برای پیاده‌سازی، به اندازه کافی خوانا برای انسان‌ها
-۲. **ساختارهای کنترلی اساسی هستند**: توالی، انتخاب و تکرار تمام نیازهای برنامه‌نویسی را پوشش می‌دهند
-۳. **طراحی مستقل از زبان**: روی منطق تمرکز کن، نه نحو
-۴. **آسانی اصلاح و بهبود**: ساده برای بهبود الگوریتم‌ها قبل از کد نویسی
-۵. **پل بین تفکر و کد نویسی**: ایده‌ها را به شکل ساخت‌یافته تبدیل می‌کند
+1. **شبه‌کد مستندسازی الگوریتم است**: دقیق‌ترین برای پیاده‌سازی، خواناترین برای انسان
+2. **ساختارهای کنترل بنیادی**: ترتیب، انتخاب، و تکرار همه نیازهای برنامه‌نویسی را پوشش می‌دهند
+3. **طراحی مستقل از زبان**: تمرکز روی منطق، نه نحو
+4. **راحتی اصلاح و بهبود**: ساده برای بهبود الگوریتم‌ها قبل از کدنویسی
+5. **پل بین فکر و کد**: تبدیل ایده‌ها به شکل ساختاریافته
 
 ## مطالعه بیشتر
-- اصول برنامه‌نویسی ساخت‌یافته را مطالعه کنید
-- تکنیک‌های طراحی الگوریتم را بیاموزید
-- کنوانسیون‌های مختلف شبه‌کد را کاوش کنید
+- مطالعه اصول برنامه‌نویسی ساختاریافته
+- یادگیری درباره تکنیک‌های طراحی الگوریتم
+- بررسی قراردونده‌های مختلف شبه‌کد
 - تمرین ترجمه شبه‌کد به زبان‌های برنامه‌نویسی مختلف

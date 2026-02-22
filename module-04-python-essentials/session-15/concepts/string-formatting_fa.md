@@ -1,299 +1,271 @@
-# قالب‌بندی رشته‌ها: ایجاد خروجی حرفه‌ای
+# قالب‌بندی رشته در پایتون
 
-## چه چیزی یاد خواهید گرفت
-- نحوه استفاده از f-string برای درج متغیرها در متن
-- نحوه قالب‌بندی اعداد (اعشار، ارز، درصد)
-- نحوه تراز کردن متن در ستون‌ها
-- نحوه ایجاد خروجی تمیز و خوانا
-
----
-
-## قالب‌بندی رشته چیست؟ (مثال کتاب‌های Mad Libs)
-
-آیا کتاب‌های Mad Libs را به خاطر دارید؟ یک داستان با جاهای خالی مثل "اسم من ______ است و من ______ سال دارم." قالب‌بندی رشته دقیقاً شبیه پر کردن این جاهای خالی با مقادیر شماست.
-
-### مشکل: ساختن رشته به روش قدیمی و نامرتب
-
-```python
-# روش قدیمی و سخت‌خوان (این کار را نکنید!)
-name = "Alice"
-age = 25
-message = "My name is " + name + ", I am " + str(age) + " years old."
-# خواندن سخت، خطا زدن آسان!
-```
-
-### راه‌حل: F-String‌ها
-
-```python
-# تمیز، خوانا و حرفه‌ای!
-name = "Alice"
-age = 25
-message = f"My name is {name}, I am {age} years old."
-# خیلی بهتر!
-```
+## آنچه خواهید آموخت
+- چگونه متن و اعداد را زیبا نمایش دهید
+- f-strings - روش مدرن پایتون
+- قالب‌بندی اعداد، ارز، و درصد
+- ترازبندی و عرض فیلد
 
 ---
 
-## F-String‌ها: روش مدرن
+## چرا قالب‌بندی؟
 
-**F-String‌ها** (رشته‌های لغوی قالب‌بندی‌شده) ساده‌ترین راه برای قالب‌بندی رشته در پایتون هستند. بهترین انتخاب برای مبتدی‌ها!
-
-### استفاده پایه F-String
-
+بدون قالب‌بندی:
 ```python
-# قبل از رشته 'f' بگذارید، از {متغیرها} داخل استفاده کنید
-name = "Alice"
-age = 25
-
-message = f"Hello, my name is {name} and I am {age} years old."
-# Result: "Hello, my name is Alice and I am 25 years old."
+price = 19.99999
+print("Price: $" + str(price))  # Price: $19.99999
 ```
 
-### انجام ریاضی در F-String‌ها
+با قالب‌بندی:
+```python
+print(f"Price: ${price:.2f}")   # Price: $20.00
+```
+
+**مزایا:**
+- خواناتر
+- کنترل بیشتر
+- کد کمتر
+
+---
+
+## f-strings (توصیه می‌شود!)
+
+f-strings راه آسان برای ترکیب متن و متغیرها هستند.
+
+### ساختار پایه
 
 ```python
+# f قبل از کوتیشن
+name = "Alice"
+print(f"Hello, {name}!")
+```
+
+### عبارات در داخل آکولادها
+
+```python
+age = 25
+print(f"Next year you'll be {age + 1}")  # Next year you'll be 26
+
 a, b = 10, 3
-result = f"{a} + {b} = {a + b}"
-# Result: "10 + 3 = 13"
-
-price = 50
-discount = 10
-final = f"Price: ${price}, Discount: ${discount}, Total: ${price - discount}"
-# Result: "Price: $50, Discount: $10, Total: $40"
+print(f"{a} divided by {b} is {a / b:.2f}")  # 10 divided by 3 is 3.33
 ```
 
 ---
 
 ## قالب‌بندی اعداد
 
-### کنترل اعشار
+### رقم اعشار
 
 ```python
 pi = 3.14159265359
 
-# نمایش 2 رقم اعشار
-print(f"Pi: {pi:.2f}")      # "Pi: 3.14"
-
-# نمایش 4 رقم اعشار
-print(f"Pi: {pi:.4f}")      # "Pi: 3.1416"
+print(f"Pi: {pi:.2f}")    # Pi: 3.14
+print(f"Pi: {pi:.4f}")    # Pi: 3.1416 (گرد می‌کند!)
+print(f"Pi: {pi:.0f}")    # Pi: 3
 ```
 
-### قالب‌بندی ارز
+**کدها:**
+- `f` = اعشاری (float)
+- `.2` = 2 رقم اعشار
+- گرد کردن خودکار
+
+### اعداد صحیح
 
 ```python
-price = 29.99
+number = 42
 
-# فرمت ارز پایه
-print(f"Price: ${price:.2f}")      # "Price: $29.99"
-
-# اعداد بزرگ با کاما
-big_price = 1234.50
-print(f"Price: ${big_price:,.2f}")  # "Price: $1,234.50"
+print(f"Number: {number:d}")   # Number: 42
+print(f"Number: {number:5d}")  # Number:    42 (عرض 5)
 ```
 
-### قالب‌بندی درصد
+### جداکننده هزارگان
 
 ```python
-ratio = 0.856
+large = 1234567890
 
-# تبدیل به درصد
-print(f"Success rate: {ratio:.1%}")  # "Success rate: 85.6%"
-
-# درصد با 0 اعشار
-print(f"Completed: {ratio:.0%}")     # "Completed: 86%"
+print(f"{large:,}")       # 1,234,567,890
+print(f"${large:,.2f}")   # $1,234,567,890.00
 ```
 
 ---
 
-## تراز کردن متن
+## قالب‌بندی ارز
 
-### ایجاد جداول ساده
+### الگوی استاندارد
 
 ```python
-names = ["Alice", "Bob", "Charlie"]
-scores = [95, 87, 92]
+price = 19.99
+discount = 0.15
+total = price * (1 - discount)
 
-# ایجاد یک جدول زیبا
-print(f"{'Name':<10} {'Score':>6}")
-print("-" * 18)
-for name, score in zip(names, scores):
-    print(f"{name:<10} {score:>6}")
-
-# Output:
-# Name       Score
-# ------------------
-# Alice          95
-# Bob            87
-# Charlie        92
+print(f"Price: ${price:.2f}")      # Price: $19.99
+print(f"Discount: {discount:.0%}")  # Discount: 15%
+print(f"Total: ${total:.2f}")      # Total: $16.99
 ```
 
-گزینه‌های تراز:
-- `<` چپ‌چین
-- `>` راست‌چین
-- `^` وسط‌چین
+### ستون ارز
 
-### مثال‌های بیشتر تراز
+```python
+items = [
+    ("Apple", 1.50),
+    ("Banana", 0.75),
+    ("Cherry", 2.00)
+]
+
+print("Item        Price")
+print("-" * 20)
+for item, price in items:
+    print(f"{item:<12} ${price:>6.2f}")
+
+# خروجی:
+# Item        Price
+# --------------------
+# Apple        $  1.50
+# Banana       $  0.75
+# Cherry       $  2.00
+```
+
+---
+
+## قالب‌بندی درصد
+
+### ساختار
+
+```python
+rate = 0.8567
+
+print(f"Success rate: {rate:.1%}")   # Success rate: 85.7%
+print(f"Success rate: {rate:.2%}")   # Success rate: 85.67%
+print(f"Success rate: {rate:.0%}")   # Success rate: 86%
+```
+
+**کد `%`** - ضرب در 100 و افزودن علامت %
+
+---
+
+## ترازبندی و عرض
+
+### ترازبندی
 
 ```python
 text = "Hi"
 
-print(f"[{text:<10}]")   # [Hi        ] - چپ‌چین
-print(f"[{text:>10}]")   # [        Hi] - راست‌چین
-print(f"[{text:^10}]")   # [    Hi    ] - وسط‌چین
+# چپ (پیش‌فرض)
+print(f"|{text:<10}|")   # |Hi        |
+
+# راست
+print(f"|{text:>10}|")   # |        Hi|
+
+# مرکز
+print(f"|text:^10}|")   # |    Hi    |
+```
+
+**کدها:**
+- `<` = چپ
+- `>` = راست
+- `^` = مرکز
+- `10` = عرض کل
+
+### ترکیب با اعداد
+
+```python
+# جدول نمرات
+scores = [
+    ("Alice", 95),
+    ("Bob", 87),
+    ("Carol", 92)
+]
+
+print(f"{'Name':<10} {'Score':>6}")
+print("-" * 17)
+for name, score in scores:
+    print(f"{name:<10} {score:>6}")
+
+# خروجی:
+# Name       Score
+# -----------------
+# Alice         95
+# Bob           87
+# Carol         92
 ```
 
 ---
 
-## F-String‌های چندخطی
+## پیشرفته
+
+### پد کردن با صفر
 
 ```python
+number = 42
+
+print(f"{number:05d}")   # 00042
+print(f"{number:5d}")   #    42
+```
+
+### نمادهای علمی
+
+```python
+large = 1234567890
+
+print(f"{large:.2e}")   # 1.23e+09
+print(f"{large:.2E}")   # 1.23E+09
+```
+
+### ترکیب همه
+
+```python
+import datetime
+
 name = "Alice"
-age = 25
-city = "New York"
+balance = 1234.56
+date = datetime.datetime.now()
 
-message = f"""
-Name:   {name}
-Age:    {age}
-City:   {city}
-Next year, I'll be {age + 1}!
-"""
+print(f"""
+Statement for: {name}
+Date: {date:%Y-%m-%d}
+Balance: ${balance:,.2f}
+""")
 
-print(message)
-# Output:
-# Name:   Alice
-# Age:    25
-# City:   New York
-# Next year, I'll be 26!
-```
-
----
-
-## اشتباهات رایج مبتدی‌ها
-
-### اشتباه 1: فراموش کردن پیشوند 'f'
-
-```python
-# ❌ اشتباه - 'f' ندارد
-name = "Alice"
-message = "Hello, {name}"   # Result: "Hello, {name}"
-
-# ✅ درست
-message = f"Hello, {name}"  # Result: "Hello, Alice"
-```
-
-### اشتباه 2: استفاده از کوتیشن داخل کوتیشن
-
-```python
-# ❌ اشتباه - خطای syntax
-message = f"He said "Hello""   # Syntax error!
-
-# ✅ درست - از نوع کوتیشن متفاوت استفاده کنید
-message = f'He said "Hello"'   # کوتیشن تک بیرون
-message = f"He said 'Hello'"   # کوتیشن دوبل بیرون
-message = f"He said \"Hello\"" # کوتیشن فرار شده
-```
-
-### اشتباه 3: مشخصه قالب‌بندی اشتباه
-
-```python
-# ❌ اشتباه - تلاش برای قالب‌بندی متن به عنوان عدد
-text = "Hello"
-print(f"{text:.2f}")   # Error! Can't format string as float
-
-# ✅ درست
-number = 3.14159
-print(f"{number:.2f}")  # "3.14"
-```
-
----
-
-## تمرین‌های عملی
-
-### تمرین 1: رسید ساده
-
-ایجاد یک رسید قالب‌بندی‌شده برای خرید.
-
-```python
-def print_receipt(item, price, quantity):
-    total = price * quantity
-    print("=" * 30)
-    print(f"{'RECEIPT':^30}")
-    print("=" * 30)
-    print(f"{'Item:':<15} {item}")
-    print(f"{'Price:':<15} ${price:.2f}")
-    print(f"{'Quantity:':<15} {quantity}")
-    print("-" * 30)
-    print(f"{'Total:':<15} ${total:.2f}")
-    print("=" * 30)
-
-# Test
-print_receipt("Coffee", 3.50, 2)
-```
-
-### تمرین 2: کارنامه نمرات
-
-ایجاد یک کارنامه نمرات قالب‌بندی‌شده.
-
-```python
-def grade_report(name, grades):
-    average = sum(grades) / len(grades)
-    print(f"\n{'='*30}")
-    print(f"{'GRADE REPORT':^30}")
-    print(f"{'='*30}")
-    print(f"Student: {name}")
-    print(f"{'-'*30}")
-    for i, grade in enumerate(grades, 1):
-        print(f"Test {i}: {grade:>20}")
-    print(f"{'-'*30}")
-    print(f"Average: {average:>19.1f}")
-    print(f"{'='*30}")
-
-# Test
-grade_report("Alice", [85, 92, 78, 96])
-```
-
-### تمرین 3: تبدیل‌کننده دما
-
-قالب‌بندی تمیز تبدیل دما.
-
-```python
-def format_temperature(celsius):
-    fahrenheit = (celsius * 9/5) + 32
-    return f"{celsius:.1f}°C = {fahrenheit:.1f}°F"
-
-# Test
-print(format_temperature(0))      # 0.0°C = 32.0°F
-print(format_temperature(100))    # 100.0°C = 212.0°F
-print(format_temperature(37))     # 37.0°C = 98.6°F
+# خروجی:
+# Statement for: Alice
+# Date: 2024-01-15
+# Balance: $1,234.56
 ```
 
 ---
 
 ## مرجع سریع
 
-| آنچه می‌خواهید | نحوه انجام | مثال | نتیجه |
-|--------------|----------|-------|--------|
-| درج متغیر | `f"{var}"` | `f"{name}"` | value of name |
-| 2 رقم اعشار | `f"{n:.2f}"` | `f"{3.14159:.2f}"` | 3.14 |
-| درصد | `f"{n:.1%}"` | `f"{0.85:.1%}"` | 85.0% |
-| جداکننده هزارگان | `f"{n:,}"` | `f"{1234567:,}"` | 1,234,567 |
-| چپ‌چین (10 کاراکتر) | `f"{s:<10}"` | `f"{'Hi':<10}"` | 'Hi        ' |
-| راست‌چین (10 کاراکتر) | `f"{s:>10}"` | `f"{'Hi':>10}"` | '        Hi' |
-| وسط‌چین (10 کاراکتر) | `f"{s:^10}"` | `f"{'Hi':^10}"` | '    Hi    ' |
-| ارز | `f"${n:.2f}"` | `f"${29.99:.2f}"` | $29.99 |
+### کدهای قالب‌بندی
+
+| کد | معنی | مثال |
+|-----|-------|---------|
+| `:d` | عدد صحیح | `42` |
+| `:f` | اعشاری | `3.14` |
+| `:.2f` | 2 رقم اعشار | `3.14` |
+| `:,` | هزارگان | `1,000` |
+| `:.1%` | درصد | `85.7%` |
+| `:<10` | چپ، عرض 10 | `text      ` |
+| `:>10` | راست، عرض 10 | `      text` |
+| `:^10` | مرکز، عرض 10 | `   text   ` |
+| `:05d` | پد با صفر | `00042` |
 
 ---
 
 ## نکات کلیدی
 
-1. **F-String‌ها بهترین انتخاب هستند** - `f` قبل از کوتیشن بگذارید و از `{variable}` داخل استفاده کنید
-2. **قالب‌بندی اعداد با `:.2f`** - اعشار را کنترل می‌کند (2 در این مثال)
-3. **تراز متن با `<`, `>`, `^`** - چپ، راست و وسط
-4. **استفاده از `:.1%` برای درصد** - اعشار را به درصد تبدیل می‌کند
-5. **می‌توانید ریاضی داخل f-string انجام دهید** - `{age + 1}` کاملاً کار می‌کند
+1. **f-strings آسان‌ترین روش** - با Python 3.6+
+2. **`{var:.2f}` برای اعشار** - 2 رقم اعشار
+3. **`{var:,}` برای هزارگان** - جداکننده
+4. **`{var:.1%}` برای درصد** - ضرب در 100
+5. **`< > ^` برای تراز** - چپ، راست، مرکز
+6. **عدد برای عرض** - فضای تخصیص یافته
 
 ---
 
-## بعدی چیست؟
+## قدم بعدی چیست؟
 
-در درس بعدی، شما درباره **پردازش متن** یاد خواهید گرفت - چگونه متن را جستجو، تقسیم و دستکاری کنید تا داده‌های متنی را تحلیل و تبدیل کنید. برنامه‌های عملی مثل شمارنده کلمات و تمیزکننده متن خواهید ساخت.
+اکنون می‌توانید خروجی زیبا بسازید! بعدی، ما یاد می‌گیریم:
+- عملیات و متدهای رشته
+- دستکاری و جستجوی متن
+- پردازش متن

@@ -1,408 +1,444 @@
-# تبدیل نوع: تغییر انواع داده در پایتون
+# تبدیل انواع داده در پایتون
 
-## چرا تبدیل نوع؟
+## آنچه خواهید آموخت
+- چگونه یک نوع داده را به نوع دیگر تبدیل کنید
+- چه زمانی تبدیل لازم است
+- اشتباهات رایج و نحوه جلوگیری از آنها
 
-عملیات مختلف نیاز به انواع داده مختلف دارند. تبدیل نوع به شما اجازه می‌دهد مقدار را از یک نوع به نوع دیگر تغییر دهید و برنامه‌نویسی انعطاف‌پذیر را ممکن می‌سازد.
+---
 
-## تبدیل ضمنی در برابر صریح
+## تبدیل انواع داده چیست؟
 
-### تبدیل ضمنی (خودکار)
-پایتون به طور خودکار انواع را در موارد امن تبدیل می‌کند:
-```python
-# ارتقای عددی
-result = 5 + 3.2  # 8.2 (int + float = float)
+گاهی اوقات، شما یک داده با یک نوع دارید اما باید به نوع دیگری تبدیلش کنید. این مثل تبدیل یک مقدار از یک واحد به واحد دیگر است.
 
-# زمینه‌های بولی
-if []:           # لیست خالی → False
-    print("هرگز اجرا نمی‌شود")
+### تشبیه: تبدیل واحد
 
-if [1, 2, 3]:    # لیست غیرخالی → True
-    print("اجرا می‌شود")
+```
+۱۰۰ سانتی‌متر → ۱ متر
+۶۰ دقیقه → ۱ ساعت
+"۱۰۰" (متن) → ۱۰۰ (عدد)
 ```
 
-### تبدیل صریح (دستی)
-به طور صریح با استفاده از توابع داخلی تبدیل می‌کنید:
-```python
-# رشته به عدد
-age = int("25")        # 25
-price = float("19.99") # 19.99
+در برنامه‌نویسی، معمولاً این تبدیلها را انجام می‌دهیم:
+- **رشته به عدد** - وقتی کاربر ورودی عددی می‌دهد
+- **عدد به رشته** - وقتی می‌خواهیم عدد را نمایش دهیم
+- **انواع مجموعه** - وقتی نیاز به تغییر قالب داریم
 
-# عدد به رشته
-count = str(42)        # "42"
+---
 
-# تبدیل‌های مجموعه
-numbers = list("123")  # ['1', '2', '3']
-unique = set([1, 2, 2, 3])  # {1, 2, 3}
-```
+## توابع تبدیل اصلی
 
-## تبدیل‌های عددی
+پایتون توابع داخلی برای تبدیل انواع داده دارد:
 
-### تبدیل‌های integer
+| تابع | چه تبدیلی انجام می‌دهد | مثال |
+|--------|------------------|--------|
+| `int()` | به عدد صحیح | `int("42")` → `42` |
+| `float()` | به عدد اعشاری | `float("3.14")` → `3.14` |
+| `str()` | به رشته | `str(42)` → `"42"` |
+| `bool()` | به بولی | `bool(1)` → `True` |
+| `list()` | به لیست | `list("abc")` → `['a','b','c']` |
+| `tuple()` | به تاپل | `tuple([1,2,3])` → `(1,2,3)` |
+| `set()` | به مجموعه | `set([1,1,2])` → `{1,2}` |
+| `dict()` | به دیکشنری | `dict([("a",1)])` → `{"a":1}` |
+
+---
+
+## تبدیل عددی
+
+### به عدد صحیح (int)
+
 ```python
 # از رشته
-int("42")         # 42
-int("1010", 2)    # 10 (رشته باینری)
-int("2A", 16)     # 42 (رشته هگزادسیمال)
-int("52", 8)      # 42 (رشته octal)
+number = int("42")
+print(number)            # 42
+print(type(number))      # <class 'int'>
 
-# از float
-int(3.14)         # 3 (قطع می‌کند)
-int(3.9)          # 3 (به سمت صفر قطع می‌کند)
+# از اعشار (اعشار حذف می‌شود!)
+whole = int(3.99)
+print(whole)             # 3
 
-# از boolean
-int(True)         # 1
-int(False)        # 0
-
-# خطاها
-# int("hello")   # ValueError
+# از بولی
+flag = int(True)
+print(flag)              # 1 (False می‌شود 0)
 ```
 
-### تبدیل‌های float
+**هشدار:** `int()` همیشه به سمت صفر گرد می‌کند!
+
+```python
+print(int(3.9))          # 3 (نه 4!)
+print(int(-3.9))         # -3 (نه -4!)
+```
+
+### به عدد اعشاری (float)
+
 ```python
 # از رشته
-float("3.14")     # 3.14
-float("42")       # 42.0
-float("1e-3")     # 0.001 (نماد علمی)
+decimal = float("3.14")
+print(decimal)           # 3.14
 
-# از integer
-float(42)         # 42.0
+# از عدد صحیح
+pi = float(3)
+print(pi)                # 3.0
 
-# از boolean
-float(True)       # 1.0
-float(False)      # 0.0
-
-# مقادیر ویژه
-float("inf")      # inf
-float("-inf")     # -inf
-float("nan")      # nan
+# از بولی
+flag = float(True)
+print(flag)              # 1.0
 ```
 
-### تبدیل‌های complex
-```python
-# از اعداد
-complex(2, 3)     # (2+3j)
-complex(5)        # (5+0j)
-complex(0, 1)     # 1j
+---
 
-# از رشته‌ها (محدود)
-complex("2+3j")   # (2+3j)
-# complex("2, 3") # کار نمی‌کند
+## تبدیل رشته‌ای
+
+### به رشته (str)
+
+```python
+# هر نوع داده‌ای می‌تواند به رشته تبدیل شود
+text1 = str(42)          # "42"
+text2 = str(3.14)        # "3.14"
+text3 = str(True)        # "True"
+text4 = str([1, 2, 3])   # "[1, 2, 3]"
+
+print(text1, text2, text3, text4)
 ```
 
-## تبدیل‌های رشته
+### استفاده معمول: پیوند رشته و عدد
 
-### از اعداد
 ```python
-# integerها
-str(42)           # "42"
-str(-15)          # "-15"
-
-# floatها
-str(3.14)         # "3.14"
-str(1e-6)         # "1e-06"
-
-# booleanها
-str(True)         # "True"
-str(False)        # "False"
-```
-
-### از مجموعه‌ها
-```python
-# لیست‌ها
-str([1, 2, 3])    # "[1, 2, 3]"
-
-# تاپل‌ها
-str((1, 2, 3))    # "(1, 2, 3)"
-
-# دیکشنری‌ها
-str({"a": 1, "b": 2})  # "{'a': 1, 'b': 2}"
-
-# مجموعه‌ها
-str({1, 2, 3})    # "{1, 2, 3}"
-```
-
-### قالب‌بندی رشته‌ها
-```python
-# f-stringها (پایتون ۳.۶+)
-name = "Alice"
+# ❌ این خطا می‌دهد
 age = 25
-message = f"نام من {name} است و {age} سال دارم."
+message = "I am " + age + " years old"  # TypeError!
 
-# روش format()
-message = "نام من {} است و {} سال دارم.".format(name, age)
+# ✅ تبدیل به رشته
+message = "I am " + str(age) + " years old"
+print(message)           # I am 25 years old
 
-# قالب‌بندی %
-message = "نام من %s است و %d سال دارم." % (name, age)
+# ✅ یا از f-string استفاده کنید (بهتر!)
+message = f"I am {age} years old"
+print(message)
 ```
 
-## تبدیل‌های مجموعه
+---
 
-### تبدیل‌های لیست
+## تبدیل مجموعه
+
+### به لیست (list)
+
 ```python
-# از رشته
-list("hello")     # ['h', 'e', 'l', 'l', 'o']
+# از رشته (هر کاراکتر یک عنصر می‌شود)
+chars = list("Hello")
+print(chars)             # ['H', 'e', 'l', 'l', 'o']
 
 # از تاپل
-list((1, 2, 3))   # [1, 2, 3]
+my_list = list((1, 2, 3))
+print(my_list)           # [1, 2, 3]
 
 # از مجموعه
-list({1, 2, 3})   # [1, 2, 3] (ترتیب guarantee نیست)
+my_list = list({1, 2, 3})
+print(my_list)           # [1, 2, 3]
 
-# از range
-list(range(5))    # [0, 1, 2, 3, 4]
-
-# از دیکشنری
-list({"a": 1, "b": 2})  # ['a', 'b'] (فقط کلیدها)
+# از دیکشنری (فقط کلیدها)
+keys = list({"a": 1, "b": 2})
+print(keys)              # ['a', 'b']
 ```
 
-### تبدیل‌های تاپل
+### به تاپل (tuple)
+
 ```python
 # از لیست
-tuple([1, 2, 3])  # (1, 2, 3)
+my_tuple = tuple([1, 2, 3])
+print(my_tuple)          # (1, 2, 3)
 
 # از رشته
-tuple("hello")    # ('h', 'e', 'l', 'l', 'o')
-
-# از range
-tuple(range(3))   # (0, 1, 2)
+chars = tuple("abc")
+print(chars)             # ('a', 'b', 'c')
 ```
 
-### تبدیل‌های مجموعه
-```python
-# از لیست (تکراری‌ها را حذف می‌کند)
-set([1, 2, 2, 3]) # {1, 2, 3}
+### به مجموعه (set)
 
-# از تاپل
-set((1, 2, 3))    # {1, 2, 3}
+```python
+# از لیست (تکرارها حذف می‌شوند)
+unique = set([1, 2, 2, 3, 3, 3])
+print(unique)            # {1, 2, 3}
 
 # از رشته
-set("hello")      # {'h', 'e', 'l', 'o'} (بدون تکراری)
+chars = set("hello")
+print(chars)             # {'h', 'e', 'l', 'o'}
 ```
 
-### تبدیل‌های دیکشنری
+### به دیکشنری (dict)
+
 ```python
-# از لیست جفت‌ها
-dict([("a", 1), ("b", 2)])  # {'a': 1, 'b': 2}
+# از لیست تاپل‌ها
+pairs = [("name", "Alice"), ("age", 25)]
+person = dict(pairs)
+print(person)            # {'name': 'Alice', 'age': 25}
 
-# از آرگومان‌های کلیدواژه
-dict(a=1, b=2, c=3)  # {'a': 1, 'b': 2, 'c': 3}
-
-# از zip
-keys = ["a", "b", "c"]
-values = [1, 2, 3]
-dict(zip(keys, values))  # {'a': 1, 'b': 2, 'c': 3}
+# از kwargs
+person = dict(name="Bob", age=30)
+print(person)            # {'name': 'Bob', 'age': 30}
 ```
 
-## تبدیل‌های بولی
+---
 
-### مقادیر Truthy/Falsy
+## تبدیل بولی
+
+### به بولی (bool)
+
 ```python
-# اعداد
-bool(0)        # False
-bool(1)        # True
-bool(-1)       # True
-bool(3.14)     # True
+# اعداد: ۰ False، بقیه True
+print(bool(0))           # False
+print(bool(42))          # True
+print(bool(-5))          # True
+print(bool(0.0))         # False
+print(bool(0.1))         # True
 
-# رشته‌ها
-bool("")       # False (رشته خالی)
-bool("hello")  # True
+# رشته‌ها: خالی False، غیرخالی True
+print(bool(""))          # False
+print(bool("Hello"))     # True
+print(bool(" "))         # True (حتی فاصله!)
 
-# مجموعه‌ها
-bool([])       # False (لیست خالی)
-bool([1, 2])   # True
-bool({})       # False (دیکشنری خالی)
-bool({"a": 1}) # True
-bool(set())    # False (مجموعه خالی)
-
-# None
-bool(None)     # False
+# مجموعه‌ها: خالی False، غیرخالی True
+print(bool([]))          # False
+print(bool([1, 2, 3]))   # True
+print(bool({}))          # False
+print(bool({"a": 1}))    # True
 ```
 
-## تکنیک‌های تبدیل امن
+**قاعده کلی:**
+- **صفر/خالی** → `False`
+- **غیرصفر/غیرخالی** → `True`
 
-### Try-Except برای مدیریت خطا
+---
+
+## تبدیل‌های رایج در عمل
+
+### سینیario 1: ورودی کاربر
+
 ```python
-def safe_int_conversion(value):
-    """به طور امن مقدار را به integer تبدیل می‌کند."""
-    try:
-        return int(value)
-    except ValueError:
-        print(f"نمی‌توان '{value}' را به integer تبدیل کرد")
-        return None
-    except TypeError:
-        print(f"نوع نامعتبر برای تبدیل: {type(value)}")
-        return None
+# ورودی کاربر همیشه رشته است!
+user_input = input("Enter your age: ")
+print(type(user_input))  # <class 'str'>
 
-# استفاده
-print(safe_int_conversion("42"))     # 42
-print(safe_int_conversion("hello"))  # None
-print(safe_int_conversion([1, 2]))   # None
+# تبدیل به عدد
+age = int(user_input)
+print(f"Next year you'll be {age + 1}")
 ```
 
-### مقادیر پیش‌فرض
+### سناریو ۲: خروجی فرمت‌شده
+
 ```python
-def get_port(config):
-    """شماره پورت را با پیش‌فرض دریافت می‌کند."""
-    port = config.get("port", "8080")
-    try:
-        return int(port)
-    except ValueError:
-        print(f"پورت نامعتبر '{port}'، از پیش‌فرض استفاده می‌شود")
-        return 8080
+# تبدیل برای نمایش
+score = 95.5
+message = "Your score is: " + str(score) + "%"
+print(message)
 
-config = {"port": "invalid"}
-port = get_port(config)  # 8080
+# یا بهتر
+print(f"Your score is: {score}%")
 ```
 
-### توابع اعتبارسنجی
+### سناریو ۳: کار با فایل
+
 ```python
-def is_valid_number(text):
-    """بررسی می‌کند آیا text عدد معتبر را نمایش می‌دهد."""
-    try:
-        float(text)
-        return True
-    except ValueError:
-        return False
-
-def parse_number(text, default=0):
-    """text را به عدد parse می‌کند با fallback."""
-    try:
-        return float(text)
-    except ValueError:
-        print(f"از مقدار پیش‌فرض استفاده می‌شود: {default}")
-        return default
+# داده از فایل معمولاً رشته است
+data = "42"
+number = int(data)
 ```
 
-## الگوهای تبدیل پیشرفته
+---
 
-### توابع تبدیل سفارشی
+## تبدیل‌های پیچیده‌تر
+
+### تبدیل پایه اعداد
+
 ```python
-def str_to_bool(text):
-    """رشته را به boolean با فرمت‌های مختلف تبدیل می‌کند."""
-    text = text.lower().strip()
-    if text in ("true", "yes", "1", "on"):
-        return True
-    elif text in ("false", "no", "0", "off"):
-        return False
-    else:
-        raise ValueError(f"نمی‌توان '{text}' را به boolean تبدیل کرد")
+# تبدیل به پایه‌های مختلف
+print(bin(10))           # 0b1010 (باینری)
+print(oct(10))           # 0o12 (اکتال)
+print(hex(10))          # 0xa (هگزادسیمال)
 
-# استفاده
-print(str_to_bool("yes"))    # True
-print(str_to_bool("no"))     # False
-print(str_to_bool("maybe"))  # ValueError
+# تبدیل از رشته با پایه خاص
+print(int("1010", 2))    # 10 (از باینری)
+print(int("12", 8))      # 10 (از اکتال)
+print(int("a", 16))      # 10 (از هگزادسیمال)
 ```
 
-### dispatcher نوع
+### تبدیل نویسه‌ها
+
 ```python
-def convert_value(value, target_type):
-    """مقدار را به نوع مشخص تبدیل می‌کند."""
-    converters = {
-        int: lambda x: int(float(x)) if isinstance(x, str) else int(x),
-        float: float,
-        str: str,
-        bool: lambda x: bool(x) if not isinstance(x, str) else str_to_bool(x),
-        list: lambda x: list(x) if hasattr(x, '__iter__') else [x],
-    }
-
-    converter = converters.get(target_type)
-    if converter:
-        return converter(value)
-    else:
-        raise ValueError(f"نوع پشتیبانی نشده: {target_type}")
-
-# استفاده
-print(convert_value("3.14", float))  # 3.14
-print(convert_value("yes", bool))    # True
-print(convert_value(42, str))        # "42"
+# کد ASCII/یونیکد
+print(ord('A'))          # 65
+print(ord('a'))          # 97
+print(chr(65))           # 'A'
+print(chr(97))           # 'a'
 ```
 
-### سریال‌سازی/د سریال‌سازی
+---
+
+## اشتباهات رایج
+
+### اشتباه ۱: تبدیل رشته غیرعددی به عدد
+
 ```python
-import json
+# ❌ اشتباه
+number = int("Hello")    # ValueError!
 
-# تبدیل اشیای پایتون به رشته‌های JSON
-data = {"name": "Alice", "age": 25, "scores": [95, 87, 92]}
-json_string = json.dumps(data)
-# '{"name": "Alice", "age": 25, "scores": [95, 87, 92]}'
+# ✅ صحیح
+number = int("42")       # کار می‌کند
 
-# تبدیل رشته‌های JSON به اشیای پایتون
-parsed_data = json.loads(json_string)
-# {'name': 'Alice', 'age': 25, 'scores': [95, 87, 92]}
+# ✅ بررسی اول
+user_input = "42"
+if user_input.isdigit():
+    number = int(user_input)
+else:
+    print("Please enter a valid number!")
 ```
 
-## سناریوهای تبدیل رایج
+### اشتباه ۲: فراموش کردن تبدیل ورودی
 
-### پردازش ورودی کاربر
 ```python
-def get_user_info():
-    """اطلاعات کاربر معتبر دریافت می‌کند."""
-    name = input("Name: ").strip()
-    if not name:
-        raise ValueError("Name نمی‌تواند خالی باشد")
+# ❌ اشتباه
+age = input("Enter age: ")
+years_until_100 = 100 - age  # TypeError!
 
-    try:
-        age = int(input("Age: "))
-        if age < 0 or age > 150:
-            raise ValueError("Age باید بین 0 و 150 باشد")
-    except ValueError as e:
-        raise ValueError(f"Age نامعتبر: {e}")
-
-    return {"name": name, "age": age}
-
-user = get_user_info()
+# ✅ صحیح
+age = int(input("Enter age: "))
+years_until_100 = 100 - age
 ```
 
-### پردازش فایل داده
+### اشتباه ۳: تبدیل اعشار به صحیح بدون فکر
+
 ```python
-def parse_csv_line(line):
-    """یک خط CSV را به انواع مناسب parse می‌کند."""
-    parts = line.strip().split(',')
-    try:
-        name = parts[0].strip()
-        age = int(parts[1].strip())
-        score = float(parts[2].strip())
-        active = parts[3].strip().lower() == 'true'
-        return {"name": name, "age": age, "score": score, "active": active}
-    except (IndexError, ValueError) as e:
-        raise ValueError(f"خط CSV نامعتبر: {line}") from e
+# ❌ داده از دست می‌رود
+price = 19.99
+whole_price = int(price)
+print(whole_price)       # 19 (قسمت اعشار از دست رفت!)
 
-# استفاده
-line = "Alice, 25, 95.5, true"
-student = parse_csv_line(line)
+# ✅ نگه‌داشتن اعشار
+price_float = float(price)
+# یا رند کردن
+rounded_price = round(price)  # 20
 ```
 
-### مدیریت داده API
+### اشتباه ۴: تبدیل لیست به تاپل به اشتباه
+
 ```python
-import requests
+# ❌ فراموش کردن که تاپل‌ها ثابت هستند
+my_list = [1, 2, 3]
+my_tuple = tuple(my_list)
+my_tuple[0] = 10         # TypeError! تاپل‌ها تغییرناپذیرند
 
-def fetch_user_data(user_id):
-    """داده کاربر را از API دریافت می‌کند."""
-    response = requests.get(f"https://api.example.com/users/{user_id}")
-    data = response.json()
-
-    # تبدیل رشته‌های API به انواع مناسب
-    return {
-        "id": int(data["id"]),
-        "name": str(data["name"]),
-        "age": int(data["age"]),
-        "active": bool(data["active"]),
-        "score": float(data["score"])
-    }
-
-user = fetch_user_data(123)
+# ✅ فقط وقتی تاپل نیاز دارید استفاده کنید
+my_tuple = tuple(my_list)  # برای داده‌های ثابت
 ```
+
+### اشتباه ۵: تبدیل دیکشنری به لیست
+
+```python
+# فقط کلیدها می‌آیند
+data = {"a": 1, "b": 2}
+keys = list(data)
+print(keys)              # ['a', 'b']
+
+# برای گرفتن مقادیر
+values = list(data.values())
+print(values)            # [1, 2]
+
+# برای گرفتن جفت‌ها
+items = list(data.items())
+print(items)             # [('a', 1), ('b', 2)]
+```
+
+---
+
+## خودتان امتحان کنید: تمرین‌ها
+
+### تمرین ۱: تمرین‌های پایه
+
+```python
+# تبدیل اینها را انجام دهید
+result1 = int("100")
+result2 = float("3.14159")
+result3 = str(2024)
+result4 = bool(0)
+result5 = list("Python")
+
+print(result1, result2, result3, result4, result5)
+```
+
+### تمرین ۲: ماشین حساب ورودی
+
+کدی بنویسید که:
+۱. دو عدد از کاربر بگیرد
+۲. آنها را جمع کند
+۳. نتیجه را نمایش دهد
+
+**راهنمایی:** ورودی را به int تبدیل کنید!
+
+### تمرین ۳: تبدیل درجه حرارت
+
+کدی بنویسید که:
+۱. درجه حرارت فارنهایت را به عنوان رشته بگیرد
+۲. آن را به float تبدیل کند
+۳. به سلسیوس تبدیل کند: `(fahrenheit - 32) * 5/9`
+۴. نتیجه را با دو رقم اعشار نمایش دهد
+
+### تمرین ۴: لیست منحصر به فرد
+
+کدی بنویسید که یک لیست با تکرارها بگیرد و لیست جدیدی با مقادیر منحصر به فرد برگرداند.
+
+**راهنمایی:** از `set()` استفاده کنید!
+
+---
+
+## مرجع سریع
+
+### توابع تبدیل
+
+```python
+# عددی
+int(x)       # تبدیل به صحیح
+float(x)     # تبدیل به اعشار
+
+# رشته‌ای
+str(x)       # تبدیل به رشته
+
+# مجموعه
+list(x)      # تبدیل به لیست
+tuple(x)     # تبدیل به تاپل
+set(x)       # تبدیل به مجموعه (منحصر به فرد)
+dict(x)      # تبدیل به دیکشنری
+
+# بولی
+bool(x)      # تبدیل به True/False
+
+# خاص
+bin(x)       # باینری رشته‌ای
+hex(x)       # هگزادسیمال رشته‌ای
+ord(c)       # کد ASCII کاراکتر
+chr(n)       # کاراکتر از کد ASCII
+```
+
+### نکات مهم
+
+- ورودی `input()` همیشه **رشته** است - تبدیل کنید!
+- `int()` اعشار را **حذف می‌کند**، رند نمی‌کند
+- `set()` **تکرارها را حذف می‌کند**
+- `bool()` صفر/خالی را `False` می‌کند، بقیه `True`
+
+---
 
 ## نکات کلیدی
 
-۱. **تبدیل نوع** کار با انواع داده مختلف را ممکن می‌سازد
-۲. **تبدیل صریح** از توابع داخلی مانند `int()`، `str()`، `float()` استفاده می‌کند
-۳. **تبدیل ضمنی** به طور خودکار در موارد امن اتفاق می‌افتد
-۴. **مدیریت خطا** از خرابی‌های تبدیل‌های نامعتبر جلوگیری می‌کند
-۵. **توابع تبدیل سفارشی** پردازش داده انعطاف‌پذیر فراهم می‌کنند
+۱. **ورودی کاربر همیشه رشته است** - آن را قبل از استفاده عددی تبدیل کنید
+۲. **از f-strings** برای جمع کردن متن و اعداد بدون تبدیل صریح استفاده کنید
+۳. **`int()` به سمت صفر گرد می‌کند** - از `round()` برای گرد کردن استفاده کنید
+۴. **`set()` برای حذف تکرارها** عالی است
+۵. **`bool()`** صفر/خالی را `False` می‌کند
 
-## مطالعه بیشتر
-- مدل داده پایتون و سیستم نوع
-- internationalization و تبدیل‌های خاص locale
-- فرمت‌های سریال‌سازی پیشرفته (pickle، msgpack)
-- نکات نوع و بررسی نوع static
+---
+
+## گام بعدی چیست؟
+
+حالا که می‌دانید چگونه انواع داده را تبدیل کنید، بیایید درباره عملیات‌های پیچیده‌تر یاد بگیریم:
+- **عملگرها** - انجام محاسبات و مقایسه‌ها
+- **ترتیب ارزیابی** - درک اینکه کدام عملیات اول انجام می‌شود

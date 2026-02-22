@@ -1,485 +1,537 @@
-# شرایط تو در تو: تصمیم‌های داخل تصمیم‌ها
+# شرایط تودرتو در پایتون
 
-## چه چیزهایی یاد خواهید گرفت
-- چگونه دستورات if را داخل دستورات if دیگر قرار دهید
-- چه زمانی از شرایط تو در تو در مقابل عملگرهای منطقی استفاده کنید
-- چگونه از «جهنم تورفتگی» فرار کنید
-- الگوهای رایج برای تصمیم‌های تو در تو
-- مثال‌های عملی
+## آنچه خواهید آموخت
+- چگونه یک شرط داخل شرط دیگر قرار دهید
+- چه زمانی از شرایط تودرتو استفاده کنید
+- نحوه ساختاردهی کد برای خوانایی
 
 ---
 
-## مفهوم اصلی: سوالات به سوالات بیشتر منجر می‌شوند
+## شرایط تودرتو چیست؟
 
-گاهی اوقات یک تصمیم به تصمیم دیگری منجر می‌شود. شما یک شرط را بررسی می‌کنید، و اگر درست باشد، باید شرط دیگری را بررسی کنید. این کار **تو در تو** (nesting) نامیده می‌شود.
+**شرایط تودرتو** یعنی یک شرط داخل شرط دیگر. مثل جعبه‌های روسی: یک شرط درون شرط دیگر.
 
-**مثال: کتاب انتخاب ماجرای خود**
-- اگر می‌خواهی وارد غار شوی به صفحه ۵ برو
-- در صفحه ۵: اگر چراغ دارید به صفحه ۱۰ بروید، یا اگر ندارید به صفحه ۱۵
-- هر انتخاب به انتخاب‌های بیشتری منجر می‌شود!
+### تشبیه: تصمیمات تو در تو
 
----
+تصور کنید می‌خواهید تصمیم بگیرید آیا می‌توانید رانندگی کنید:
 
-## تو در تو پایه: if داخل if
-
-### تو در تو ساده دو سطحی
-
-```python
-سن = 20
-کارت_دارد = True
-
-if سن >= 18:
-    print("تو بزرگسال هستی.")
-    
-    if کارت_دارد:
-        print("می‌توانی وارد باشگاه شوی!")
-    else:
-        print("برای ورود به کارت نیاز داری.")
-        
-else:
-    print("تو خیلی جوان هستی برای ورود.")
+```
+آیا گواهینامه دارید؟
+    └── بله → آیا سن شما بالای ۱۸ است؟
+                └── بله → آیا مشروب نوشیده‌اید؟
+                            └── خیر → می‌توانید رانندگی کنید! ✓
+                            └── بله → نمی‌توانید! ✗
+                └── خیر → نمی‌توانید! ✗
+    └── خیر → نمی‌توانید! ✗
 ```
 
-**چه اتفاقی می‌افتد:**
-۱. بررسی می‌کند آیا سن >= 18 → بله
-۲. چاپ می‌کند «تو بزرگسال هستی»
-۳. بررسی می‌کند آیا کارت_دارد → بله
-۴. چاپ می‌کند «می‌توانی وارد باشگاه شوی!»
+---
 
-### سه سطح تو در تو
+## ساختار پایه
+
+### نحو
 
 ```python
-دما = 75
-آب_وهوا = "آفتابی"
-آخر_هفته_هست = True
+if condition1:
+    # کد
+    if condition2:
+        # کد درون شرط داخلی
+    else:
+        # کد
+else:
+    # کد
+```
 
-if دما > 70:
-    print("هوا گرم است.")
-    
-    if آب_وهوا == "آفتابی":
-        print("آب‌وهوای عالی!")
-        
-        if آخر_هفته_هست:
-            print("برو ساحل!")
+### مثال ساده
+
+```python
+age = 25
+has_license = True
+
+if has_license:
+    if age >= 18:
+        print("You can drive!")
+    else:
+        print("You're too young to drive.")
+else:
+    print("You need a license first.")
+```
+
+---
+
+## مثال‌های عملی
+
+### مثال ۱: ورود به سیستم
+
+```python
+username = input("Username: ")
+password = input("Password: ")
+
+if username == "admin":
+    if password == "secret123":
+        print("✓ Login successful!")
+        print("Welcome, Administrator.")
+    else:
+        print("✗ Wrong password.")
+        print("Please try again.")
+else:
+    print("✗ Username not found.")
+    print("Please check your username.")
+```
+
+### مثال ۲: بررسی شایستگی وام
+
+```python
+income = 50000
+credit_score = 720
+has_debt = False
+
+if income >= 40000:
+    if credit_score >= 700:
+        if not has_debt:
+            print("✓ Loan approved!")
+            print("Excellent credit profile.")
         else:
-            print("روز کاری خوبی داشته باش.")
-            
+            print("⚠ Loan pending.")
+            print("Debt review required.")
     else:
-        print("گرم اما ابری.")
-        
+        print("⚠ Loan under review.")
+        print("Credit score needs improvement.")
 else:
-    print("هوا خنک است.")
+    print("✗ Loan denied.")
+    print("Income requirement not met.")
+```
+
+### مثال ۳: انتخاب رستوران
+
+```python
+is_hungry = True
+has_money = True
+is_vegetarian = False
+
+if is_hungry:
+    if has_money:
+        if is_vegetarian:
+            print("Go to: Green Garden (Vegetarian)")
+        else:
+            print("Go to: Burger Palace")
+    else:
+        print("Stay home and cook something.")
+else:
+    print("Maybe just have a drink somewhere.")
 ```
 
 ---
 
-## چه زمانی از تو در تو در مقابل عملگرهای منطقی استفاده کنیم
+## تمیز کردن شرایط تودرتو
 
-### از عملگرهای منطقی برای شرایط AND ساده استفاده کنید
+### روش ۱: استفاده از and
 
 ```python
-# ✅ خوب - شرط ساده
-if سن >= 18 and کارت_دارد:
-    print("می‌توانی وارد شوی!")
-else:
-    print("نمی‌توانی وارد شوی.")
+# ❌ تودرتو
+if has_license:
+    if age >= 18:
+        if is_sober:
+            print("Can drive")
+
+# ✅ صاف
+if has_license and age >= 18 and is_sober:
+    print("Can drive")
 ```
 
-### از تو در تو برای پیام‌های متفاوت استفاده کنید
+### روش ۲: استفاده از elif
 
 ```python
-# ✅ خوب - پیام‌های متفاوت برای شکست‌های مختلف
-if سن >= 18:
-    if کارت_دارد:
-        print("به باشگاه خوش آمدید!")
+# ❌ تودرتو
+if score >= 90:
+    if attendance > 80:
+        grade = "A+"
     else:
-        print("متأسفانه، برای ورود به کارت نیاز دارید.")
+        grade = "A"
 else:
-    print("متأسفانه، باید ۱۸ سال یا بیشتر داشته باشید.")
-    print(f"{18 - سن} سال دیگر بیا!")
+    if score >= 80:
+        grade = "B"
+
+# ✅ بهتر
+if score >= 90 and attendance > 80:
+    grade = "A+"
+elif score >= 90:
+    grade = "A"
+elif score >= 80:
+    grade = "B"
+```
+
+### روش ۳: توابع کمکی
+
+```python
+# ✅ تمیز با تابع
+
+def can_drive(age, has_license, is_sober):
+    if not has_license:
+        return False, "No license"
+    if age < 18:
+        return False, "Too young"
+    if not is_sober:
+        return False, "Not sober"
+    return True, "OK"
+
+# استفاده
+allowed, reason = can_drive(25, True, True)
+if allowed:
+    print("You can drive!")
+else:
+    print(f"Cannot drive: {reason}")
+```
+
+---
+
+## ساختارهای پیچیده
+
+### سطح‌های چندگانه
+
+```python
+# بررسی سلامت سیستم
+is_online = True
+has_updates = True
+storage_ok = True
+
+if is_online:
+    print("System is online.")
+    
+    if has_updates:
+        print("Updates available.")
+        
+        if storage_ok:
+            print("Installing updates...")
+            print("Updates installed successfully!")
+        else:
+            print("Not enough storage for updates.")
+            print("Please free up space.")
+    else:
+        print("System is up to date.")
+else:
+    print("System is offline.")
+    print("Please check connection.")
+```
+
+### if-elif درون if
+
+```python
+# مدیریت سفارش
+is_member = True
+order_total = 150
+
+if is_member:
+    print("Member detected.")
+    
+    if order_total > 200:
+        discount = 0.25
+        tier = "Gold"
+    elif order_total > 100:
+        discount = 0.15
+        tier = "Silver"
+    else:
+        discount = 0.10
+        tier = "Bronze"
+    
+    print(f"Tier: {tier}, Discount: {discount*100}%")
+else:
+    print("Guest checkout - no discount.")
 ```
 
 ---
 
 ## الگوهای رایج
 
-### الگوی ۱: ابتدا پیش‌نیازها را بررسی کنید
+### الگو ۱: اعتبارسنجی مرحله به مرحله
 
 ```python
-# بررسی اینکه آیا کاربر وجود دارد قبل از بررسی چیزهای دیگر
-نام_کاربری = "علی"
-رمز = "secret123"
-حساب_فعال = True
+# بررسی فرم ثبت‌نام
+username = input("Username: ")
+email = input("Email: ")
+password = input("Password: ")
 
-# پایگاه داده شبیه‌سازی شده
-پایگاه_داده = {
-    "علی": {"رمز": "secret123", "فعال": True}
-}
-
-if نام_کاربری in پایگاه_داده:
-    کاربر = پایگاه_داده[نام_کاربری]
-    
-    if رمز == کاربر["رمز"]:
-        
-        if کاربر["فعال"]:
-            print("ورود موفق!")
+if len(username) >= 3:
+    if "@" in email:
+        if len(password) >= 8:
+            print("✓ Registration successful!")
         else:
-            print("حساب غیرفعال است.")
-            
+            print("✗ Password must be at least 8 characters.")
     else:
-        print("رمز اشتباه.")
-        
+        print("✗ Invalid email address.")
 else:
-    print("نام کاربری یافت نشد.")
+    print("✗ Username must be at least 3 characters.")
 ```
 
-### الگوی ۲: ابتدا دسته‌بندی کنید، بعد تصمیم بگیرید
+### الگو ۲: دسترسی مبتنی بر نقش
 
 ```python
-نمره = 85
-حضور_و_غیاب = 90
+is_logged_in = True
+user_role = "admin"
+resource = "financial_data"
 
-# ابتدا بر اساس نمره دسته‌بندی کنید
-if نمره >= 90:
-    نتیجه = "عالی"
-elif نمره >= 80:
-    نتیجه = "خوب"
-elif نمره >= 70:
-    نتیجه = "متوسط"
+if is_logged_in:
+    if user_role == "admin":
+        print("Full access granted.")
+        print(f"Accessing: {resource}")
+    elif user_role == "editor":
+        if resource != "financial_data":
+            print("Read-write access granted.")
+        else:
+            print("Read-only access for financial data.")
+    else:
+        print("Read-only access granted.")
 else:
-    نتیجه = "ضعیف یا مردود"
-
-# بعد حضور و غیاب را بررسی کنید
-if حضور_و_غیاب >= 90:
-    پاداش_حضور = "+"
-else:
-    پاداش_حضور = ""
-
-print(f"نتیجه نهایی: {نتیجه}{پاداش_حضور}")
+    print("Access denied. Please log in.")
 ```
 
-### الگوی ۳: سیستم منو
+### الگو ۳: تصمیمات بازی
 
 ```python
-print("=== سیستم سفارش غذا ===")
-print("۱. پیتزا")
-print("۲. برگر")
-print("۳. سالاد")
+has_key = True
+has_weapon = False
+door_locked = True
 
-انتخاب = input("انتخاب کن (۱-۳): ")
-
-if انتخاب == "1":
-    print("گزینه‌های پیتزا:")
-    print("  الف. پپرونی")
-    print("  ب. پنیر")
-    print("  ج. سبزیجات")
+if has_key:
+    if door_locked:
+        print("You unlock the door with your key.")
+        door_locked = False
     
-    topping = input("انتخاب topping (الف-ج): ")
-    
-    if topping == "الف":
-        print("پیتزای پپرونی سفارش دادی!")
-    elif topping == "ب":
-        print("پیتزای پنیر سفارش دادی!")
-    elif topping == "ج":
-        print("پیتزای سبزیجات سفارش دادی!")
-    else:
-        print("انتخاب topping نامعتبر.")
+    if not door_locked:
+        print("You enter the room.")
         
-elif انتخاب == "2":
-    print("برگر سفارش دادی!")
-    
-elif انتخاب == "3":
-    print("سالاد سفارش دادی!")
-    
+        if has_weapon:
+            print("You defeat the monster!")
+            print("✓ You win!")
+        else:
+            print("A monster attacks!")
+            print("✗ Game over - you need a weapon.")
 else:
-    print("انتخاب نامعتبر.")
+    print("The door is locked.")
+    print("✗ You need a key.")
 ```
 
 ---
 
-## اجتناب از «جهنم تورفتگی»
+## نکات خوانایی
 
-### سطوح زیاد = خواندن سخت
+### محدود کردن عمق
 
 ```python
-# ❌ سخت برای دنبال کردن (الگوی «فلش»)
-if کاربر_موجود_هست:
-    if کاربر.فعال_هست:
-        if کاربر.اجازه_دارد:
-            if کاربر.سهمیه > 0:
-                if not کاربر.ممنوع_هست:
-                    کاری_انجام_بده()
-                else:
-                    print("کاربر ممنوع است")
-            else:
-                print("سهمیه تمام شده")
-        else:
-            print("اجازه ندارد")
-    else:
-        print("کاربر غیرفعال")
-else:
-    print("کاربر یافت نشد")
+# ❌ خیلی عمیق (3+ سطح)
+if a:
+    if b:
+        if c:
+            if d:
+                print("Too deep!")
+
+# ✅ صاف‌تر
+if not a:
+    return
+if not b:
+    return
+if not c:
+    return
+if d:
+    print("Better!")
 ```
 
-### بهتر: با return یا عملگرهای منطقی صاف کنید
+### استفاده از پرانتز برای وضوح
 
 ```python
-# ✅ بهتر - ابتدا منفی‌ها را بررسی کنید و زود برگردید
-if not کاربر_موجود_هست:
-    print("کاربر یافت نشد")
-elif not کاربر.فعال_هست:
-    print("کاربر غیرفعال")
-elif not کاربر.اجازه_دارد:
-    print("اجازه ندارد")
-elif کاربر.سهمیه <= 0:
-    print("سهمیه تمام شده")
-elif کاربر.ممنوع_هست:
-    print("کاربر ممنوع است")
-else:
-    کاری_انجام_بده()
+# ✅ با پرانتز واضح
+if (has_ticket and is_adult) or is_vip:
+    print("Entry granted")
+
+# ✅ همچنین واضح
+if has_ticket:
+    if is_adult or is_vip:
+        print("Entry granted")
+```
+
+### کامنت‌گذاری شرایط پیچیده
+
+```python
+# بررسی می‌کند آیا کاربر می‌تواند فایل را ویرایش کند
+# نیازمندی‌ها: مالک باشد یا دسترسی نوشتن داشته باشد
+# و همچنین فایل قفل نباشد
+
+if (is_owner or has_write_permission) and not is_locked:
+    print("Can edit file")
 ```
 
 ---
 
-## اشتباهات رایج مبتدی‌ها
+## اشتباهات رایج
 
-### اشتباه ۱: سطح تورفتگی اشتباه
+### اشتباه ۱: else اشتباهی
 
 ```python
-# ❌ اشتباه - else با if درستی match نمی‌شود
-if سن >= 18:
-    if کارت_دارد:
-        print("می‌تواند وارد شود")
-    else:  # این با if داخلی match می‌شود!
-        print("به کارت نیاز دارد")
-else:  # این با if بیرونی match می‌شود
-    print("خیلی جوان است")
+# ❌ else به if اشتباهی متصل شده
+if condition1:
+    if condition2:
+        print("Both true")
+    else:           # این else برای condition2 است
+        print("Only 1 true")
+        
+# ✅ صحیح با پرانتز یا بازسازی
+if condition1:
+    if condition2:
+        print("Both true")
+else:               # این else برای condition1 است
+    print("1 false")
 ```
 
-### اشتباه ۲: فراموش کردن شرط بیرونی
+### اشتباه ۲: منطق اشتباه
 
 ```python
-# ❌ اشتباه - این حتی اگر سن < 18 هم اجرا می‌شود!
-if سن >= 18:
-    print("بزرگسال")
-if کارت_دارد:  # این داخل بررسی سن نیست!
-    print("می‌تواند وارد شود")
-```
+# ❌ منطق اشتباه
+if age >= 18:
+    if age < 18:        # هرگز True نمی‌شود!
+        print("Impossible!")
 
-### اشتباه ۳: تو در تو کردن بیش از حد منطق ساده
-
-```python
-# ❌ بیش از حد پیچیده
-if دما > 70:
-    if آب_وهوا == "آفتابی":
-        if آخر_هفته_هست:
-            print("برو بیرون!")
-        else:
-            print("روز کاری")
-    else:
-        print("ابری")
+# ✅ صحیح
+if age >= 18:
+    print("Adult")
 else:
-    print("سرد")
-
-# ✅ ساده‌تر با عملگرهای منطقی
-if دما > 70 and آب_وهوا == "آفتابی" and آخر_هفته_هست:
-    print("برو بیرون!")
-elif دما > 70 and آب_وهوا == "آفتابی":
-    print("روز کاری")
-elif دما > 70:
-    print("ابری")
-else:
-    print("سرد")
+    print("Minor")
 ```
 
-### اشتباه ۴: رسیدگی نکردن به همه موارد
+### اشتباه ۳: تورفتگی اشتباه
 
 ```python
-# ❌ موارد گم شده
-if انتخاب == "1":
-    if زیر_انتخاب == "الف":
-        print("گزینه ۱الف")
-    elif زیر_انتخاب == "ب":
-        print("گزینه ۱ب")
-    # اگر زیر_انتخاب نه الف باشد نه ب چطور؟
+# ❌ اشتباه
+if x > 0:
+    if y > 0:
+    print("Both positive")  # IndentationError!
+
+# ✅ صحیح
+if x > 0:
+    if y > 0:
+        print("Both positive")
+```
+
+### اشتباه ۴: فراموش کردن یک حالت
+
+```python
+# ⚠️ ممکن است چیزی را از دست بدهد
+if user_type == "admin":
+    if logged_in:
+        show_admin_panel()
+    # else ندارد!
+elif user_type == "user":
+    show_user_panel()
+# اگر user_type چیز دیگری باشد چه؟
 ```
 
 ---
 
 ## خودتان امتحان کنید: تمرین‌ها
 
-### تمرین ۱: سیستم ورود به باشگاه
+### تمرین ۱: سیستم نمره‌دهی
 
-سیستمی بسازید که سن، کارت و لباس را بررسی کند:
+کدی بنویسید که:
+۱. نمره امتحان (۰-۱۰۰) را بگیرد
+۲. نمره تکالیف (۰-۱۰۰) را بگیرد
+۳. اگر هر دو بالای ۶۰ باشند: "Pass"
+۴. اگر یکی بالای ۶۰ باشد: "Conditional Pass"
+۵. اگر هیچ‌کدام بالای ۶۰ نباشند: "Fail"
 
-```python
-سن = int(input("سن خود را وارد کن: "))
-کارت_دارد = input("کارت دارید؟ (بله/خیر): ").lower() == "بله"
-
-if سن >= 21:
-    if کارت_دارد:
-        لباس_مناسب = input("لباس مناسب پوشیدید؟ (بله/خیر): ").lower()
-        if لباس_مناسب == "بله":
-            print("به باشگاه VIP خوش آمدید!")
-        else:
-            print("متأسفانه، لباس مناسب لازم است.")
-    else:
-        print("برای ورود کارت لازم است.")
-elif سن >= 18:
-    print("می‌توانید وارد محوطه معمولی شوید.")
-else:
-    print("برای ورود خیلی جوان هستید.")
-```
-
-### تمرین ۲: سیستم نمره‌دهی آزمون
-
-امتحان را بر اساس چند فاکتور نمره‌دهی کنید:
+### تمرین ۲: سیستم منو
 
 ```python
-نمره = int(input("نمره را وارد کن (۰-۱۰۰): "))
-تلاش‌ها = int(input("چند تلاش؟ "))
+# کد منوی رستوران را کامل کنید:
+print("1. Pizza ($10)")
+print("2. Burger ($8)")
+print("3. Salad ($6)")
 
-if نمره >= 70:
-    if تلاش‌ها == 1:
-        print("عالی! قبول در اولین تلاش!")
-    else:
-        print(f"بعد از {تلاش‌ها} تلاش قبول شد.")
-else:
-    if نمره >= 50:
-        print("نزدیک! تمرین بیشتری لازم است.")
-    else:
-        print("مردود. لطفاً مطالب را مرور کنید.")
+choice = input("Select item (1-3): ")
+is_member = input("Member? (yes/no): ") == "yes"
+
+# اگر عضو باشد ۱۰٪ تخفیف
+# اگر بیش از ۲ آیتم سفارش دهد ۵٪ تخفیف اضافی
+# قیمت نهایی را محاسبه و نمایش دهید
 ```
 
-### تمرین ۳: شبیه‌سازی ATM
-
-ATM ساده با بررسی موجودی و برداشت:
+### تمرین ۳: بازی حدس کلمه
 
 ```python
-موجودی = 1000
-رمز = "1234"
+secret_word = "python"
+guess = input("Guess the word: ").lower()
+attempts = 1
 
-رمز_وارد شده = input("رمز را وارد کن: ")
-
-if رمز_وارد شده == رمز:
-    print("دسترسی مجاز.")
-    print(f"موجودی شما: ${موجودی}")
-    
-    عمل = input("برداشت یا واریز؟ (ب/و): ").lower()
-    
-    if عمل == "ب":
-        مبلغ = int(input("مبلغ برداشت: $"))
-        if مبلغ <= موجودی:
-            موجودی = موجودی - مبلغ
-            print(f"${مبلغ} برداشت شد. موجودی جدید: ${موجودی}")
-        else:
-            print("موجودی ناکافی!")
-    elif عمل == "و":
-        مبلغ = int(input("مبلغ واریز: $"))
-        موجودی = موجودی + مبلغ
-        print(f"${مبلغ} واریز شد. موجودی جدید: ${موجودی}")
-    else:
-        print("عمل نامعتبر.")
-        
-else:
-    print("رمز اشتباه.")
+# اگر حدس درست بود: "Correct in X attempts!"
+# اگر نزدیک بود (طول یکی): "Close! Try again."
+# اگر خیلی دور بود: "Not even close! Try again."
+# تا ۳ تلاش اجازه بدهید
 ```
 
-### تمرین ۴: رفع اشکالات
+### تمرین ۴: بررسی تاریخ
 
 ```python
-# برنامه با اشکال
-سن = int(input("سن: "))
-بلیط_دارد = input("بلیط دارید؟ ") == "بله"
+day = int(input("Day (1-31): "))
+month = int(input("Month (1-12): "))
+year = int(input("Year: "))
 
-if سن >= 18:
-    print("بزرگسال")
-if بلیط_دارد:
-    print("می‌تواند وارد شود")
-else:
-    print("به بلیط نیاز دارد")
-else:
-    print("صغیر")
+# بررسی کنید:
+# - ماه باید ۱-۱۲ باشد
+# - روز باید معتبر برای آن ماه باشد
+# - سال کبیسه را برای فوریه در نظر بگیرید
+# پیام مناسب نمایش دهید
 ```
-
-<details>
-<summary>برای دیدن پاسخ کلیک کنید</summary>
-
-```python
-# برنامه رفع شده
-سن = int(input("سن: "))
-بلیط_دارد = input("بلیط دارید؟ ").lower() == "بله"
-
-if سن >= 18:
-    print("بزرگسال")
-    if بلیط_دارد:  # این باید داخل بررسی سن باشد
-        print("می‌تواند وارد شود")
-    else:
-        print("به بلیط نیاز دارد")
-else:
-    print("صغیر")
-```
-</details>
 
 ---
 
 ## مرجع سریع
 
-### ساختار تو در تو
+### ساختار تودرتو
 
 ```python
-if شرط۱:
-    # کد برای شرط۱
-    if شرط۲:
-        # کد برای هر دو شرط
-    else:
-        # شرط۱ درست، شرط۲ نادرست
-else:
-    # شرط۱ نادرست
+if condition1:
+    # کد
+    if condition2:
+        # کد داخلی
+        if condition3:
+            # کد عمیق‌تر
 ```
 
-### چه زمانی از چه چیزی استفاده کنیم
-
-| موقعیت | استفاده |
-|--------|---------|
-| بررسی AND ساده | `if a and b:` |
-| پیام‌های متفاوت برای هر بررسی | ifهای تو در تو |
-| بررسی‌های مستقل جداگانه | ifهای جداگانه (نه تو در تو) |
-| درخت تصمیم پیچیده | ifهای تو در تو با elif |
-
-### سطوح تورفتگی
+### تبدیل به شرایط صاف
 
 ```python
-# سطح ۱: if بیرونی
-if سن >= 18:
-    # سطح ۲: داخل if اول
-    if کارت_دارد:
-        # سطح ۳: داخل if دوم
-        print("وارد شو")
-    else:
-        # سطح ۳: داخل else if دوم
-        print("به کارت نیاز دارد")
-else:
-    # سطح ۲: داخل else if اول
-    print("خیلی جوان است")
+# قبل
+if a:
+    if b:
+        print("OK")
+
+# بعد
+if a and b:
+    print("OK")
+```
+
+### روش early return
+
+```python
+# تمیزتر با return
+if not condition1:
+    return
+if not condition2:
+    return
+print("All conditions met")
 ```
 
 ---
 
 ## نکات کلیدی
 
-۱. **تو در تو** یعنی قرار دادن ifها داخل ifهای دیگر
-۲. **از تو در تو** وقتی استفاده کنید که برای بررسی‌های مختلف به پیام‌های متفاوت نیاز دارید
-۳. **از عملگرهای منطقی** (`and`، `or`) برای شرایط ترکیبی ساده استفاده کنید
-۴. **از سطوح زیاد اجتناب کنید**—خواندن و دیباگ سخت می‌شود
-۵. **تورفتگی حیاتی است**—نشان می‌دهد کدام کد به کدام if تعلق دارد
-۶. **وقتی ممکن است صاف کنید**—ابتدا موارد منفی را بررسی کنید و از `elif` استفاده کنید
+۱. **شرایط تودرتو** یک شرط داخل شرط دیگر است
+۲. **بیش از ۳ سطح تودرتو** معمولاً نشانه نیاز به refactoring است
+۳. **and و or** می‌توانند به صاف کردن شرایط کمک کنند
+۴. **تابعات کمکی** کد پیچیده را به بخش‌های کوچکتر تقسیم می‌کنند
+۵. **تورفتگی صحیح** برای خوانایی بسیار مهم است
 
 ---
 
-## گام بعدی
+## گام بعدی چیست؟
 
-حالا که شرایط تو در تو را درک کردید:
-- درباره حلقه‌ها یاد می‌گیرید (تکرار کد)
-- شرایط را با حلقه‌ها ترکیب می‌کنید
-- برنامه‌های تعاملی‌تر می‌نویسید
+حالا که با شرایط تودرتو آشنا شدید، بیایید درباره تکرار یاد بگیریم:
+- **حلقه‌ها** - انجام کارها بارها و بارها

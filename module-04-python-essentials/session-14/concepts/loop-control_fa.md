@@ -1,576 +1,572 @@
-# کنترل حلقه: Break، Continue و Else
+# کنترل حلقه‌ها در پایتون
 
-## چه چیزهایی یاد خواهید گرفت
-- چگونه با `break` زودتر از حلقه خارج شوید
-- چگونه با `continue` از تکرارها بگذرید
-- چگونه از بند `else` با حلقه‌ها استفاده کنید
-- الگوهای رایج کنترل حلقه
-- مثال‌های عملی از حلقه‌های کنترل‌شده
-
----
-
-## مفهوم اصلی: کنترل حلقه‌های خود
-
-گاهی اوقات نیاز دارید جریان عادی یک حلقه را تغییر دهید:
-- **زودتر متوقف شوید** وقتی چیزی را پیدا کردید (`break`)
-- **آیتم‌ها را رد کنید** که شرایط خاصی ندارند (`continue`)
-- **کاری خاص انجام دهید** وقتی حلقه به طور عادی تمام می‌شود (`else`)
-
-**مثال: جستجو در کتابخانه**
-- `break`: وقتی کتاب را پیدا کردید، دیگر نگردید
-- `continue`: کتاب‌های آسیب‌دیده را رد کنید و سراغ بعدی بروید
-- `else`: اگر کل کتابخانه را گشتید و پیدا نکردید، آنلاین سفارش دهید
+## آنچه خواهید آموخت
+- چگونه از حلقه زودتر خارج شوید
+- چگونه یک تکرار را رد کنید
+- نحوه استفاده از else در حلقه‌ها
+- الگوهای پیشرفته کنترل جریان
 
 ---
 
-## دستور `break`: خروج فوری
+## چرا کنترل حلقه؟
 
-`break` فوراً حلقه فعلی را متوقف می‌کند و با کد بعد از حلقه ادامه می‌دهد.
+گاهی اوقات می‌خواهید:
+- **زودتر از حلقه خارج شوید** (وقتی چیزی را پیدا کردید)
+- **یک تکرار را رد کنید** (وقتی شرایط خاصی پیش آید)
+- **کاری انجام دهید** اگر حلقه کامل اجرا شود
 
-### پیدا کردن آیتم و توقف
+---
+
+## break (خروج از حلقه)
+
+**break** بلافاصله از حلقه خارج می‌شود.
+
+### مثال ساده
 
 ```python
-میوه‌ها = ["سیب", "موز", "گیلاس", "خرما", "زرشک"]
-هدف = "گیلاس"
+# پیدا کردن اولین عدد زوج
+numbers = [1, 3, 5, 8, 9, 10]
 
-for میوه in میوه‌ها:
-    print(f"در حال بررسی: {میوه}")
-    
-    if میوه == هدف:
-        print(f"پیدا شد!")
-        break  # فوراً متوقف شو
+for num in numbers:
+    if num % 2 == 0:
+        print(f"Found even number: {num}")
+        break  # خارج شدن
 
-print("جستجو تمام شد")
-
-# خروجی:
-# در حال بررسی: سیب
-# در حال بررسی: موز
-# در حال بررسی: گیلاس
-# پیدا شد!
-# جستجو تمام شد
+print("Done")
+# خروجی: Found even number: 8
+#         Done
 ```
 
-### جستجو با تأیید کاربر
+### یافتن آیتم در لیست
 
 ```python
-آیتم‌ها = ["مداد", "خودکار", "پاک‌کن", "خط‌کش", "ماژیک"]
+fruits = ["apple", "banana", "cherry", "date"]
+target = "cherry"
 
+for fruit in fruits:
+    print(f"Checking: {fruit}")
+    if fruit == target:
+        print(f"Found {target}!")
+        break
+
+# خروجی:
+# Checking: apple
+# Checking: banana
+# Checking: cherry
+# Found cherry!
+```
+
+### بررسی وجود
+
+```python
+# بررسی اینکه آیا عدد اول وجود دارد
+numbers = [4, 6, 8, 9, 10, 11, 12]
+has_prime = False
+
+for num in numbers:
+    if num > 1:
+        is_prime = True
+        for i in range(2, int(num**0.5) + 1):
+            if num % i == 0:
+                is_prime = False
+                break  # خارج شدن از حلقه داخلی
+        
+        if is_prime:
+            has_prime = True
+            print(f"Found prime: {num}")
+            break  # خارج شدن از حلقه بیرونی
+
+if not has_prime:
+    print("No prime numbers found")
+```
+
+### گرفتن ورودی تا شرط
+
+```python
+# تا وقتی کاربر "quit" را نزده
 while True:
-    جستجو = input("به دنبال چه چیزی می‌گردید؟ (یا 'خروج'): ")
-    
-    if جستجو == "خروج":
+    command = input("Enter command (or 'quit'): ")
+    if command == "quit":
+        print("Goodbye!")
         break
-    
-    پیدا_شد = False
-    for آیتم in آیتم‌ها:
-        if آیتم == جستجو:
-            print(f"پیدا شد: {آیتم}")
-            پیدا_شد = True
-            break  # توقف جستجو
-    
-    if not پیدا_شد:
-        print("موجود نیست")
-```
-
-### پیدا کردن اولین تطابق
-
-```python
-اعداد = [4, 2, 7, 1, 9, 5]
-
-# پیدا کردن اولین عدد بزرگ‌تر از ۵
-for عدد in اعداد:
-    if عدد > 5:
-        print(f"اولین عدد > ۵: {عدد}")
-        break
-else:
-    print("عددی بزرگ‌تر از ۵ پیدا نشد")
+    print(f"Executing: {command}")
 ```
 
 ---
 
-## دستور `continue`: رد کردن و ادامه
+## continue (رفتن به تکرار بعدی)
 
-`continue` بقیه تکرار فعلی را رد می‌کند و به تکرار بعدی می‌رود.
+**continue** بقیه کد در آن تکرار را رد کرده و به تکرار بعدی می‌رود.
 
-### رد کردن اعداد زوج
+### مثال ساده
 
 ```python
-اعداد = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+# چاپ فقط اعداد فرد
+for i in range(10):
+    if i % 2 == 0:  # اگر زوج است
+        continue    # رد کردن
+    print(i)
 
-print("فقط اعداد فرد:")
-for عدد in اعداد:
-    if عدد % 2 == 0:  # اگر زوج بود
-        continue  # اعداد زوج را رد کن
-    print(عدد)
-
-# خروجی: ۱، ۳، ۵، ۷، ۹
+# خروجی: 1, 3, 5, 7, 9
 ```
 
-### رد کردن ورودی خالی یا نامعتبر
+### پردازش لیست با فیلتر
 
 ```python
-خطوط = [
-    "سلام دنیا",
-    "",
-    "   ",
-    "پایتون جذاب است",
-    "",
-    "به یادگیری ادامه بده"
-]
+# پردازش فقط اعداد مثبت
+numbers = [3, -1, 5, -2, 8, -4, 10]
 
-print("فقط خطوط معتبر:")
-for خط in خطوط:
-    if خط.strip() == "":  # رد کردن خطوط خالی
-        continue
-    print(f"→ {خط}")
+for num in numbers:
+    if num < 0:
+        continue  # اعداد منفی را رد کن
+    
+    # فقط اعداد مثبت به اینجا می‌رسند
+    square = num ** 2
+    print(f"{num} squared = {square}")
 
 # خروجی:
-# → سلام دنیا
-# → پایتون جذاب است
-# → به یادگیری ادامه بده
+# 3 squared = 9
+# 5 squared = 25
+# 8 squared = 64
+# 10 squared = 100
 ```
 
-### پردازش فقط داده‌های معتبر
+### پردازش رشته
 
 ```python
-data = [10, "x", 20, "y", 30, "z"]
+text = "Hello123World456"
 
-مجموع = 0
-for آیتم in data:
-    if not isinstance(آیتم, int):
-        print(f"رد کردن غیرعدد: {آیتم}")
-        continue
-    
-    مجموع += آیتم
-    print(f"اضافه شد {آیتم}، مجموع فعلی: {مجموع}")
+for char in text:
+    if char.isdigit():
+        continue  # اعداد را رد کن
+    print(char, end="")
 
-print(f"مجموع نهایی: {مجموع}")
+# خروجی: HelloWorld
 ```
 
 ---
 
-## بند `else` با حلقه‌ها
+## else در حلقه
 
-بند `else` وقتی اجرا می‌شود که حلقه به **طور عادی** تمام شود (نه با `break`).
+**else** در حلقه اجرا می‌شود اگر حلقه **کامل** اجرا شود (بدون break).
 
-### استفاده از `else` برای "پیدا نشد"
+### مفهوم
 
 ```python
-میوه‌ها = ["سیب", "موز", "گیلاس"]
-جستجو = "خرما"
-
-for میوه in میوه‌ها:
-    if میوه == جستجو:
-        print(f"پیدا شد: {میوه}")
+for item in sequence:
+    if condition:
         break
 else:
-    # این فقط اگر حلقه بدون break تمام شود اجرا می‌شود
-    print(f"{جستجو} در لیست پیدا نشد!")
-
-# خروجی: خرما در لیست پیدا نشد!
+    # اگر break اجرا نشود، این اجرا می‌شود
 ```
 
-### اعتبارسنجی اعداد اول
+### مثال: یافتن عدد اول
 
 ```python
-def اول_است(n):
-    """بررسی اینکه آیا عدد اول است."""
+# بررسی اینکه آیا یک عدد اول است
+def is_prime(n):
     if n < 2:
         return False
     
-    for i in range(2, n):
+    for i in range(2, int(n**0.5) + 1):
         if n % i == 0:
-            print(f"{n} = {i} × {n//i}")
-            return False
-    
-    return True
-
-# تست
-for عدد in [7, 10, 13, 15]:
-    if اول_است(عدد):
-        print(f"{عدد} اول است")
+            print(f"{n} is not prime (divisible by {i})")
+            break
     else:
-        print(f"{عدد} اول نیست")
+        # اگر break اجرا نشود، یعنی اول است
+        print(f"{n} is prime!")
+        return True
+    
+    return False
+
+is_prime(17)   # 17 is prime!
+is_prime(18)   # 18 is not prime (divisible by 2)
 ```
 
-### اعتبارسنجی رمز عبور
+### جستجوی آیتم
 
 ```python
-رمز = input("رمز را وارد کن: ")
-تلاش‌ها = 3
+# بررسی اینکه آیا مقداری در لیست وجود دارد
+fruits = ["apple", "banana", "cherry"]
+target = "date"
 
-for تلاش in range(تلاش‌ها):
-    if رمز == "secret":
-        print("دسترسی مجاز!")
+for fruit in fruits:
+    if fruit == target:
+        print(f"Found {target}")
         break
-    
-    باقیمانده = تلاش‌ها - تلاش - 1
-    if باقیمانده > 0:
-        رمز = input(f"اشتباه! {باقیمانده} تلاش باقی: ")
-    else:
-        رمز = ""
 else:
-    # حلقه بدون break تمام شد
-    print("دسترسی رد شد - تلاش‌های ناموفق زیاد")
+    # اگر break اجرا نشود
+    print(f"{target} not found in the list")
+
+# خروجی: date not found in the list
+```
+
+### مقایسه با پرچم
+
+```python
+# ❌ بدون else (با پرچم)
+found = False
+for fruit in fruits:
+    if fruit == target:
+        found = True
+        print(f"Found {target}")
+        break
+
+if not found:
+    print(f"{target} not found")
+
+# ✅ با else (تمیزتر)
+for fruit in fruits:
+    if fruit == target:
+        print(f"Found {target}")
+        break
+else:
+    print(f"{target} not found")
 ```
 
 ---
 
-## الگوهای رایج
+## pass (انجام ندادن کاری)
 
-### الگوی ۱: پیدا کردن و پردازش اولین تطابق
+**pass** یک placeholder است - هیچ کاری انجام نمی‌دهد.
+
+### استفاده‌ها
 
 ```python
-def پیدا_و_پردازش(آیتم‌ها, شرط, پردازش):
-    """پیدا کردن اولین آیتم مطابق شرط و پردازش آن."""
-    for آیتم in آیتم‌ها:
-        if شرط(آیتم):
-            پردازش(آیتم)
-            return True  # پیدا و پردازش شد
-    return False  # پیدا نشد
+# ۱. در حلقه‌ای که هنوز پیاده‌سازی نشده
+for i in range(10):
+    pass  # TODO: implement later
 
-# مثال: پیدا کردن اولین محصول گران و اعمال تخفیف
-محصولات = [
-    {"name": "خودکار", "price": 2},
-    {"name": "کتاب", "price": 15},
-    {"name": "لپ‌تاپ", "price": 1000},
+# ۲. در شرطی که هنوز پیاده‌سازی نشده
+if condition:
+    pass  # TODO: handle this case
+else:
+    print("Other case")
+
+# ۳. در کلاس خالی
+class MyClass:
+    pass  # Will add methods later
+
+# ۴. در تابع خالی
+def placeholder():
+    pass
+```
+
+---
+
+## الگوهای پیشرفته
+
+### یافتن چندین آیتم
+
+```python
+# پیدا کردن همه اعداد زوج
+numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+even_numbers = []
+
+for num in numbers:
+    if num % 2 != 0:
+        continue
+    even_numbers.append(num)
+
+print(even_numbers)  # [2, 4, 6, 8, 10]
+```
+
+### اعتبارسنجی
+
+```python
+# بررسی اینکه آیا همه اعداد مثبت هستند
+numbers = [3, 5, 8, -2, 10]
+
+for num in numbers:
+    if num < 0:
+        print(f"Found negative number: {num}")
+        print("List is not all positive!")
+        break
+else:
+    print("All numbers are positive!")
+
+# خروجی:
+# Found negative number: -2
+# List is not all positive!
+```
+
+### پردازش با محدودیت
+
+```python
+# پردازش حداکثر ۳ آیتم
+items = ["a", "b", "c", "d", "e"]
+processed = 0
+max_items = 3
+
+for item in items:
+    if processed >= max_items:
+        print("Reached maximum, stopping.")
+        break
+    
+    print(f"Processing: {item}")
+    processed = processed + 1
+
+# خروجی:
+# Processing: a
+# Processing: b
+# Processing: c
+# Reached maximum, stopping.
+```
+
+---
+
+## حلقه‌های تو در تو با کنترل
+
+### break از حلقه داخلی
+
+```python
+# پیدا کردن جفت با مجموع خاص
+numbers = [1, 2, 3, 4, 5]
+target_sum = 7
+
+for i in numbers:
+    for j in numbers:
+        if i + j == target_sum:
+            print(f"Found: {i} + {j} = {target_sum}")
+            break  # فقط از حلقه داخلی خارج می‌شود
+    # حلقه بیرونی ادامه می‌یابد
+```
+
+### خروج از چندین حلقه
+
+```python
+# روش ۱: با پرچم
+found = False
+for i in range(5):
+    for j in range(5):
+        if i * j > 10:
+            print(f"Found: {i} x {j} = {i*j}")
+            found = True
+            break
+    if found:
+        break
+
+# روش ۲: تبدیل به تابع
+def find_pair():
+    for i in range(5):
+        for j in range(5):
+            if i * j > 10:
+                return i, j  # return از همه حلقه‌ها خارج می‌شود
+    return None
+
+result = find_pair()
+```
+
+---
+
+## کاربردهای عملی
+
+### مثال ۱: گرفتن ورودی معتبر
+
+```python
+# تا وقتی عدد معتبر ندهد، ادامه بده
+while True:
+    user_input = input("Enter a number (or 'quit'): ")
+    
+    if user_input == "quit":
+        print("Exiting...")
+        break
+    
+    if not user_input.isdigit():
+        print("Invalid input! Please enter a number.")
+        continue
+    
+    number = int(user_input)
+    print(f"You entered: {number}")
+    print(f"Square: {number ** 2}")
+```
+
+### مثال ۲: پردازش فایل
+
+```python
+# پردازش خطوط تا رسیدن به خط خالی
+lines = ["Line 1", "Line 2", "", "Line 4", "Line 5"]
+
+for line in lines:
+    if line == "":
+        print("Empty line found, stopping.")
+        break
+    
+    if line.startswith("#"):
+        continue  # کامنت‌ها را رد کن
+    
+    print(f"Processing: {line}")
+
+# خروجی:
+# Processing: Line 1
+# Processing: Line 2
+# Empty line found, stopping.
+```
+
+### مثال ۳: جستجوی کاربر
+
+```python
+users = [
+    {"name": "Alice", "active": True},
+    {"name": "Bob", "active": False},
+    {"name": "Charlie", "active": True}
 ]
 
-def گران_است(p): return p["price"] > 100
-def تخفیف_بده(p): 
-    p["price"] *= 0.9
-    print(f"تخفیف به {p['name']}: ${p['price']:.2f}")
-
-پیدا_شد = پیدا_و_پردازش(محصولات, گران_است, تخفیف_بده)
-if not پیدا_شد:
-    print("محصول گرانی پیدا نشد")
-```
-
-### الگوی ۲: رد کردن آیتم‌های نامعتبر
-
-```python
-def پردازش_آیتم‌های_معتبر(داده, اعتبارسنج, پردازش):
-    """پردازش فقط آیتم‌های معتبر، رد کردن نامعتبرها."""
-    نتایج = []
+# پیدا کردن اولین کاربر فعال
+for user in users:
+    if not user["active"]:
+        continue  # کاربران غیرفعال را رد کن
     
-    for آیتم in داده:
-        if not اعتبارسنج(آیتم):
-            print(f"رد کردن نامعتبر: {آیتم}")
-            continue
-        
-        نتیجه = پردازش(آیتم)
-        نتایج.append(نتیجه)
-    
-    return نتایج
+    print(f"Found active user: {user['name']}")
+    break
+else:
+    print("No active users found")
 
-# مثال: پردازش فقط اعداد مثبت
-def مثبت_است(x): return x > 0
-def دو_برابر(x): return x * 2
-
-اعداد = [5, -3, 8, -1, 10]
-نتایج = پردازش_آیتم‌های_معتبر(اعداد, مثبت_است, دو_برابر)
-print(f"نتایج: {نتایج}")  # [10, 16, 20]
-```
-
-### الگوی ۳: منو با کنترل حلقه
-
-```python
-def نمایش_منو():
-    print("\n=== منو ===")
-    print("۱. افزودن آیتم")
-    print("۲. مشاهده آیتم‌ها")
-    print("۳. خروج")
-
-آیتم‌ها = []
-
-while True:
-    نمایش_منو()
-    انتخاب = input("انتخاب کن: ")
-    
-    if انتخاب == "۳":
-        print("خداحافظ!")
-        break
-    
-    if انتخاب == "۱":
-        آیتم = input("آیتم را وارد کن: ")
-        if آیتم.strip() == "":
-            print("نمی‌توان آیتم خالی اضافه کرد!")
-            continue
-        آیتم‌ها.append(آیتم)
-        print(f"اضافه شد: {آیتم}")
-    
-    elif انتخاب == "۲":
-        if not آیتم‌ها:
-            print("هنوز آیتمی نیست!")
-            continue
-        print("آیتم‌ها:")
-        for i, آیتم in enumerate(آیتم‌ها, 1):
-            print(f"  {i}. {آیتم}")
-    
-    else:
-        print("انتخاب نامعتبر!")
+# خروجی: Found active user: Alice
 ```
 
 ---
 
-## اشتباهات رایج مبتدی‌ها
+## اشتباهات رایج
 
-### اشتباه ۱: استفاده از `continue` یا `break` خارج از حلقه
+### اشتباه ۱: break در حلقه اشتباه
 
 ```python
-# ❌ اشتباه - SyntaxError
-def کمک():
-    if x < 0:
-        continue  # 'continue' در حلقه نیست
-
-# ✅ درست
-def کمک():
-    for x in آیتم‌ها:
-        if x < 0:
-            continue
+# ⚠️ فقط از حلقه داخلی خارج می‌شود
+for i in range(3):
+    for j in range(3):
+        if i * j > 2:
+            break  # فقط از حلقه j خارج می‌شود
+    print(f"i = {i}")  # این هنوز اجرا می‌شود
 ```
 
-### اشتباه ۲: فراموش کردن که `break` فقط از داخلی‌ترین حلقه خارج می‌شود
+### اشتباه ۲: continue در حلقه اشتباه
 
 ```python
-# ❌ اشتباه - فقط از حلقه داخلی خارج می‌شود
-پیدا_شد = False
-for سطر in ماتریس:
-    for سلول in سطر:
-        if سلول == هدف:
-            پیدا_شد = True
-            break
-    # هنوز در حلقه خارجی هستیم!
+# ⚠️ فقط به تکرار بعدی در حلقه فعلی می‌رود
+for i in range(3):
+    for j in range(3):
+        if j == 1:
+            continue  # به j بعدی می‌رود، نه i
+        print(f"i={i}, j={j}")
+```
 
-# ✅ درست - استفاده از پرچم برای خروج از هر دو
-پیدا_شد = False
-for سطر in ماتریس:
-    if پیدا_شد:
+### اشتباه ۳: فراموش کردن else
+
+```python
+# ⚠️ این else مربوط به if است، نه for!
+for i in range(5):
+    if i == 3:
         break
-    for سلول in سطر:
-        if سلول == هدف:
-            پیدا_شد = True
-            break
+else:  # این مربوط به for است، نه if!
+    print("Loop completed")
 ```
 
-### اشتباه ۳: اشتباه گرفتن `else` حلقه با `if-else`
+### اشتباه ۴: else بدون break
 
 ```python
-# ❌ درک اشتباه
-for x in آیتم‌ها:
-    if x > 10:
-        print("بزرگ!")
-    else:  # این هر تکرار اجرا می‌شود!
-        print("بزرگ نیست")
-
-# ✅ درست - استفاده from for-else برای جستجو
-for x in آیتم‌ها:
-    if x == هدف:
-        print("پیدا شد!")
-        break
-else:  # این فقط اگر حلقه بدون break تمام شود اجرا می‌شود
-    print("پیدا نشد")
-```
-
-### اشتباه ۴: استفاده از `continue` برای رد کردن آخرین تکرار
-
-```python
-# ❌ اشتباه - استفاده از continue وقتی باید حلقه را متفاوت تعریف کنیم
-for i in range(10):
-    if i == 9:
-        continue  # رد کردن آخرین تکرار
+# ❌ else هیچ‌وقت اجرا نمی‌شود چون همیشه break می‌شود
+for i in range(5):
     print(i)
-
-# ✅ درست - فقط تا ۹ حلقه بزن
-for i in range(9):
-    print(i)
-```
-
-### اشتباه ۵: فکر کردن که `break` از تابع خارج می‌شود
-
-```python
-# ❌ اشتباه - تابع None برمی‌گرداند
-def پیدا_کردن_اولین_مثبت(اعداد):
-    for n in اعداد:
-        if n > 0:
-            break  # از حلقه خارج می‌شود، نه تابع!
-
-# ✅ درست
-نتیجه = پیدا_کردن_اولین_مثبت([-5, -3, 2, 8])
-print(نتیجه)  # None! (نه ۲)
-
-# ✅ نسخه درست
-def پیدا_کردن_اولین_مثبت(اعداد):
-    for n in اعداد:
-        if n > 0:
-            return n  # خروج از تابع با مقدار
-    return None  # پیدا نشد
+    break
+else:
+    print("This will never print")
 ```
 
 ---
 
 ## خودتان امتحان کنید: تمرین‌ها
 
-### تمرین ۱: پیدا کردن و توقف
+### تمرین ۱: شمارش معکوس
 
-اولین عدد بخش‌پذیر بر ۳ و ۵ را پیدا کن:
+کدی بنویسید که از ۱۰ تا ۱ بشمارد، اما:
+- اگر به ۵ رسید، "Halfway there!" چاپ کند و ادامه دهد
+- اگر به ۳ رسید، بشمارد "Almost done!" و خارج شود
 
-```python
-اعداد = [4, 7, 10, 12, 15, 18, 20, 25]
+### تمرین ۲: اعتبارسنجی رمز
 
-for عدد in اعداد:
-    if عدد % 3 == 0 and عدد % 5 == 0:
-        print(f"اولین بخش‌پذیر بر هر دو: {عدد}")
-        break
-else:
-    print("عددی بخش‌پذیر بر ۳ و ۵ پیدا نشد")
-```
+کدی بنویسید که:
+۱. تا ۳ تلاش برای گرفتن رمز صحیح اجازه دهد
+۲. اگر رمز صحیح بود، "Access granted!" و خارج شود
+۳. اگر ۳ تلاش اشتباه بود، "Account locked!"
 
-### تمرین ۲: پردازش فقط معتبرها
+### تمرین ۳: پردازش لیست
 
-رد کردن ایمیل‌های نامعتبر:
+کدی بنویسید که یک لیست اعداد را پردازش کند:
+- اعداد منفی را رد کند
+- اعداد زوج را چاپ کند
+- اگر به عدد ۰ رسید، "Zero found, stopping!" و خارج شود
+- اگر حلقه کامل اجرا شود، "Processing complete!" چاپ کند
 
-```python
-ایمیل‌ها = [
-    "user@example.com",
-    "invalid-email",
-    "another@domain.org",
-    "not-an-email",
-    "test@site.net"
-]
-
-معتبرها = []
-for ایمیل in ایمیل‌ها:
-    if "@" not in ایمیل or "." not in ایمیل:
-        print(f"نامعتبر: {ایمیل}")
-        continue
-    معتبرها.append(ایمیل)
-
-print(f"ایمیل‌های معتبر: {معتبرها}")
-```
-
-### تمرین ۳: ورود با تلاش‌های محدود
+### تمرین ۴: بازی حدس عدد
 
 ```python
-رمز_صحیح = "secret123"
-حداکثر_تلاش = 3
+import random
 
-for تلاش in range(حداکثر_تلاش):
-    رمز = input(f"تلاش {تلاش + 1}/{حداکثر_تلاش}: ")
-    
-    if رمز == رمز_صحیح:
-        print("خوش آمدید!")
-        break
-else:
-    print("حساب قفل شد!")
+secret = random.randint(1, 100)
+attempts = 0
+max_attempts = 7
+
+# کد را کامل کنید:
+# - تا ۷ تلاش اجازه بدهید
+# - راهنمایی "Too high" یا "Too low" بدهید
+# - اگر حدس درست بود، "Congratulations!" و تعداد تلاش‌ها
+# - اگر تمام تلاش‌ها اشتباه بود، "Game over! The number was X"
 ```
-
-### تمرین ۴: رفع اشکالات
-
-```python
-# برنامه با اشکال
-def پیدا_کردن_اولین_زوج(اعداد):
-    for n in اعداد:
-        if n % 2 == 0:
-            print(f"پیدا شد: {n}")
-            break
-    else:
-        return None
-    return n
-
-def پردازش_داده(داده):
-    مجموع = 0
-    for آیتم in داده:
-        if آیتم < 0:
-            print("رد کردن منفی")
-            continue
-        مجموع = مجموع + آیتم
-    return مجموع
-
-# تست
-نتیجه = پیدا_کردن_اولین_زوج([1, 3, 5])
-print(نتیجه)
-```
-
-<details>
-<summary>برای دیدن پاسخ کلیک کنید</summary>
-
-```python
-# برنامه رفع شده
-def پیدا_کردن_اولین_زوج(اعداد):
-    for n in اعداد:
-        if n % 2 == 0:
-            print(f"پیدا شد: {n}")
-            return n  # برگرداندن مقدار پیدا شده
-    return None  # اگر پیدا نشد None برگردان
-
-def پردازش_داده(داده):
-    مجموع = 0
-    for آیتم in داده:
-        if آیتم < 0:
-            print("رد کردن منفی")
-            continue
-        مجموع = مجموع + آیتم
-    return مجموع
-
-# تست
-نتیجه = پیدا_کردن_اولین_زوج([1, 3, 5, 8, 10])
-print(نتیجه)  # 8
-
-نتیجه = پیدا_کردن_اولین_زوج([1, 3, 5])
-print(نتیجه)  # None
-```
-</details>
 
 ---
 
 ## مرجع سریع
 
-### دستورات کنترل حلقه
+### دستورات کنترل
 
-| دستور | کاری که انجام می‌دهد | چه موقع استفاده شود |
-|-----------|--------------|-------------|
-| `break` | فوراً از حلقه خارج شو | چیزی را پیدا کردید |
-| `continue` | به تکرار بعدی برو | آیتم فعلی صلاحیت ندارد |
-| `else` (با حلقه) | اگر break رخ نداد اجرا شود | جستجو/اعتبارسنجی تطابق نداشت |
+```python
+break       # خروج فوری از حلقه
+continue    # رفتن به تکرار بعدی
+else        # اگر حلقه کامل شود (بدون break)
+pass        # هیچ کاری نکن
+```
 
-### الگوهای رایج
+### استفاده else
 
-| الگو | مثال کد |
-|---------|--------------|
-| پیدا کردن اولین تطابق | `for x in items:`<br>`  if match(x):`<br>`    process(x)`<br>`    break` |
-| رد کردن نامعتبر | `for x in items:`<br>`  if not valid(x):`<br>`    continue`<br>`  process(x)` |
-| جستجو با else | `for x in items:`<br>`  if x == target:`<br>`    found = True`<br>`    break`<br>`else:`<br>`  print("پیدا نشد")` |
-| حلقه منو | `while True:`<br>`  show_menu()`<br>`  if quit: break` |
+```python
+for item in items:
+    if condition:
+        break
+else:
+    # اگر break اجرا نشود
+    print("No break occurred")
+```
 
-### Break در مقابل Continue در مقابل Else
+### حلقه‌های تو در تو
 
-| سناریو | break | continue | else |
-|----------|-------|----------|------|
-| خروج زودهنگام از حلقه | ✓ | ✗ | ✗ |
-| رد کردن به آیتم بعدی | ✗ | ✓ | ✗ |
-| اجرا پس از اتمام عادی | ✗ | ✗ | ✓ |
-| کار در حلقه for | ✓ | ✓ | ✓ |
-| کار در حلقه while | ✓ | ✓ | ✓ |
+```python
+# فقط از حلقه داخلی خارج می‌شود
+for i in range(5):
+    for j in range(5):
+        if condition:
+            break  # فقط از j خارج می‌شود
+
+# خروج از همه حلقه‌ها
+for i in range(5):
+    for j in range(5):
+        if condition:
+            return  # از تابع خارج می‌شود
+```
 
 ---
 
 ## نکات کلیدی
 
-۱. **`break`** کل حلقه را فوراً متوقف می‌کند
-۲. **`continue`** بقیه تکرار فعلی را رد می‌کند و به بعدی می‌رود
-۳. **`else` حلقه** فقط اگر حلقه به طور عادی تمام شود (بدون `break`) اجرا می‌شود
-۴. **`break` فقط از داخلی‌ترین حلقه خارج می‌شود** - از پرچم‌ها برای خروج از حلقه‌های تو در تو استفاده کنید
-۵. **`continue` و `break`** فقط در حلقه‌ها کار می‌کنند، نه در توابع
-۶. **از `else` با حلقه** برای سناریوهای "پیدا نشد" یا "تطابق نداشت" استفاده کنید
-۷. **از پرچم‌ها** (متغیرهای بولی) وقتی نیاز به ارتباط بین حلقه‌های تو در تو دارید استفاده کنید
+۱. **break** - فوری از حلقه خارج می‌شود
+۲. **continue** - به تکرار بعدی می‌رود
+۳. **else** - اگر حلقه کامل شود (بدون break)
+۴. **pass** - placeholder، هیچ کاری نمی‌کند
+۵. **break فقط حلقه فعلی** را می‌شکند، نه همه را
 
 ---
 
-## گام بعدی
+## گام بعدی چیست؟
 
-حالا که می‌توانید با break، continue و else حلقه‌ها را کنترل کنید:
-- الگوریتم‌های جستجوی کارآمدتر می‌نویسید
-- موارد خاص و داده‌های نامعتبر را به خوبی مدیریت می‌کنید
-- برنامه‌های تعاملی با کنترل جریان مناسب می‌سازید
-- به سمت ساختارهای داده پیشرفته‌تر (لیست‌ها، دیکشنری‌ها) می‌روید
+حالا که با کنترل حلقه‌ها آشنا شدید، بیایید درباره حلقه while یاد بگیریم:
+- **حلقه while** - تکرار تا وقتی شرط برقرار است

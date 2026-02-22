@@ -1,13 +1,13 @@
-# شبه‌کد به کد: پیاده‌سازی الگوریتم‌ها
+# از شبه‌کد به کد: پیاده‌سازی الگوریتم‌ها
 
 ## فرآیند ترجمه
 
-ترجمه شبه‌کد به کد برنامه‌نویسی واقعی شامل تبدیل منطق الگوریتمی به نحو زبان‌محور است و قصد و صحت اصلی را حفظ می‌کند.
+ترجمه شبه‌کد به کد واقعی برنامه‌نویسی شامل تبدیل منطق الگوریتمی به نحو زبان‌خاص در حالی که قصد و صحت اصلی حفظ می‌شود.
 
-## مراحل ترجمه گام به گام
+## ترجمه گام‌به‌گام
 
-### ۱. شبه‌کد را درک کنید
-قبل از ترجمه، مطمئن شوید که کاملاً الگوریتم را درک کرده‌اید:
+### ۱. درک شبه‌کد
+قبل از ترجمه، اطمینان حاصل کنید که کاملاً الگوریتم را درک می‌کنید:
 
 ```pseudocode
 ALGORITHM CalculateGrade
@@ -16,6 +16,8 @@ ALGORITHM CalculateGrade
         grade ← "A"
     ELSE IF score >= 80 THEN
         grade ← "B"
+    ELSE IF score >= 70 THEN
+        grade ← "C"
     ELSE
         grade ← "D"
     END IF
@@ -23,17 +25,17 @@ ALGORITHM CalculateGrade
 END ALGORITHM
 ```
 
-### ۲. انواع داده مناسب انتخاب کنید
+### ۲. انتخاب انواع داده مناسب
 
-مفاهیم شبه‌کد را به انواع زبان نگاشت کنید:
-- اعداد → `int`, `float`
-- متن → `string`, `str`
-- درست/غلط → `boolean`, `bool`
-- مجموعه‌ها → arrays, lists, dictionaries
+نگاشت مفاهیم شبه‌کد به انواع زبان:
+- اعداد → `int`، `float`
+- متن → `string`، `str`
+- درست/نادرست → `boolean`، `bool`
+- مجموعه‌ها → آرایه‌ها، لیست‌ها، دیکشنری‌ها
 
-### ۳. ساختارهای کنترلی را ترجمه کنید
+### ۳. ترجمه ساختارهای کنترل
 
-#### ترجمه توالی
+#### ترجمه ترتیب
 ```pseudocode
 READ name
 READ age
@@ -41,9 +43,9 @@ WRITE "Hello " + name
 ```
 
 ```python
-name = input("نام را وارد کنید: ")
-age = int(input("سن را وارد کنید: "))
-print(f"سلام {name}")
+name = input("Enter name: ")
+age = int(input("Enter age: "))
+print(f"Hello {name}")
 ```
 
 #### ترجمه انتخاب
@@ -53,7 +55,7 @@ IF score >= 90 THEN
 ELSE IF score >= 80 THEN
     grade ← "B"
 ELSE
-    grade ← "D"
+    grade ← "F"
 END IF
 ```
 
@@ -63,7 +65,7 @@ if score >= 90:
 elif score >= 80:
     grade = "B"
 else:
-    grade = "D"
+    grade = "F"
 ```
 
 #### ترجمه تکرار
@@ -78,11 +80,11 @@ for i in range(1, 11):
     print(i)
 ```
 
-## مثال‌های ترجمه زبان‌محور
+## مثال‌های ترجمه زبان‌خاص
 
-### Python Translation
+### ترجمه Python
 
-#### متغیرها و تخصیص
+#### متغیرها و انتساب
 ```pseudocode
 DECLARE x, y AS INTEGER
 x ← 5
@@ -118,7 +120,7 @@ numbers[1] ← 20
 ```
 
 ```python
-numbers = [0] * 5  # ایجاد لیست ۵ تا صفر
+numbers = [0] * 5  # ایجاد لیست با ۵ صفر
 numbers[0] = 10
 numbers[1] = 20
 
@@ -126,7 +128,7 @@ numbers[1] = 20
 numbers = [10, 20, 0, 0, 0]
 ```
 
-### JavaScript Translation
+### ترجمه JavaScript
 
 #### متغیرها
 ```javascript
@@ -141,7 +143,7 @@ function addNumbers(a, b) {
     return a + b;
 }
 
-// تابع پیکان
+// Arrow function
 const addNumbers = (a, b) => a + b;
 ```
 
@@ -151,18 +153,18 @@ let numbers = new Array(5);
 numbers[0] = 10;
 numbers[1] = 20;
 
-// یا نحو literal
+// یا syntax literal
 let numbers = [10, 20, 0, 0, 0];
 ```
 
-### Java Translation
+### ترجمه Java
 
-#### متغیرها با نوع
+#### متغیرها با انواع
 ```java
 // Java نیاز به انواع صریح دارد
 int x = 5;
 double pi = 3.14159;
-String name = "علی";
+String name = "Alice";
 ```
 
 #### متدها
@@ -209,7 +211,7 @@ def linear_search(arr, target):
 # استفاده
 numbers = [10, 20, 30, 40, 50]
 index = linear_search(numbers, 30)
-print(f"در شاخص یافت شد: {index}")  # ۲
+print(f"Found at index: {index}")  # 2
 ```
 
 **پیاده‌سازی JavaScript:**
@@ -226,7 +228,7 @@ function linearSearch(arr, target) {
 // استفاده
 const numbers = [10, 20, 30, 40, 50];
 const index = linearSearch(numbers, 30);
-console.log(`در شاخص یافت شد: ${index}`);  // ۲
+console.log(`Found at index: ${index}`);  // 2
 ```
 
 ### الگوریتم مرتب‌سازی (حبابی)
@@ -285,7 +287,7 @@ def factorial(n):
         return n * factorial(n - 1)
 
 # استفاده
-print(factorial(5))  # ۱۲۰
+print(factorial(5))  # 120
 ```
 
 ## مدیریت تفاوت‌های زبان
@@ -309,7 +311,7 @@ result = `Hello ${name}`;
 
 ```java
 result = "Hello" + name;
-// برای کارایی StringBuilder
+// StringBuilder برای کارایی
 StringBuilder sb = new StringBuilder();
 sb.append("Hello");
 sb.append(name);
@@ -341,7 +343,7 @@ let numbers = [10, 20, 30];
 numbers.splice(1, 1);  // حذف در شاخص ۱
 ```
 
-## مدیریت خطا در ترجمه
+## ترجمه مدیریت خطا
 
 ### اعتبارسنجی ورودی
 ```pseudocode
@@ -354,12 +356,12 @@ END IF
 
 ```python
 try:
-    age = int(input("سن را وارد کنید: "))
+    age = int(input("Enter age: "))
     if age < 0 or age > 120:
-        print("سن نامعتبر")
+        print("Invalid age")
         return
 except ValueError:
-    print("لطفاً عدد وارد کنید")
+    print("Please enter a number")
     return
 ```
 
@@ -376,16 +378,16 @@ END TRY
 ```python
 try:
     result = risky_operation()
-    print(f"موفقیت: {result}")
+    print(f"Success: {result}")
 except Exception as error:
-    print(f"خطا: {error}")
+    print(f"Error: {error}")
 ```
 
 ## آزمایش و اشکال‌زدایی
 
-### تست واحد در ترجمه
+### آزمایش واحد ترجمه
 ```pseudocode
-// تست تابع AddNumbers
+// تابع AddNumbers را آزمایش کنید
 test_result1 ← AddNumbers(2, 3) = 5
 test_result2 ← AddNumbers(-1, 1) = 0
 ```
@@ -394,85 +396,85 @@ test_result2 ← AddNumbers(-1, 1) = 0
 def test_add_numbers():
     assert add_numbers(2, 3) == 5
     assert add_numbers(-1, 1) == 0
-    print("همه تست‌ها گذرانده شدند")
+    print("All tests passed")
 
 test_add_numbers()
 ```
 
 ### تکنیک‌های اشکال‌زدایی
 ```python
-# چاپ‌های اشکال‌زدایی اضافه کنید
+# افزودن printهای اشکال‌زدایی
 def factorial(n):
-    print(f"محاسبه فاکتوریل({n})")
+    print(f"Computing factorial({n})")
     if n == 0 or n == 1:
-        print("مورد پایه: بازگشت ۱")
+        print(f"Base case: returning 1")
         return 1
     else:
         result = n * factorial(n - 1)
-        print(f"فاکتوریل({n}) = {n} × فاکتوریل({n-1}) = {result}")
+        print(f"factorial({n}) = {n} * factorial({n-1}) = {result}")
         return result
 
 factorial(3)
 ```
 
-## ملاحظات عملکرد
+## ملاحظات کارایی
 
 ### بهینه‌سازی الگوریتم
 ```pseudocode
 // ناکارآمد O(n²)
 FOR i FROM 0 TO n-1 DO
     FOR j FROM 0 TO n-1 DO
-        // عملیاتی
+        // Some operation
     END FOR
 END FOR
 ```
 
 ```python
-# کارآمدتر
-# از توابع داخلی استفاده کنید
+# رویکردهای کارآمدتر
+# استفاده از توابع داخلی
 total = sum(numbers)
 
-# از list comprehensions استفاده کنید
+# استفاده از list comprehensions
 squares = [x**2 for x in numbers]
 
-# از ساختارهای داده مناسب استفاده کنید
-# دیکشنری برای جستجوی O(1) به جای جستجوی O(n)
+# استفاده از ساختارهای داده مناسب
+# دیکشنری برای جستجوهای O(1) به جای جستجوهای O(n)
 ```
 
 ### مدیریت حافظه
 ```pseudocode
 // پردازش داده بزرگ
 FOR each item IN large_dataset DO
-    // پردازش آیتم
-    // استفاده از حافظه با اندازه مجموعه داده رشد می‌کند
+    // Process item
+    // Memory usage grows with dataset size
 END FOR
 ```
 
 ```python
-# در تکه‌ها پردازش کنید تا حافظه مدیریت شود
+# پردازش به قطعات برای مدیریت حافظه
 def process_large_dataset(dataset, chunk_size=1000):
     for i in range(0, len(dataset), chunk_size):
         chunk = dataset[i:i + chunk_size]
         process_chunk(chunk)
-        # تکه خارج از محدوده می‌رود، حافظه آزاد می‌شود
+        # Chunk از scope خارج می‌شود، حافظه آزاد می‌شود
 ```
 
-## کیفیت کد و روش‌های بهتر
+## کیفیت کد و بهترین شیوه‌ها
 
 ### مستندسازی
 ```python
 def calculate_average(numbers):
     """
-    میانگین حسابی لیستی از اعداد را محاسبه می‌کند.
+    Calculate the arithmetic mean of a list of numbers.
 
     Args:
-        numbers (list): لیست مقادیر عددی
+        numbers (list): List of numeric values
 
     Returns:
-        float: مقدار میانگین، یا ۰ اگر لیست خالی باشد
+        float: Average value, or 0 if list is empty
 
     Raises:
-        TypeError: اگر ورودی لیست نباشد یا شامل مقادیر غیرعددی باشد
+        TypeError: If input is not a list or contains non-numeric values
     """
     if not numbers:
         return 0.0
@@ -487,7 +489,7 @@ def calculate_average(numbers):
 def is_even(number):
     return number % 2 == 0
 
-# بد: گیج‌کننده، سخت خواندن
+# اجتناب: گیج‌کننده، خواندن سخت
 def ie(n):
     return n%2==0
 ```
@@ -495,28 +497,28 @@ def ie(n):
 ### مدیریت خطا
 ```python
 def divide_numbers(a, b):
-    """تقسیم دو عدد به طور امن."""
+    """Divide two numbers safely."""
     if b == 0:
-        raise ValueError("تقسیم بر صفر امکان‌پذیر نیست")
+        raise ValueError("Cannot divide by zero")
     return a / b
 
 # استفاده
 try:
     result = divide_numbers(10, 0)
 except ValueError as e:
-    print(f"خطا: {e}")
+    print(f"Error: {e}")
 ```
 
 ## نکات کلیدی
 
-۱. **شبه‌کد مستقل از زبان است**: ابتدا روی منطق تمرکز کنید، سپس ترجمه کنید
-۲. **سازگاری‌های مناسب انتخاب کنید**: هر زبان idioms و بهترین روش‌های خود را دارد
-۳. **به طور کامل آزمایش کنید**: مطمئن شوید ترجمه صحت الگوریتم را حفظ می‌کند
-۴. **عملکرد را در نظر بگیرید**: ویژگی‌های زبان و کتابخانه‌ها روی کارایی تأثیر می‌گذارند
-۵. **کد قابل نگهداری بنویسید**: کد واضح، مستند شده برای تغییر آسان‌تر است
+1. **شبه‌کد مستقل از زبان است**: ابتدا روی منطق تمرکز کنید، سپس ترجمه کنید
+2. **ساختارهای مناسب انتخاب کنید**: هر زبان ایدیوم‌ها و بهترین شیوه‌های خود را دارد
+3. **آزمایش کامل**: اطمینان حاصل کنید که ترجمه صحت الگوریتم را حفظ می‌کند
+4. **کارایی را در نظر بگیرید**: ویژگی‌ها و کتابخانه‌های زبان بر کارایی تأثیر می‌گذارند
+5. **کد قابل نگهداری بنویسید**: کد واضح و مستند شده اصلاح آن را آسان‌تر می‌کند
 
 ## مطالعه بیشتر
-- چندین زبان برنامه‌نویسی را بیاموزید تا رویکردهای مختلف را درک کنید
-- روش‌های بهتر و idioms زبان‌محور را مطالعه کنید
-- چارچوب‌های تست و ابزارهای اشکال‌زدایی را کاوش کنید
+- مطالعه زبان‌های برنامه‌نویسی متعدد برای درک رویکردهای مختلف
+- یادگیری درباره ایدیوم‌ها و بهترین شیوه‌های زبان‌خاص
+- بررسی چارچوب‌های آزمایش و ابزارهای اشکال‌زدایی
 - تمرین ترجمه الگوریتم‌ها بین زبان‌های مختلف
