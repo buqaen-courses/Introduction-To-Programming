@@ -1,11 +1,11 @@
 # Workshop: Three Briefs
 
-> **Lesson 6 of 6** — Apply the five moves to three real problems.
+> **Lesson 6 of 9** — Apply the five moves to three real problems.
 
 ---
 
 Work on paper. Apply the five moves from
-[Lesson 5](design-method-and-review.md) — restate, spill, shape, draw, dry-run —
+[Lesson 5](05-design-method-and-review.md) — restate, spill, shape, draw, dry-run —
 and dry-run each chart before you call it done.
 
 ---
@@ -106,7 +106,7 @@ after the body, so the addition happens exactly `b` times, not `b − 1`.
 
 Walk the word one character at a time. The diamond asks "is this character one of
 a, e, i, o, u?" — a compound condition is still **one** question, which is a rule
-from [Lesson 2](flowchart-symbols.md). A counter collects the yeses.
+from [Lesson 2](02-flowchart-symbols.md). A counter collects the yeses.
 
 ```mermaid
 flowchart TD
@@ -128,7 +128,7 @@ flowchart TD
 
 **What to notice.** Two diamonds, one loop. This is iteration *wrapping* selection
 — exactly the combination from the pattern table in
-[Lesson 3](control-patterns.md). The "do nothing" branch is the plain `if` from
+[Lesson 3](03-control-patterns.md). The "do nothing" branch is the plain `if` from
 that lesson: it costs nothing, it just flows around.
 
 <details>
@@ -201,7 +201,7 @@ Before you call any chart finished:
 
 1. **[Session 1: What Is a Computer?](../../module-02-computers-and-programs/session-01/README.md)**
    — begin the course proper
-2. **[Module 3: Algorithmic Thinking](../../module-04-algorithmic-thinking/README.md)**
+2. **[Lesson 7: Classic Algorithms](07-classic-algorithms.md)**
    — the ten classic algorithms, with pseudocode beside each: largest of three,
    FizzBuzz, prime test, Euclid's GCD, Fibonacci, linear and binary search,
    bubble sort
@@ -214,4 +214,4 @@ Before you call any chart finished:
 
 ## Persian
 
-[کارگاه: سه تمرین](workshop-briefs_fa.md)
+[کارگاه: سه تمرین](06-workshop-briefs_fa.md)

@@ -1,6 +1,6 @@
 # Loops and Trace Tables
 
-> **Lesson 4 of 6** — The four organs of a loop, counters and accumulators, and
+> **Lesson 4 of 9** — The four organs of a loop, counters and accumulators, and
 > the cheapest bug hunt in programming.
 
 ---
@@ -211,6 +211,109 @@ while True:
     print(x * 2)
 ```
 
+## Real-world loop examples
+
+**Password retry system** — a user has 3 attempts to enter the correct password.
+
+```mermaid
+flowchart TD
+    ST(["START"]) --> INI["attempts ← 0"]
+    INI --> LOOP["READ password"]
+    LOOP --> D1{"password correct ?"}
+    D1 -->|yes| G[/"WRITE 'Access granted'"/]
+    D1 -->|no| INC["attempts ← attempts + 1"]
+    INC --> D2{"attempts ≥ 3 ?"}
+    D2 -->|yes| DEN[/"WRITE 'Access denied'"/]
+    D2 -->|no| LOOP
+    G --> SP(["STOP"])
+    DEN --> SP
+
+    style D1 fill:#fef7e0,stroke:#f9ab00
+    style D2 fill:#fef7e0,stroke:#f9ab00
+```
+
+| attempt | password | correct? | attempts after | result |
+|---------|----------|----------|----------------|--------|
+| 1 | wrong | no | 1 | try again |
+| 2 | wrong | no | 2 | try again |
+| 3 | correct | yes | 2 | Access granted |
+
+**Countdown timer** — count down from N to 0, then print "Blast off!".
+
+```mermaid
+flowchart TD
+    ST(["START"]) --> RD[/"READ N"/]
+    RD --> LOOP["WRITE N"]
+    LOOP --> D{"N > 0 ?"}
+    D -->|yes| DEC["N ← N - 1"]
+    DEC --> LOOP
+    D -->|no| B[/"WRITE 'Blast off!'"/]
+    B --> SP(["STOP"])
+
+    style D fill:#fef7e0,stroke:#f9ab00
+```
+
+| step | N | N > 0? | output |
+|------|---|--------|--------|
+| 1 | 5 | yes | 5 |
+| 2 | 4 | yes | 4 |
+| 3 | 3 | yes | 3 |
+| 4 | 2 | yes | 2 |
+| 5 | 1 | yes | 1 |
+| exit | 0 | no | Blast off! |
+
+**Fibonacci sequence** — print the first N Fibonacci numbers.
+
+```mermaid
+flowchart TD
+    ST(["START"]) --> RD[/"READ N"/]
+    RD --> INI["a ← 0,  b ← 1,  i ← 1"]
+    INI --> TST{"i ≤ N ?"}
+    TST -->|no| SP(["STOP"])
+    TST -->|yes| W[/"WRITE a"/]
+    W --> NEXT["temp ← a + b,  a ← b,  b ← temp"]
+    NEXT --> INC["i ← i + 1"]
+    INC --> TST
+```
+
+| step | i | a | b | temp | output |
+|------|---|---|---|------|--------|
+| init | 1 | 0 | 1 | — | — |
+| 1 | 1 | 0 | 1 | 1 | 0 |
+| 2 | 2 | 1 | 1 | 2 | 1 |
+| 3 | 3 | 1 | 2 | 3 | 1 |
+| 4 | 4 | 2 | 3 | 5 | 2 |
+| 5 | 5 | 3 | 5 | 8 | 3 |
+| exit | 6 | — | — | — | STOP |
+
+**Prime number checker** — check if N is prime by testing divisors up to √N.
+
+```mermaid
+flowchart TD
+    ST(["START"]) --> RD[/"READ N"/]
+    RD --> D1{"N ≤ 1 ?"}
+    D1 -->|yes| NOT[/"WRITE 'Not prime'"/]
+    D1 -->|no| INI["i ← 2"]
+    INI --> TST{"i × i ≤ N ?"}
+    TST -->|no| PRIME[/"WRITE 'Prime'"/]
+    TST -->|yes| D2{"N mod i = 0 ?"}
+    D2 -->|yes| NOT
+    D2 -->|no| INC["i ← i + 1"]
+    INC --> TST
+    NOT --> SP(["STOP"])
+    PRIME --> SP
+
+    style D1 fill:#fef7e0,stroke:#f9ab00
+    style D2 fill:#fef7e0,stroke:#f9ab00
+```
+
+| step | i | i × i ≤ 17? | 17 mod i | output |
+|------|---|-------------|----------|--------|
+| init | 2 | yes | 1 | — |
+| 1 | 3 | yes | 2 | — |
+| 2 | 4 | yes | 1 | — |
+| 3 | 5 | no | — | Prime |
+
 ## Quick Reference — the loop skeleton
 
 ```
@@ -238,11 +341,11 @@ step      move the counter toward the exit — never omit this
 
 ## Next
 
-**[Design Method and Review Checklist](design-method-and-review.md)** — turning a
+**[Design Method and Review Checklist](05-design-method-and-review.md)** — turning a
 wordy problem into a chart in five moves, and the four ways charts go wrong.
 
 ---
 
 ## Persian
 
-[حلقه‌ها و جدول ردیابی](loops-and-trace-tables_fa.md)
+[حلقه‌ها و جدول ردیابی](04-loops-and-trace-tables_fa.md)

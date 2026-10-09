@@ -1,6 +1,6 @@
 # Why Draw Before You Code
 
-> **Lesson 1 of 6** — The case for designing on paper before you touch a keyboard.
+> **Lesson 1 of 9** — The case for designing on paper before you touch a keyboard.
 
 ---
 
@@ -110,11 +110,11 @@ for itself on the first bug it catches.
 
 ## Next
 
-**[The Six Symbols](flowchart-symbols.md)** — the vocabulary. Once you can name
+**[The Six Symbols](02-flowchart-symbols.md)** — the vocabulary. Once you can name
 the shapes, you can read any chart written since 1974.
 
 ---
 
 ## Persian
 
-[چرا قبل از کدنویسی رسم می‌کنیم](why-draw-before-you-code_fa.md)
+[چرا قبل از کدنویسی رسم می‌کنیم](01-why-draw-before-you-code_fa.md)

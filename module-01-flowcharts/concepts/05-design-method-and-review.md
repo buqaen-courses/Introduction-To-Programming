@@ -1,6 +1,6 @@
 # Design Method and Review Checklist
 
-> **Lesson 5 of 6** — Problem to chart in five moves, the four ways charts break,
+> **Lesson 5 of 9** — Problem to chart in five moves, the four ways charts break,
 > and the checklist every code review is wearing a lanyard of.
 
 ---
@@ -257,11 +257,11 @@ Learn the flowchart and you can read the whole family tree.
 
 ## Next
 
-**[Workshop: Three Briefs](workshop-briefs.md)** — apply the five moves to three
+**[Workshop: Three Briefs](06-workshop-briefs.md)** — apply the five moves to three
 real problems, with hints and an answer key.
 
 ---
 
 ## Persian
 
-[روش طراحی و چک‌لیست بازبینی](design-method-and-review_fa.md)
+[روش طراحی و چک‌لیست بازبینی](05-design-method-and-review_fa.md)

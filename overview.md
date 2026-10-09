@@ -28,24 +28,20 @@ The course is organized around five interconnected modules:
 
 ### Module 2: Data Representation & Number Systems
 - Bits, bytes, and how information is stored
+- Bits, bytes, and how information is stored
 - Binary, decimal, and hexadecimal number systems
 - Text representation (ASCII and Unicode)
 - Basic binary arithmetic
 
-### Module 3: Algorithms & Pseudocode
-- What algorithms are and why they matter
-- Input-process-output model
-- Designing step-by-step solutions
-- Writing algorithms in natural language and pseudocode
-
-### Module 4: Python Language Fundamentals
+### Module 3: Python Language Fundamentals
 - Python environment setup and basic usage
 - Variables, data types, and expressions
 - Control structures (conditionals and loops)
 - Working with strings and collections
 - Functions and basic error handling
 
-### Module 5: Practical Programming & Mini-Projects
+### Module 4: Practical Programming & Mini-Projects
+- Reading and writing files
 - Reading and writing files
 - Organizing code into modules
 - Building complete programs
@@ -53,7 +49,7 @@ The course is organized around five interconnected modules:
 
 ## Course Structure
 
-The course consists of 22 weekly sessions organized into 5 learning modules, each building on the previous ones:
+The course consists of 22 weekly sessions organized into 4 learning modules, each building on the previous ones:
 
 ### **Module 1: Computer & Programming Fundamentals** (Sessions 1-2)
 Computer basics and how programs work - the foundation for understanding programming.
@@ -61,14 +57,14 @@ Computer basics and how programs work - the foundation for understanding program
 ### **Module 2: Data Representation & Number Systems** (Sessions 3-6)
 How information is stored digitally - bits, bytes, binary, and text encoding.
 
-### **Module 3: Algorithms & Pseudocode** (Sessions 7-9)
-Thinking like a programmer - designing step-by-step solutions before writing code.
-
-### **Module 4: Python Language Fundamentals** (Sessions 10-16)
+### **Module 3: Python Language Fundamentals** (Sessions 10-16)
 Core Python programming - variables, control structures, data types, and basic operations.
 
-### **Module 5: Practical Programming & Mini-Projects** (Sessions 17-22)
+### **Module 4: Practical Programming & Mini-Projects** (Sessions 17-22)
 Advanced concepts and real applications - functions, files, error handling, and complete programs.
+
+The optional [Section 0: Flowcharts](module-01-flowcharts/README.md) primer covers
+flowchart design, classic algorithms, IPO analysis, and algorithm characteristics.
 
 ## Target Audience
 
@@ -86,7 +82,7 @@ This course is designed for:
 
 ## How to Use This Repository
 
-The course is organized into 5 thematic modules, each containing related sessions. Every session folder has:
+The course is organized into 4 thematic modules, each containing related sessions. Every session folder has:
 
 - **`README.md`** (and **`README_FA.md`**): the session's objectives, key concepts, ASCII diagrams, workshop activities, homework, and takeaways
 - **`concepts/`**: in-depth articles for that session, each with an index README and a Persian translation where one exists
@@ -103,8 +99,8 @@ For extra practice on any single topic, see [`Workshops/`](Workshops/README.md) 
 ### Getting Started
 
 0. **Optional Primer**: If flowchart design is new to you, work through
-   [Section 0: Flowcharts](section-0-flowcharts/README.md) first - six lessons,
-   about 90 minutes, no prerequisites, available in English and Persian
+   [Section 0: Flowcharts](module-01-flowcharts/README.md) first - nine lessons,
+   about 2-3 hours, no prerequisites, available in English and Persian
 1. **Environment Setup**: Before Module 4, set up Python on your computer
 2. **Weekly Pace**: Complete one session per week, including workshops and homework
 3. **Practice First**: Focus on understanding concepts before writing code
@@ -118,7 +114,6 @@ introduction-to-programming/
 ├── section-0-flowcharts/                 # Optional primer - flowchart design before Session 1
 │   ├── README.md                         # Section overview and six-lesson roadmap
 │   └── concepts/                         # Six lessons, English + Persian
-├── module-02-computers-and-programs/     # Computer fundamentals & program execution
 │   ├── README.md                         # Module overview and objectives
 │   ├── session-01/                       # What is a Computer?
 │   └── session-02/                       # From Source to Machine Code
@@ -128,12 +123,11 @@ introduction-to-programming/
 │   ├── session-04/                       # Number Systems
 │   ├── session-05/                       # Binary Arithmetic
 │   └── session-06/                       # Text Representation
-├── module-04-algorithmic-thinking/       # Problem-solving & algorithm design
-│   ├── README.md                         # Module overview and objectives
-│   ├── session-07/                       # IPO and State
-│   ├── session-08/                       # What is an Algorithm?
-│   └── session-09/                       # Pseudocode & Control Structures
-├── module-05-python-essentials/          # Core Python programming
+├── module-01-flowcharts/                # Optional primer - flowchart design & algorithmic thinking (9 lessons)
+│   ├── README.md                         # Section overview and nine-lesson roadmap
+│   └── concepts/                         # Nine lessons, English + Persian
+├── module-02-computers-and-programs/     # Computer fundamentals & program execution
+├── module-04-python-essentials/          # Core Python programming
 │   ├── README.md                         # Module overview and objectives
 │   ├── session-10/                       # Python Environment & First Steps
 │   ├── session-11/                       # Variables & Data Types
@@ -142,7 +136,7 @@ introduction-to-programming/
 │   ├── session-14/                       # Loops (while/for)
 │   ├── session-15/                       # Working with Strings
 │   └── session-16/                       # Collections (lists, dicts, etc.)
-├── module-06-software-development/       # Complete application development
+├── module-05-software-development/       # Complete application development
 │   ├── README.md                         # Module overview and objectives
 │   ├── session-17/                       # Functions
 │   ├── session-18/                       # Error Handling & Debugging
@@ -164,7 +158,7 @@ This course takes a "concepts first, syntax second" approach because:
 ## Next Steps
 
 Never drawn a flowchart before? Start with the optional
-[Section 0: Flowcharts](section-0-flowcharts/README.md) primer - six lessons that
+[Section 0: Flowcharts](module-01-flowcharts/README.md) primer - nine lessons that
 teach you to design algorithms visually before you type them.
 
 Ready to begin? Start with [Session 1: What Is a Computer?](module-02-computers-and-programs/session-01/README.md) to explore the fundamental question of what computers are and how they work.

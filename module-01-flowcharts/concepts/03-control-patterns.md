@@ -1,6 +1,6 @@
 # The Three Control Patterns
 
-> **Lesson 3 of 6** — Sequence, selection, iteration. The complete grammar of
+> **Lesson 3 of 9** — Sequence, selection, iteration. The complete grammar of
 > computation.
 
 ---
@@ -100,7 +100,7 @@ Two facts about the skipped branch:
 1. It isn't slow, hidden, or lazy — it **does not execute**. Free.
 2. **`elif` chains** are just decisions in a row: each "no" feeds the next
    question. Remember this when you meet FizzBuzz in
-   [Session 9](../../module-04-algorithmic-thinking/session-09/README.md).
+   [Lesson 7: Classic Algorithms](07-classic-algorithms.md).
 
 > A decision with only one labelled exit is a **half-answered question**. Always
 > show where the other road goes, even if it goes nowhere.
@@ -179,6 +179,91 @@ selection. The labels are details; the shape is the idea.
 
 </details>
 
+### Real-world selection examples
+
+**Grade classification** — a multi-stage `if/elif/else` chain. Each "no"
+feeds the next question, exactly like the `elif` chain described above.
+
+```mermaid
+flowchart TD
+    ST(["START"]) --> RD[/"READ score"/]
+    RD --> D1{"score ≥ 90 ?"}
+    D1 -->|yes| A[/"WRITE 'A'"/]
+    D1 -->|no| D2{"score ≥ 80 ?"}
+    D2 -->|yes| B[/"WRITE 'B'"/]
+    D2 -->|no| D3{"score ≥ 70 ?"}
+    D3 -->|yes| C[/"WRITE 'C'"/]
+    D3 -->|no| D4{"score ≥ 60 ?"}
+    D4 -->|yes| D[/"WRITE 'D'"/]
+    D4 -->|no| F[/"WRITE 'F'"/]
+    A --> SP(["STOP"])
+    B --> SP
+    C --> SP
+    D --> SP
+    F --> SP
+
+    style D1 fill:#fef7e0,stroke:#f9ab00
+    style D2 fill:#fef7e0,stroke:#f9ab00
+    style D3 fill:#fef7e0,stroke:#f9ab00
+    style D4 fill:#fef7e0,stroke:#f9ab00
+```
+
+```
+IN  score · DO  compare against 90, 80, 70, 60 · OUT  "A" / "B" / "C" / "D" / "F"
+```
+
+**Shipping cost calculator** — a small business charges by weight, with a
+surcharge for express delivery.
+
+```mermaid
+flowchart TD
+    ST(["START"]) --> R1[/"READ weight"/]
+    R1 --> R2[/"READ express?"/]
+    R2 --> D1{"weight ≤ 1 ?"}
+    D1 -->|yes| C1["cost ← 5"]
+    D1 -->|no| D2{"weight ≤ 5 ?"}
+    D2 -->|yes| C2["cost ← 10"]
+    D2 -->|no| D3{"weight ≤ 20 ?"}
+    D3 -->|yes| C3["cost ← 20"]
+    D3 -->|no| C4["cost ← 20 + 2/kg over 20"]
+    C1 --> D4{"express ?"}
+    C2 --> D4
+    C3 --> D4
+    C4 --> D4
+    D4 -->|yes| SUR["cost ← cost + 8"]
+    D4 -->|no| W[/"WRITE cost"/]
+    SUR --> W
+    W --> SP(["STOP"])
+
+    style D1 fill:#fef7e0,stroke:#f9ab00
+    style D2 fill:#fef7e0,stroke:#f9ab00
+    style D3 fill:#fef7e0,stroke:#f9ab00
+    style D4 fill:#fef7e0,stroke:#f9ab00
+```
+
+**Game level progression** — unlock the next level only if the player has
+enough stars *and* has completed the previous level.
+
+```mermaid
+flowchart TD
+    ST(["START"]) --> R1[/"READ stars"/]
+    R1 --> R2[/"READ prev_complete?"/]
+    R2 --> D1{"prev_complete ?"}
+    D1 -->|no| LOCK[/"WRITE 'Locked'"/]
+    D1 -->|yes| D2{"stars ≥ 3 ?"}
+    D2 -->|yes| UNLOCK[/"WRITE 'Level 2 unlocked!'"/]
+    D2 -->|no| D3{"stars ≥ 1 ?"}
+    D3 -->|yes| PART[/"WRITE 'Partial — replay for more stars'"/]
+    D3 -->|no| LOCK
+    LOCK --> SP(["STOP"])
+    UNLOCK --> SP
+    PART --> SP
+
+    style D1 fill:#fef7e0,stroke:#f9ab00
+    style D2 fill:#fef7e0,stroke:#f9ab00
+    style D3 fill:#fef7e0,stroke:#f9ab00
+```
+
 ## Pattern nº3 — iteration
 
 A path that bends back on itself. Steps repeat while a condition holds.
@@ -193,7 +278,7 @@ flowchart TD
     style D fill:#e6f4ea,stroke:#34a853
 ```
 
-Covered in depth in [Loops and Trace Tables](loops-and-trace-tables.md), since a
+Covered in depth in [Loops and Trace Tables](04-loops-and-trace-tables.md), since a
 loop is the one pattern you cannot get right by eye alone — it needs a table.
 
 ## The three patterns side by side
@@ -255,11 +340,11 @@ learning three templates, you are learning three moves you can combine.
 
 ## Next
 
-**[Loops and Trace Tables](loops-and-trace-tables.md)** — the pattern you cannot
+**[Loops and Trace Tables](04-loops-and-trace-tables.md)** — the pattern you cannot
 verify by eye, and the table that lets you verify it anyway.
 
 ---
 
 ## Persian
 
-[سه الگوی کنترلی](control-patterns_fa.md)
+[سه الگوی کنترلی](03-control-patterns_fa.md)

@@ -32,46 +32,34 @@ After completing this section you will be able to:
 - **Trace** an algorithm by hand with a table and find its bugs on paper
 - **Apply** the five-move design method to turn a wordy problem into a chart
 - **Convert** chart → pseudocode → code as a mechanical, boring step
+- **Analyse** problems using the IPO framework and track state
+- **Evaluate** procedures against the FIDEO algorithm characteristics
+- **Implement** ten classic algorithms with flowcharts and pseudocode
 
 ## How This Section Is Structured
 
-Six lessons, roughly **90 minutes at reading pace**. Each one builds on the last.
+Nine lessons, roughly **2–3 hours at reading pace**. Each one builds on the last.
 
 | # | Lesson | What it gives you |
 |---|--------|-------------------|
-| 1 | [Why Draw Before You Code](concepts/why-draw-before-you-code.md) | The case for designing on paper |
-| 2 | [The Six Symbols](concepts/flowchart-symbols.md) | Terminator, process, I/O, decision, flow line, connector |
-| 3 | [The Three Control Patterns](concepts/control-patterns.md) | Sequence, selection, iteration — the whole grammar |
-| 4 | [Loops and Trace Tables](concepts/loops-and-trace-tables.md) | The four organs of a loop, counters, and dry running |
-| 5 | [Design Method and Review Checklist](concepts/design-method-and-review.md) | Problem → chart in five moves, plus the four ways charts break |
-| 6 | [Workshop: Three Briefs](concepts/workshop-briefs.md) | Practice with an answer key |
+| 1 | [Why Draw Before You Code](concepts/01-why-draw-before-you-code.md) | The case for designing on paper |
+| 2 | [The Six Symbols](concepts/02-flowchart-symbols.md) | Terminator, process, I/O, decision, flow line, connector |
+| 3 | [The Three Control Patterns](concepts/03-control-patterns.md) | Sequence, selection, iteration — the whole grammar |
+| 4 | [Loops and Trace Tables](concepts/04-loops-and-trace-tables.md) | The four organs of a loop, counters, and dry running |
+| 5 | [Design Method and Review Checklist](concepts/05-design-method-and-review.md) | Problem → chart in five moves, plus the four ways charts break |
+| 6 | [Workshop: Three Briefs](concepts/06-workshop-briefs.md) | Practice with an answer key |
+| 7 | [Classic Algorithms](concepts/07-classic-algorithms.md) | Ten classic algorithms with flowcharts and pseudocode |
+| 8 | [IPO and State](concepts/08-ipo-and-state.md) | Input-Process-Output framework and state management |
+| 9 | [Algorithm Characteristics](concepts/09-algorithm-characteristics.md) | FIDEO: what makes a procedure a valid algorithm |
 
 > **Read them in order.** Lesson 3 assumes Lesson 2's symbols, and Lesson 4
 > assumes you can draw a fork. Skipping ahead is possible but will cost you.
 
-## Where This Section Ends and Session 9 Begins
+## Where This Section Ends and the Course Begins
 
-This is a **primer**, not a second copy of Module 3. Module 3 covers flowcharts
-alongside pseudocode and algorithm analysis; this section deliberately stays
-visual and stays short.
-
-The source material this primer is drawn from also contains ten "classic
-algorithm" walkthroughs — largest of three, FizzBuzz, guess the number, prime
-test, reversing digits, Euclid's GCD, Fibonacci, linear search, binary search,
-bubble sort. **Those are not duplicated here.** Go and learn them properly,
-with pseudocode beside each one, in:
-
-- **[Session 9: Expressing Algorithms — Flowcharts and Pseudocode](../module-04-algorithmic-thinking/session-09/README.md)**
-- 📈 [Session 9 in Persian](../module-04-algorithmic-thinking/session-09/README_FA.md)
-- 📊 [Flowchart Fundamentals](../module-04-algorithmic-thinking/session-09/concepts/flowchart-fundamentals.md)
-
-| This primer covers | Session 9 goes deeper on |
-|---|---|
-| The symbols and their rules | Symbol usage in full worked algorithms |
-| The three patterns in isolation | Combining patterns into real programs |
-| Loop anatomy and dry running | Algorithm analysis and FIDEO characteristics |
-| The five-move design method | Chart ↔ pseudocode ↔ natural language translation |
-| Reading and drawing charts | Writing, debugging, and assessing algorithms |
+This is a **primer** that now covers the core of algorithmic thinking alongside
+flowchart design. The classic algorithms — FizzBuzz, prime test, GCD, Fibonacci,
+linear and binary search, bubble sort — are taught here in Lesson 7.
 
 ## Prerequisites
 
@@ -132,10 +120,9 @@ Before any chart earns the right to become code:
 ## Where to Go Next
 
 1. Finish [Session 1: What Is a Computer?](../module-02-computers-and-programs/session-01/README.md)
-2. Come back to [Module 3: Algorithmic Thinking](../module-04-algorithmic-thinking/README.md)
-   and work through the classic algorithms
-3. When you reach Module 4, translate your Section 0 charts into Python and
-   notice how boring the last step is
+2. Work through the rest of the course modules
+3. When you reach the Python modules, translate your Section 0 charts into
+   Python and notice how boring the last step is
 
 ---
 

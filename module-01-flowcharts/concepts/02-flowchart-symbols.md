@@ -1,6 +1,6 @@
 # The Six Symbols
 
-> **Lesson 2 of 6** — Terminator, process, I/O, decision, flow line, connector.
+> **Lesson 2 of 9** — Terminator, process, I/O, decision, flow line, connector.
 > The complete vocabulary of ISO 5807.
 
 ---
@@ -223,11 +223,11 @@ ambiguity becomes a bug at the worst possible moment.
 
 ## Next
 
-**[The Three Control Patterns](control-patterns.md)** — with the vocabulary in
+**[The Three Control Patterns](03-control-patterns.md)** — with the vocabulary in
 hand, you can see the three shapes every algorithm is built from.
 
 ---
 
 ## Persian
 
-[شش نماد فلوچارت](flowchart-symbols_fa.md)
+[شش نماد فلوچارت](02-flowchart-symbols_fa.md)
