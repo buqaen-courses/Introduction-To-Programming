@@ -1,0 +1,11 @@
+# Introduction to Programming Course Requirements
+#
+# This course uses only Python standard library for core content.
+# No external dependencies required for basic learning.
+#
+# Optional tools for enhanced learning (not required):
+# matplotlib>=3.5.0    # For data visualization (future sessions)
+# requests>=2.25.0     # For web APIs (future sessions)
+#
+# To install optional dependencies:
+# pip install -r requirements.txt
