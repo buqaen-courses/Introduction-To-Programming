@@ -100,7 +100,7 @@ Two facts about the skipped branch:
 1. It isn't slow, hidden, or lazy — it **does not execute**. Free.
 2. **`elif` chains** are just decisions in a row: each "no" feeds the next
    question. Remember this when you meet FizzBuzz in
-   [Session 9](../../module-03-algorithmic-thinking/session-09/README.md).
+   [Session 9](../../module-04-algorithmic-thinking/session-09/README.md).
 
 > A decision with only one labelled exit is a **half-answered question**. Always
 > show where the other road goes, even if it goes nowhere.

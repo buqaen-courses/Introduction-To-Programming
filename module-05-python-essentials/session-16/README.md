@@ -193,9 +193,9 @@ lengths = {word: len(word) for word in ["cat", "dog", "horse"]}
 ## Connection to Next Session
 
 You can now store and organise data. [Module 5: Software
-Development](../../module-05-software-development/README.md) changes the
+Development](../../module-06-software-development/README.md) changes the
 question from *what data do I have* to *how do I turn repeated work into named,
-reusable units*. [Session 17](../../module-05-software-development/session-17/README.md)
+reusable units*. [Session 17](../../module-06-software-development/session-17/README.md)
 introduces functions.
 
 **Required Reading**: the three concept articles listed above, in order. Begin

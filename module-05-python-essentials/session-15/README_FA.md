@@ -98,7 +98,7 @@ third""".splitlines()
 | **🎨 [قالب‌بندی رشته](concepts/string-formatting.md)** | f-string، قالب اعداد، تراز و خروجی چندخطی |
 | **🔍 [پردازش متن](concepts/text-processing.md)** | جست‌وجو، تقسیم و چسباندن، پاک‌سازی و تحلیل متن |
 
-> **توجه**: فایل `string-operations.md` در [جلسه ۶](../../module-02-digital-information/session-06/concepts/README_FA.md) هم وجود دارد، ولی آنجا تمرکز بر کدگذاری و بایت است. نسخه این جلسه درباره دستکاری متن در پایتون است. ترجمه فارسی مقاله جلسه ۱۵ هنوز آماده نیست.
+> **توجه**: فایل `string-operations.md` در [جلسه ۶](../../module-03-digital-information/session-06/concepts/README_FA.md) هم وجود دارد، ولی آنجا تمرکز بر کدگذاری و بایت است. نسخه این جلسه درباره دستکاری متن در پایتون است. ترجمه فارسی مقاله جلسه ۱۵ هنوز آماده نیست.
 
 ## مفاهیم اصلی
 

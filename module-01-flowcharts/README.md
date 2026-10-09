@@ -61,9 +61,9 @@ test, reversing digits, Euclid's GCD, Fibonacci, linear search, binary search,
 bubble sort. **Those are not duplicated here.** Go and learn them properly,
 with pseudocode beside each one, in:
 
-- **[Session 9: Expressing Algorithms — Flowcharts and Pseudocode](../module-03-algorithmic-thinking/session-09/README.md)**
-- 📈 [Session 9 in Persian](../module-03-algorithmic-thinking/session-09/README_FA.md)
-- 📊 [Flowchart Fundamentals](../module-03-algorithmic-thinking/session-09/concepts/flowchart-fundamentals.md)
+- **[Session 9: Expressing Algorithms — Flowcharts and Pseudocode](../module-04-algorithmic-thinking/session-09/README.md)**
+- 📈 [Session 9 in Persian](../module-04-algorithmic-thinking/session-09/README_FA.md)
+- 📊 [Flowchart Fundamentals](../module-04-algorithmic-thinking/session-09/concepts/flowchart-fundamentals.md)
 
 | This primer covers | Session 9 goes deeper on |
 |---|---|
@@ -131,8 +131,8 @@ Before any chart earns the right to become code:
 
 ## Where to Go Next
 
-1. Finish [Session 1: What Is a Computer?](../module-01-computers-and-programs/session-01/README.md)
-2. Come back to [Module 3: Algorithmic Thinking](../module-03-algorithmic-thinking/README.md)
+1. Finish [Session 1: What Is a Computer?](../module-02-computers-and-programs/session-01/README.md)
+2. Come back to [Module 3: Algorithmic Thinking](../module-04-algorithmic-thinking/README.md)
    and work through the classic algorithms
 3. When you reach Module 4, translate your Section 0 charts into Python and
    notice how boring the last step is

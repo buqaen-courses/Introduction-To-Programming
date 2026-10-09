@@ -191,7 +191,7 @@ add_item("pear")    # ['apple', 'pear']  <- the previous call leaked in
   exactly what each prints. Include at least one function that returns a value
   it never prints.
 - **Pseudocode to function**: take the linear search algorithm from
-  [Session 9](../../module-03-algorithmic-thinking/session-09/README.md) and
+  [Session 9](../../module-04-algorithmic-thinking/session-09/README.md) and
   turn it into a function that takes a list and a target and returns the index
   or `-1`.
 - **Refactor**: pick your longest program from the course so far and reduce it

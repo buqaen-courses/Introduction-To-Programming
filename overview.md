@@ -118,22 +118,22 @@ introduction-to-programming/
 ├── section-0-flowcharts/                 # Optional primer - flowchart design before Session 1
 │   ├── README.md                         # Section overview and six-lesson roadmap
 │   └── concepts/                         # Six lessons, English + Persian
-├── module-01-computers-and-programs/     # Computer fundamentals & program execution
+├── module-02-computers-and-programs/     # Computer fundamentals & program execution
 │   ├── README.md                         # Module overview and objectives
 │   ├── session-01/                       # What is a Computer?
 │   └── session-02/                       # From Source to Machine Code
-├── module-02-digital-information/        # Data representation & number systems
+├── module-03-digital-information/        # Data representation & number systems
 │   ├── README.md                         # Module overview and objectives
 │   ├── session-03/                       # Bits, Bytes, and Data
 │   ├── session-04/                       # Number Systems
 │   ├── session-05/                       # Binary Arithmetic
 │   └── session-06/                       # Text Representation
-├── module-03-algorithmic-thinking/       # Problem-solving & algorithm design
+├── module-04-algorithmic-thinking/       # Problem-solving & algorithm design
 │   ├── README.md                         # Module overview and objectives
 │   ├── session-07/                       # IPO and State
 │   ├── session-08/                       # What is an Algorithm?
 │   └── session-09/                       # Pseudocode & Control Structures
-├── module-04-python-essentials/          # Core Python programming
+├── module-05-python-essentials/          # Core Python programming
 │   ├── README.md                         # Module overview and objectives
 │   ├── session-10/                       # Python Environment & First Steps
 │   ├── session-11/                       # Variables & Data Types
@@ -142,7 +142,7 @@ introduction-to-programming/
 │   ├── session-14/                       # Loops (while/for)
 │   ├── session-15/                       # Working with Strings
 │   └── session-16/                       # Collections (lists, dicts, etc.)
-├── module-05-software-development/       # Complete application development
+├── module-06-software-development/       # Complete application development
 │   ├── README.md                         # Module overview and objectives
 │   ├── session-17/                       # Functions
 │   ├── session-18/                       # Error Handling & Debugging
@@ -167,6 +167,6 @@ Never drawn a flowchart before? Start with the optional
 [Section 0: Flowcharts](section-0-flowcharts/README.md) primer - six lessons that
 teach you to design algorithms visually before you type them.
 
-Ready to begin? Start with [Session 1: What Is a Computer?](module-01-computers-and-programs/session-01/README.md) to explore the fundamental question of what computers are and how they work.
+Ready to begin? Start with [Session 1: What Is a Computer?](module-02-computers-and-programs/session-01/README.md) to explore the fundamental question of what computers are and how they work.
 
 Happy learning! 🚀

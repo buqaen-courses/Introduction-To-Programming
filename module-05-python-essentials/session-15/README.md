@@ -109,7 +109,7 @@ most useful text-processing idiom in the language.
 | **🔍 [Text Processing](concepts/text-processing.md)** | Searching, splitting and joining, cleaning, and text analysis |
 
 > **Note**: `string-operations.md` also exists in
-> [Session 6](../../module-02-digital-information/session-06/concepts/README.md),
+> [Session 6](../../module-03-digital-information/session-06/concepts/README.md),
 > where the focus is on encoding and bytes. This session's version is about
 > manipulating text in Python. The Persian translation of the Session 15 article
 > is not yet available.

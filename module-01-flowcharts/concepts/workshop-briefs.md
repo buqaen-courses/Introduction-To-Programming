@@ -199,9 +199,9 @@ Before you call any chart finished:
 
 ## Where to go next
 
-1. **[Session 1: What Is a Computer?](../../module-01-computers-and-programs/session-01/README.md)**
+1. **[Session 1: What Is a Computer?](../../module-02-computers-and-programs/session-01/README.md)**
    — begin the course proper
-2. **[Module 3: Algorithmic Thinking](../../module-03-algorithmic-thinking/README.md)**
+2. **[Module 3: Algorithmic Thinking](../../module-04-algorithmic-thinking/README.md)**
    — the ten classic algorithms, with pseudocode beside each: largest of three,
    FizzBuzz, prime test, Euclid's GCD, Fibonacci, linear and binary search,
    bubble sort

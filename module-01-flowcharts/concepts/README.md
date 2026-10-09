@@ -2,7 +2,7 @@
 
 Six lessons that teach you to design algorithms visually before you write them in
 code. This is a primer for the whole course, not a substitute for
-[Session 9](../../module-03-algorithmic-thinking/session-09/README.md).
+[Session 9](../../module-04-algorithmic-thinking/session-09/README.md).
 
 ## Table of Contents
 

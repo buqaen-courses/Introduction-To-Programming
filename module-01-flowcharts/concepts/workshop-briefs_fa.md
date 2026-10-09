@@ -196,9 +196,9 @@ flowchart TD
 
 ## قدم بعدی
 
-۱. **[جلسه ۱: کامپیوتر چیست؟](../../module-01-computers-and-programs/session-01/README.md)**
+۱. **[جلسه ۱: کامپیوتر چیست؟](../../module-02-computers-and-programs/session-01/README.md)**
    — شروع رسمی دوره
-۲. **[ماژول ۳: تفکر الگوریتمی](../../module-03-algorithmic-thinking/README.md)**
+۲. **[ماژول ۳: تفکر الگوریتمی](../../module-04-algorithmic-thinking/README.md)**
    — ده الگوریتم کلاسیک، با شبه‌کد در کنار هر کدام: بزرگ‌ترینِ سه عدد،
    fizzbuzz، تست اول بودن، ب‌م‌م افclid، فیبوناچی، جست‌وجوی خطی و دودویی،
    مرتب‌سازی حبابی

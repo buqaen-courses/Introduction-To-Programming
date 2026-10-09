@@ -168,7 +168,7 @@ All three have Persian translations. Read them in the order listed.
 ## Connection to Next Session
 
 Module 2 is complete. You understand bits, bytes, arithmetic on both, and how
-text becomes data. [Module 3: Algorithmic Thinking](../../module-03-algorithmic-thinking/README.md)
+text becomes data. [Module 3: Algorithmic Thinking](../../module-04-algorithmic-thinking/README.md)
 starts asking a different question: given data, what should a program *do* with
 it?
 

@@ -58,8 +58,8 @@
 جست‌وجوی خطی، جست‌وجوی دودویی، مرتب‌سازی حبابی. **آن‌ها اینجا تکرار نشده‌اند.**
 بروید و آن‌ها را همراه با شبه‌کد به‌درستی یاد بگیرید، در:
 
-- **[جلسه ۹: بیان الگوریتم‌ها — فلوچارت و شبه‌کد](../module-03-algorithmic-thinking/session-09/README.md)**
-- 📊 [مبانی فلوچارت](../module-03-algorithmic-thinking/session-09/concepts/flowchart-fundamentals.md)
+- **[جلسه ۹: بیان الگوریتم‌ها — فلوچارت و شبه‌کد](../module-04-algorithmic-thinking/session-09/README.md)**
+- 📊 [مبانی فلوچارت](../module-04-algorithmic-thinking/session-09/concepts/flowchart-fundamentals.md)
 
 | این مقدمه پوشش می‌دهد | جلسه ۹ عمیق‌تر می‌شود |
 |---|---|
@@ -123,8 +123,8 @@
 
 ## قدم بعدی
 
-۱. [جلسه ۱: کامپیوتر چیست؟](../module-01-computers-and-programs/session-01/README.md)
-۲. به [ماژول ۳: تفکر الگوریتمی](../module-03-algorithmic-thinking/README.md)
+۱. [جلسه ۱: کامپیوتر چیست؟](../module-02-computers-and-programs/session-01/README.md)
+۲. به [ماژول ۳: تفکر الگوریتمی](../module-04-algorithmic-thinking/README.md)
    برگردید و الگوریتم‌های کلاسیک را کار کنید
 ۳. وقتی به ماژول ۴ رسیدید، نمودارهای بخش صفر را به پایتون ترجمه کنید و ببینید
    آخرین گام چقدر خسته‌کننده شده است

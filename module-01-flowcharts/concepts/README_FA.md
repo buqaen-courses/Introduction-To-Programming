@@ -2,7 +2,7 @@
 
 شش درس که به شما می‌آموزند پیش از نوشتن کد، الگوریتم‌ها را بصری طراحی کنید.
 این بخش مقدمه‌ای برای کل دوره است، نه جایگزین
-[جلسه ۹](../../module-03-algorithmic-thinking/session-09/README.md).
+[جلسه ۹](../../module-04-algorithmic-thinking/session-09/README.md).
 
 ## فهرست مطالب
 

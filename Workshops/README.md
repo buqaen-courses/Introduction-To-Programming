@@ -13,12 +13,12 @@ one thing, or when a topic deserves a second pass.
 | Workshop | Covers | Main session |
 |----------|--------|--------------|
 | [1. Python Basics](01-Python-Basics.md) | Variables, `print()`, types, lists, tuples, sets, strings, file I/O | Sessions 10–16, 19 |
-| [2. if / elif / else](2-if-else-elif.md) | Conditionals in depth, nesting, patterns | [Session 13](../module-04-python-essentials/session-13/README.md) |
+| [2. if / elif / else](2-if-else-elif.md) | Conditionals in depth, nesting, patterns | [Session 13](../module-05-python-essentials/session-13/README.md) |
 | [3. `match` / `case`](3-match-case.md) | Structural pattern matching, and when to prefer `if` | Extension of Session 13 |
-| [4. `while`](4-while.md) | Infinite loops, `break` / `continue`, loop `else`, nesting | [Session 14](../module-04-python-essentials/session-14/README.md) |
-| [5. `for`](5-for.md) | `range()`, iterating dicts and sets, nested loops | [Session 14](../module-04-python-essentials/session-14/README.md) |
+| [4. `while`](4-while.md) | Infinite loops, `break` / `continue`, loop `else`, nesting | [Session 14](../module-05-python-essentials/session-14/README.md) |
+| [5. `for`](5-for.md) | `range()`, iterating dicts and sets, nested loops | [Session 14](../module-05-python-essentials/session-14/README.md) |
 | [6. New Features](6-new-features.md) | What changed in Python 3.8 → 3.14 | Reference material |
-| [7. Dictionaries & JSON](7-json-dicts-intro.md) | Dictionary operations and JSON structure | [Session 16](../module-04-python-essentials/session-16/README.md) |
+| [7. Dictionaries & JSON](7-json-dicts-intro.md) | Dictionary operations and JSON structure | [Session 16](../module-05-python-essentials/session-16/README.md) |
 | [8. Dictionaries & APIs](7-json-dicts-workshop.md) | Calling a web API and parsing the JSON response | Extension of Session 16 |
 
 > **Note on numbering**: the JSON API workshop is filed as `7-json-dicts-workshop.md`

@@ -153,7 +153,7 @@ All three have Persian translations. Read in order.
 - **Predict the branch**: given five snippets and their inputs, write down which
   branch runs. Then run them.
 - **Rewrite pseudocode**: convert three decision algorithms from
-  [Session 9](../../module-03-algorithmic-thinking/session-09/README.md) into
+  [Session 9](../../module-04-algorithmic-thinking/session-09/README.md) into
   Python conditionals.
 - **Refactor**: take a nested conditional you wrote in the workshop and rewrite
   it using guard clauses. Compare which is easier to read.
